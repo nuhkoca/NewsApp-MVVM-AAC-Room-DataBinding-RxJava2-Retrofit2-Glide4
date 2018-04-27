@@ -14,8 +14,8 @@ import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 public class NewsFragmentViewModel extends ViewModel {
-    public MutableLiveData<ArticlesWrapper> mNewsWrapper = new MutableLiveData<>();
-    public MutableLiveData<SourcesWrapper> mSourcesWrapper = new MutableLiveData<>();
+    private MutableLiveData<ArticlesWrapper> mNewsWrapper = new MutableLiveData<>();
+    private MutableLiveData<SourcesWrapper> mSourcesWrapper = new MutableLiveData<>();
 
     private String countryCode;
     private String sources;
@@ -30,7 +30,7 @@ public class NewsFragmentViewModel extends ViewModel {
         this.query = query;
     }
 
-    NewsFragmentViewModel(String query){
+    NewsFragmentViewModel(String query) {
         this.query = query;
     }
 
@@ -39,7 +39,7 @@ public class NewsFragmentViewModel extends ViewModel {
         this.language = language;
     }
 
-    public void fetchTopHeadlines() {
+    public void getTopHeadlines() {
         Observable<ArticlesWrapper> getTopHeadlines = ObservableHelper.getTopHeadlines(countryCode,
                 sources, category, query);
 
@@ -65,12 +65,12 @@ public class NewsFragmentViewModel extends ViewModel {
 
                     @Override
                     public void onNext(ArticlesWrapper articlesWrapper) {
-                        mNewsWrapper.postValue(articlesWrapper);
+                        mNewsWrapper.setValue(articlesWrapper);
                     }
                 });
     }
 
-    public void fetchEverything() {
+    public void getEverything() {
         Observable<ArticlesWrapper> getEverything = ObservableHelper.getEverything(query);
 
         getEverything.subscribeOn(Schedulers.io())
@@ -95,12 +95,12 @@ public class NewsFragmentViewModel extends ViewModel {
 
                     @Override
                     public void onNext(ArticlesWrapper articlesWrapper) {
-                        mNewsWrapper.postValue(articlesWrapper);
+                        mNewsWrapper.setValue(articlesWrapper);
                     }
                 });
     }
 
-    public void fetchSources() {
+    public void getSources() {
         Observable<SourcesWrapper> getSources = ObservableHelper.getSources(language, countryCode);
 
         getSources.subscribeOn(Schedulers.io())
@@ -125,9 +125,21 @@ public class NewsFragmentViewModel extends ViewModel {
 
                     @Override
                     public void onNext(SourcesWrapper sourcesWrapper) {
-                        mSourcesWrapper.postValue(sourcesWrapper);
+                        mSourcesWrapper.setValue(sourcesWrapper);
                     }
                 });
+    }
+
+    public MutableLiveData<ArticlesWrapper> fetchTopHeadlines() {
+        return mNewsWrapper;
+    }
+
+    public MutableLiveData<ArticlesWrapper> fetchEverything() {
+        return mNewsWrapper;
+    }
+
+    public MutableLiveData<SourcesWrapper> fetchSources() {
+        return mSourcesWrapper;
     }
 
     @Override

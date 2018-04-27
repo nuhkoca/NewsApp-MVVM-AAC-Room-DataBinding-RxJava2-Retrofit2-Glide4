@@ -21,6 +21,7 @@ import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.remote.ArticlesWrapper
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.remote.Sources;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.remote.SourcesWrapper;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.databinding.FragmentNewsBinding;
+import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.helper.Constants;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.helper.RecyclerViewScrollHelper;
 
 import java.util.List;
@@ -33,13 +34,18 @@ public class NewsFragment extends Fragment {
 
     private FragmentNewsBinding mFragmentNewsBinding;
     private static IRecyclerViewScrollListener mIRecyclerViewScrollListener;
-    private static INewsAPI.Endpoints mEndpoints;
 
     public static NewsFragment getInstance(INewsAPI.Endpoints endpoints, IRecyclerViewScrollListener iRecyclerViewScrollListener) {
-        mIRecyclerViewScrollListener = iRecyclerViewScrollListener;
-        mEndpoints = endpoints;
+        NewsFragment newsFragment = new NewsFragment();
 
-        return new NewsFragment();
+        mIRecyclerViewScrollListener = iRecyclerViewScrollListener;
+
+        Bundle bundle = new Bundle();
+        bundle.putInt(Constants.ENDPOINT_ARGS_KEY, endpoints.getValue());
+        newsFragment.setArguments(bundle);
+
+
+        return newsFragment;
     }
 
     @Override
@@ -105,49 +111,57 @@ public class NewsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         NewsFragmentViewModel newsFragmentViewModel;
 
-        switch (mEndpoints) {
-            case TOP_HEADLINES:
-                newsFragmentViewModel = ViewModelProviders
-                        .of(Objects.requireNonNull(getActivity()), new TopHeadlinesModelFactory(null, null, null, "trump")).get(NewsFragmentViewModel.class);
+        int endpointVal = Objects.requireNonNull(getArguments()).getInt(Constants.ENDPOINT_ARGS_KEY);
 
-                newsFragmentViewModel.mNewsWrapper.observe(getActivity(), new Observer<ArticlesWrapper>() {
+        switch (endpointVal) {
+            case 0:
+                newsFragmentViewModel = ViewModelProviders
+                        .of(Objects.requireNonNull(getActivity()), new TopHeadlinesModelFactory(null, null, "business", null)).get(NewsFragmentViewModel.class);
+
+                newsFragmentViewModel.fetchTopHeadlines().observe(getActivity(), new Observer<ArticlesWrapper>() {
                     @Override
                     public void onChanged(@Nullable ArticlesWrapper articlesWrapper) {
-                        setupNewsRV(Objects.requireNonNull(articlesWrapper).getArticles());
+                        if (articlesWrapper != null) {
+                            setupNewsRV(articlesWrapper.getArticles());
+                        }
                     }
                 });
 
-                newsFragmentViewModel.fetchTopHeadlines();
+                newsFragmentViewModel.getTopHeadlines();
 
                 break;
 
-            case EVERYTHING:
+            case 1:
                 newsFragmentViewModel = ViewModelProviders
                         .of(Objects.requireNonNull(getActivity()), new EverythingModelFactory("apple")).get(NewsFragmentViewModel.class);
 
-                newsFragmentViewModel.mNewsWrapper.observe(getActivity(), new Observer<ArticlesWrapper>() {
+                newsFragmentViewModel.fetchEverything().observe(getActivity(), new Observer<ArticlesWrapper>() {
                     @Override
                     public void onChanged(@Nullable ArticlesWrapper articlesWrapper) {
-                        setupNewsRV(Objects.requireNonNull(articlesWrapper).getArticles());
+                        if (articlesWrapper != null) {
+                            setupNewsRV(articlesWrapper.getArticles());
+                        }
                     }
                 });
 
-                newsFragmentViewModel.fetchEverything();
+                newsFragmentViewModel.getEverything();
 
                 break;
 
-            case SOURCES:
+            case 2:
                 newsFragmentViewModel = ViewModelProviders
                         .of(Objects.requireNonNull(getActivity()), new SourcesViewModelFactory("en", null)).get(NewsFragmentViewModel.class);
 
-                newsFragmentViewModel.mSourcesWrapper.observe(getActivity(), new Observer<SourcesWrapper>() {
+                newsFragmentViewModel.fetchSources().observe(getActivity(), new Observer<SourcesWrapper>() {
                     @Override
                     public void onChanged(@Nullable SourcesWrapper sourcesWrapper) {
-                        setupSourcesRV(Objects.requireNonNull(sourcesWrapper).getSources());
+                        if (sourcesWrapper != null) {
+                            setupSourcesRV(sourcesWrapper.getSources());
+                        }
                     }
                 });
 
-                newsFragmentViewModel.fetchSources();
+                newsFragmentViewModel.getSources();
 
                 break;
 
