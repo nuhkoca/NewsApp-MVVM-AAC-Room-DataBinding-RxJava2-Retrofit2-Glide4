@@ -1,0 +1,52 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <!-- Toolbar Header Theme -->
+    <style name="ToolbarHeaderAppearance" parent="TextAppearance.AppCompat"/>
+    <style name="ToolbarHeaderAppearance.Title">
+        <item name="android:text">@string/header</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:gravity">start</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">@dimen/headerTextSize</item>
+        <item name="android:paddingStart">8dp</item>
+    </style>
+
+    <!-- Article CardView Style-->
+    <style name="ArticleCardViewAppearance">
+        <item name="cardBackgroundColor">@color/white</item>
+        <item name="android:layout_margin">@dimen/cardViewMargin</item>
+        <item name="cardCornerRadius">@dimen/cardViewCornerRadius</item>
+        <item name="android:background">?android:selectableItemBackground</item>
+        <item name="cardElevation">@dimen/cardViewElevation</item>
+    </style>
+
+    <!-- Article Title Style-->
+    <style name="ArticleTitleAppearance">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/primaryText</item>
+        <item name="android:textSize">@dimen/titleTextSize</item>
+        <item name="android:layout_margin">@dimen/titleMargin</item>
+    </style>
+
+    <!-- Article Description Style-->
+    <style name="ArticleDescriptionAppearance">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/secondaryText</item>
+        <item name="android:textSize">@dimen/descriptionTextSize</item>
+        <item name="android:layout_margin">@dimen/titleMargin</item>
+    </style>
+
+</resources>

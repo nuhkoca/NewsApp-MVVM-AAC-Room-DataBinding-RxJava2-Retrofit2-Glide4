@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Bundle</string>
+    <string name="header">Bundle</string>
+
+    <string name="article_image_view_content_description">This view holds the image for each news.</string>
+
+    <!-- Bottom Navigation View Headers -->
+    <string name="top_headlines_header">Top Headlines</string>
+    <string name="everything_header">Everything</string>
+    <string name="sources_header">Sources</string>
+</resources>

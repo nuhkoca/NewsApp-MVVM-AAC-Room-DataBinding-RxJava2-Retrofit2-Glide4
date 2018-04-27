@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="expandedTitleMarginEnd">64dp</dimen>
+    <dimen name="expandedTitleMarginStart">48dp</dimen>
+    <dimen name="headerTextSize">18sp</dimen>
+    <dimen name="cardViewContentPadding">16dp</dimen>
+    <dimen name="cardViewMargin">4dp</dimen>
+    <dimen name="cardViewCornerRadius">4dp</dimen>
+    <dimen name="cardViewElevation">4dp</dimen>
+    <dimen name="titleTextSize">14sp</dimen>
+    <dimen name="descriptionTextSize">14sp</dimen>
+    <dimen name="titleMargin">8dp</dimen>
+    <dimen name="appBarPaddingLeft">16dp</dimen>
+    <dimen name="appBarPaddingRight">16dp</dimen>
+</resources>
