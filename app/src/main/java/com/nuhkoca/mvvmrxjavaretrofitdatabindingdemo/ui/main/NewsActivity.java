@@ -17,6 +17,7 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.R;
+import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.api.INewsAPI;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.callback.IRecyclerViewScrollListener;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.databinding.ActivityNewsBinding;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.helper.Constants;
@@ -152,13 +153,13 @@ public class NewsActivity extends AppCompatActivity implements BottomNavigationV
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return NewsFragment.getInstance(NewsActivity.this);
+                    return NewsFragment.getInstance(INewsAPI.Endpoints.TOP_HEADLINES,NewsActivity.this);
 
                 case 1:
-                    return NewsFragment.getInstance(NewsActivity.this);
+                    return NewsFragment.getInstance(INewsAPI.Endpoints.EVERYTHING,NewsActivity.this);
 
                 case 2:
-                    return NewsFragment.getInstance(NewsActivity.this);
+                    return NewsFragment.getInstance(INewsAPI.Endpoints.EVERYTHING, NewsActivity.this);
 
                 default:
                     break;

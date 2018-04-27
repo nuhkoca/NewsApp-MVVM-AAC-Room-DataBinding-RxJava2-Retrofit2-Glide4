@@ -2,6 +2,8 @@ package com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo;
 
 import android.app.Application;
 
+import com.facebook.stetho.Stetho;
+import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -25,6 +27,7 @@ public class NewsApp extends Application {
         super.onCreate();
 
         provideTimber();
+        provideStetho();
 
         newsApp = this;
     }
@@ -40,6 +43,7 @@ public class NewsApp extends Application {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+        httpClient.addInterceptor(new StethoInterceptor());
         httpClient.interceptors().add(logging);
 
         return new Retrofit.Builder()
@@ -54,5 +58,14 @@ public class NewsApp extends Application {
         if (BuildConfig.DEBUG){
             Timber.plant(new Timber.DebugTree());
         }
+    }
+
+    public void provideStetho(){
+        Stetho.InitializerBuilder initializerBuilder = Stetho.newInitializerBuilder(this);
+        initializerBuilder.enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this));
+        initializerBuilder.enableDumpapp(Stetho.defaultDumperPluginsProvider(this));
+
+        Stetho.Initializer initializer = initializerBuilder.build();
+        Stetho.initialize(initializer);
     }
 }

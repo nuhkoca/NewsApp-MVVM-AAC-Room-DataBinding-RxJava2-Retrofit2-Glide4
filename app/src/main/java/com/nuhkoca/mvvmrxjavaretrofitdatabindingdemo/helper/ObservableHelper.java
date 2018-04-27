@@ -24,4 +24,16 @@ public class ObservableHelper {
 
         return iNewsAPI.fetchTopHeadlines(countryCode, sources, category, query, BuildConfig.API_KEY);
     }
+
+    public static Observable<NewsWrapper> getEverything(String query) {
+        INewsAPI iNewsAPI = getNewsAPI();
+
+        return iNewsAPI.fetchEverything(query, BuildConfig.API_KEY);
+    }
+
+    public static Observable<NewsWrapper> getSources(String language, String country) {
+        INewsAPI iNewsAPI = getNewsAPI();
+
+        return iNewsAPI.fetchSources(language, country, BuildConfig.API_KEY);
+    }
 }

@@ -19,6 +19,7 @@ public class NewsFragmentViewModel extends ViewModel {
     private String sources;
     private String category;
     private String query;
+    private String language;
 
     NewsFragmentViewModel(String countryCode, String sources, String category, String query) {
         this.countryCode = countryCode;
@@ -27,11 +28,80 @@ public class NewsFragmentViewModel extends ViewModel {
         this.query = query;
     }
 
+    NewsFragmentViewModel(String query){
+        this.query = query;
+    }
+
+    public NewsFragmentViewModel(String countryCode, String language) {
+        this.countryCode = countryCode;
+        this.language = language;
+    }
+
     public void fetchTopHeadlines() {
         Observable<NewsWrapper> getTopHeadlines = ObservableHelper.getTopHeadlines(countryCode,
                 sources, category, query);
 
         getTopHeadlines.subscribeOn(Schedulers.io())
+                .retry(1)
+                .observeOn(AndroidSchedulers.mainThread())
+                .onErrorResumeNext(new Func1<Throwable, Observable<? extends NewsWrapper>>() {
+                    @Override
+                    public Observable<? extends NewsWrapper> call(Throwable throwable) {
+                        return null;
+                    }
+                })
+                .subscribe(new Subscriber<NewsWrapper>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(NewsWrapper newsWrapper) {
+                        mNewsWrapper.postValue(newsWrapper);
+                    }
+                });
+    }
+
+    public void fetchEverything() {
+        Observable<NewsWrapper> getEverything = ObservableHelper.getEverything(query);
+
+        getEverything.subscribeOn(Schedulers.io())
+                .retry(1)
+                .observeOn(AndroidSchedulers.mainThread())
+                .onErrorResumeNext(new Func1<Throwable, Observable<? extends NewsWrapper>>() {
+                    @Override
+                    public Observable<? extends NewsWrapper> call(Throwable throwable) {
+                        return null;
+                    }
+                })
+                .subscribe(new Subscriber<NewsWrapper>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(NewsWrapper newsWrapper) {
+                        mNewsWrapper.postValue(newsWrapper);
+                    }
+                });
+    }
+
+    public void fetchSources() {
+        Observable<NewsWrapper> getSources = ObservableHelper.getSources(language, countryCode);
+
+        getSources.subscribeOn(Schedulers.io())
                 .retry(1)
                 .observeOn(AndroidSchedulers.mainThread())
                 .onErrorResumeNext(new Func1<Throwable, Observable<? extends NewsWrapper>>() {

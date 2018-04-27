@@ -4,14 +4,14 @@ import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-public class NewsFragmentViewModelFactory implements ViewModelProvider.Factory {
+public class TopHeadlinesModelFactory implements ViewModelProvider.Factory {
 
     private String countryCode;
     private String sources;
     private String category;
     private String query;
 
-    NewsFragmentViewModelFactory(@Nullable String countryCode, @Nullable String sources, @Nullable String category, @Nullable String query) {
+    TopHeadlinesModelFactory(@Nullable String countryCode, @Nullable String sources, @Nullable String category, @Nullable String query) {
         this.countryCode = countryCode;
         this.sources = sources;
         this.category = category;

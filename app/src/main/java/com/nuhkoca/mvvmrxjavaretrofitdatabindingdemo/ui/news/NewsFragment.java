@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.R;
+import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.api.INewsAPI;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.callback.IRecyclerViewScrollListener;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.remote.Articles;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.remote.NewsWrapper;
@@ -30,9 +31,11 @@ public class NewsFragment extends Fragment {
 
     private FragmentNewsBinding mFragmentNewsBinding;
     private static IRecyclerViewScrollListener mIRecyclerViewScrollListener;
+    private static INewsAPI.Endpoints mEndpoints;
 
-    public static NewsFragment getInstance(IRecyclerViewScrollListener iRecyclerViewScrollListener) {
+    public static NewsFragment getInstance(INewsAPI.Endpoints endpoints, IRecyclerViewScrollListener iRecyclerViewScrollListener) {
         mIRecyclerViewScrollListener = iRecyclerViewScrollListener;
+        mEndpoints = endpoints;
 
         return new NewsFragment();
     }
@@ -74,16 +77,56 @@ public class NewsFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        NewsFragmentViewModel newsFragmentViewModel = ViewModelProviders
-                .of(Objects.requireNonNull(getActivity()), new NewsFragmentViewModelFactory(null, null, null, "trump")).get(NewsFragmentViewModel.class);
+        NewsFragmentViewModel newsFragmentViewModel;
 
-        newsFragmentViewModel.mNewsWrapper.observe(getActivity(), new Observer<NewsWrapper>() {
-            @Override
-            public void onChanged(@Nullable NewsWrapper newsWrapper) {
-                setupRecyclerView(Objects.requireNonNull(newsWrapper).getArticles());
-            }
-        });
+        switch (mEndpoints) {
+            case TOP_HEADLINES:
+                newsFragmentViewModel = ViewModelProviders
+                        .of(Objects.requireNonNull(getActivity()), new TopHeadlinesModelFactory(null, null, null, "trump")).get(NewsFragmentViewModel.class);
 
-        newsFragmentViewModel.fetchTopHeadlines();
+                newsFragmentViewModel.mNewsWrapper.observe(getActivity(), new Observer<NewsWrapper>() {
+                    @Override
+                    public void onChanged(@Nullable NewsWrapper newsWrapper) {
+                        setupRecyclerView(Objects.requireNonNull(newsWrapper).getArticles());
+                    }
+                });
+
+                newsFragmentViewModel.fetchTopHeadlines();
+
+                break;
+
+            case EVERYTHING:
+                newsFragmentViewModel = ViewModelProviders
+                        .of(Objects.requireNonNull(getActivity()), new EverythingModelFactory("apple")).get(NewsFragmentViewModel.class);
+
+                newsFragmentViewModel.mNewsWrapper.observe(getActivity(), new Observer<NewsWrapper>() {
+                    @Override
+                    public void onChanged(@Nullable NewsWrapper newsWrapper) {
+                        setupRecyclerView(Objects.requireNonNull(newsWrapper).getArticles());
+                    }
+                });
+
+                newsFragmentViewModel.fetchEverything();
+
+                break;
+
+            case SOURCES:
+                newsFragmentViewModel = ViewModelProviders
+                        .of(Objects.requireNonNull(getActivity()), new SourcesViewModelFactory("en", "us")).get(NewsFragmentViewModel.class);
+
+                newsFragmentViewModel.mNewsWrapper.observe(getActivity(), new Observer<NewsWrapper>() {
+                    @Override
+                    public void onChanged(@Nullable NewsWrapper newsWrapper) {
+                        setupRecyclerView(Objects.requireNonNull(newsWrapper).getArticles());
+                    }
+                });
+
+                newsFragmentViewModel.fetchEverything();
+
+                break;
+
+            default:
+                break;
+        }
     }
 }
