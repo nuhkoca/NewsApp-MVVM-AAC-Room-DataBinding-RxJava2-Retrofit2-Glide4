@@ -17,7 +17,9 @@ import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.R;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.api.INewsAPI;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.callback.IRecyclerViewScrollListener;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.remote.Articles;
-import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.remote.NewsWrapper;
+import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.remote.ArticlesWrapper;
+import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.remote.Sources;
+import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.remote.SourcesWrapper;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.databinding.FragmentNewsBinding;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.helper.RecyclerViewScrollHelper;
 
@@ -51,16 +53,40 @@ public class NewsFragment extends Fragment {
     }
 
 
-    private void setupRecyclerView(List<Articles> articlesList) {
+    private void setupNewsRV(List<Articles> articlesList) {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
 
         mFragmentNewsBinding.rvNews.setHasFixedSize(true);
         mFragmentNewsBinding.rvNews.setLayoutManager(linearLayoutManager);
 
-        NewsAdapter newsAdapter = new NewsAdapter();
-        newsAdapter.swapData(articlesList);
+        ArticlesAdapter articlesAdapter = new ArticlesAdapter();
+        articlesAdapter.swapData(articlesList);
 
-        mFragmentNewsBinding.rvNews.setAdapter(newsAdapter);
+        mFragmentNewsBinding.rvNews.setAdapter(articlesAdapter);
+
+        mFragmentNewsBinding.rvNews.addOnScrollListener(new RecyclerViewScrollHelper() {
+            @Override
+            public void onHide() {
+                mIRecyclerViewScrollListener.onHid();
+            }
+
+            @Override
+            public void onShow() {
+                mIRecyclerViewScrollListener.onShown();
+            }
+        });
+    }
+
+    private void setupSourcesRV(List<Sources> sourcesList) {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+
+        mFragmentNewsBinding.rvNews.setHasFixedSize(true);
+        mFragmentNewsBinding.rvNews.setLayoutManager(linearLayoutManager);
+
+        SourcesAdapter sourcesAdapter = new SourcesAdapter();
+        sourcesAdapter.swapData(sourcesList);
+
+        mFragmentNewsBinding.rvNews.setAdapter(sourcesAdapter);
 
         mFragmentNewsBinding.rvNews.addOnScrollListener(new RecyclerViewScrollHelper() {
             @Override
@@ -84,10 +110,10 @@ public class NewsFragment extends Fragment {
                 newsFragmentViewModel = ViewModelProviders
                         .of(Objects.requireNonNull(getActivity()), new TopHeadlinesModelFactory(null, null, null, "trump")).get(NewsFragmentViewModel.class);
 
-                newsFragmentViewModel.mNewsWrapper.observe(getActivity(), new Observer<NewsWrapper>() {
+                newsFragmentViewModel.mNewsWrapper.observe(getActivity(), new Observer<ArticlesWrapper>() {
                     @Override
-                    public void onChanged(@Nullable NewsWrapper newsWrapper) {
-                        setupRecyclerView(Objects.requireNonNull(newsWrapper).getArticles());
+                    public void onChanged(@Nullable ArticlesWrapper articlesWrapper) {
+                        setupNewsRV(Objects.requireNonNull(articlesWrapper).getArticles());
                     }
                 });
 
@@ -99,10 +125,10 @@ public class NewsFragment extends Fragment {
                 newsFragmentViewModel = ViewModelProviders
                         .of(Objects.requireNonNull(getActivity()), new EverythingModelFactory("apple")).get(NewsFragmentViewModel.class);
 
-                newsFragmentViewModel.mNewsWrapper.observe(getActivity(), new Observer<NewsWrapper>() {
+                newsFragmentViewModel.mNewsWrapper.observe(getActivity(), new Observer<ArticlesWrapper>() {
                     @Override
-                    public void onChanged(@Nullable NewsWrapper newsWrapper) {
-                        setupRecyclerView(Objects.requireNonNull(newsWrapper).getArticles());
+                    public void onChanged(@Nullable ArticlesWrapper articlesWrapper) {
+                        setupNewsRV(Objects.requireNonNull(articlesWrapper).getArticles());
                     }
                 });
 
@@ -112,16 +138,16 @@ public class NewsFragment extends Fragment {
 
             case SOURCES:
                 newsFragmentViewModel = ViewModelProviders
-                        .of(Objects.requireNonNull(getActivity()), new SourcesViewModelFactory("en", "us")).get(NewsFragmentViewModel.class);
+                        .of(Objects.requireNonNull(getActivity()), new SourcesViewModelFactory("en", null)).get(NewsFragmentViewModel.class);
 
-                newsFragmentViewModel.mNewsWrapper.observe(getActivity(), new Observer<NewsWrapper>() {
+                newsFragmentViewModel.mSourcesWrapper.observe(getActivity(), new Observer<SourcesWrapper>() {
                     @Override
-                    public void onChanged(@Nullable NewsWrapper newsWrapper) {
-                        setupRecyclerView(Objects.requireNonNull(newsWrapper).getArticles());
+                    public void onChanged(@Nullable SourcesWrapper sourcesWrapper) {
+                        setupSourcesRV(Objects.requireNonNull(sourcesWrapper).getSources());
                     }
                 });
 
-                newsFragmentViewModel.fetchEverything();
+                newsFragmentViewModel.fetchSources();
 
                 break;
 

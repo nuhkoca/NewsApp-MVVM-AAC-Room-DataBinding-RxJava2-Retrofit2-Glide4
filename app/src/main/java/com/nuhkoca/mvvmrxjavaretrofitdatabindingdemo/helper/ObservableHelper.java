@@ -3,9 +3,8 @@ package com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.helper;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.BuildConfig;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.NewsApp;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.api.INewsAPI;
-import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.remote.NewsWrapper;
-
-import java.util.List;
+import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.remote.ArticlesWrapper;
+import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.remote.SourcesWrapper;
 
 import retrofit2.Retrofit;
 import rx.Observable;
@@ -19,19 +18,19 @@ public class ObservableHelper {
         return NewsApp.provideRetrofit();
     }
 
-    public static Observable<NewsWrapper> getTopHeadlines(String countryCode, String sources, String category, String query) {
+    public static Observable<ArticlesWrapper> getTopHeadlines(String countryCode, String sources, String category, String query) {
         INewsAPI iNewsAPI = getNewsAPI();
 
         return iNewsAPI.fetchTopHeadlines(countryCode, sources, category, query, BuildConfig.API_KEY);
     }
 
-    public static Observable<NewsWrapper> getEverything(String query) {
+    public static Observable<ArticlesWrapper> getEverything(String query) {
         INewsAPI iNewsAPI = getNewsAPI();
 
         return iNewsAPI.fetchEverything(query, BuildConfig.API_KEY);
     }
 
-    public static Observable<NewsWrapper> getSources(String language, String country) {
+    public static Observable<SourcesWrapper> getSources(String language, String country) {
         INewsAPI iNewsAPI = getNewsAPI();
 
         return iNewsAPI.fetchSources(language, country, BuildConfig.API_KEY);

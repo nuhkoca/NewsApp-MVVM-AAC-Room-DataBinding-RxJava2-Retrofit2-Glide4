@@ -8,7 +8,7 @@ import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.BR;
 
 import java.util.List;
 
-public class NewsWrapper extends BaseObservable {
+public class ArticlesWrapper extends BaseObservable {
 
     @SerializedName("status")
     private String status;
@@ -17,7 +17,7 @@ public class NewsWrapper extends BaseObservable {
     @SerializedName("articles")
     private List<Articles> articles;
 
-    public NewsWrapper() {}
+    public ArticlesWrapper() {}
 
     @Bindable
     public String getStatus() {

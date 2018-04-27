@@ -17,11 +17,14 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.R;
-import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.api.INewsAPI;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.callback.IRecyclerViewScrollListener;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.databinding.ActivityNewsBinding;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.helper.Constants;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.ui.news.NewsFragment;
+
+import static com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.api.INewsAPI.Endpoints.EVERYTHING;
+import static com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.api.INewsAPI.Endpoints.SOURCES;
+import static com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.api.INewsAPI.Endpoints.TOP_HEADLINES;
 
 public class NewsActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, IRecyclerViewScrollListener {
 
@@ -153,13 +156,13 @@ public class NewsActivity extends AppCompatActivity implements BottomNavigationV
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return NewsFragment.getInstance(INewsAPI.Endpoints.TOP_HEADLINES,NewsActivity.this);
+                    return NewsFragment.getInstance(TOP_HEADLINES,NewsActivity.this);
 
                 case 1:
-                    return NewsFragment.getInstance(INewsAPI.Endpoints.EVERYTHING,NewsActivity.this);
+                    return NewsFragment.getInstance(EVERYTHING,NewsActivity.this);
 
                 case 2:
-                    return NewsFragment.getInstance(INewsAPI.Endpoints.EVERYTHING, NewsActivity.this);
+                    return NewsFragment.getInstance(SOURCES, NewsActivity.this);
 
                 default:
                     break;

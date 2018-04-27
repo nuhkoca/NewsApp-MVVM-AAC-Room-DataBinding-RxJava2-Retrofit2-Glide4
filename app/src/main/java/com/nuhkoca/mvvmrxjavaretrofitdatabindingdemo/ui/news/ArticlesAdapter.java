@@ -16,12 +16,12 @@ import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.databinding.NewsItemCardBin
 import java.util.ArrayList;
 import java.util.List;
 
-public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
+public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHolder> {
 
     private List<Articles> mArticlesList;
     private NewsItemCardBinding mNewsItemCardBinding;
 
-    NewsAdapter() {
+    ArticlesAdapter() {
         mArticlesList = new ArrayList<>();
     }
 

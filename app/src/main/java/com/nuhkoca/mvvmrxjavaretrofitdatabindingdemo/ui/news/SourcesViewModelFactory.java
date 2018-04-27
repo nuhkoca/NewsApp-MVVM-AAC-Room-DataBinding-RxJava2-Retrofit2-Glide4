@@ -7,7 +7,7 @@ public class SourcesViewModelFactory implements ViewModelProvider.Factory {
     private String language;
     private String country;
 
-    public SourcesViewModelFactory(String language, String country) {
+    SourcesViewModelFactory(String language, String country) {
         this.language = language;
         this.country = country;
     }
