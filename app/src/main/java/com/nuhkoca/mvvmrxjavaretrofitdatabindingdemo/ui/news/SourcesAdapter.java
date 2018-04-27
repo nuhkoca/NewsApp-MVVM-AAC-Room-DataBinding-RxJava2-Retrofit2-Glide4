@@ -10,9 +10,7 @@ import android.view.ViewGroup;
 
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.BR;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.R;
-import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.remote.Articles;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.remote.Sources;
-import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.databinding.NewsItemCardBinding;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.databinding.SourcesItemCardBinding;
 
 import java.util.ArrayList;
@@ -21,9 +19,8 @@ import java.util.List;
 public class SourcesAdapter extends RecyclerView.Adapter<SourcesAdapter.ViewHolder> {
 
     private List<Sources> mSourcesList;
-    private SourcesItemCardBinding mSourcesItemCardBinding;
 
-    public SourcesAdapter() {
+    SourcesAdapter() {
         mSourcesList = new ArrayList<>();
     }
 
@@ -34,10 +31,10 @@ public class SourcesAdapter extends RecyclerView.Adapter<SourcesAdapter.ViewHold
 
         LayoutInflater layoutInflater = LayoutInflater.from(context);
 
-        mSourcesItemCardBinding = DataBindingUtil.inflate(layoutInflater,
+        SourcesItemCardBinding sourcesItemCardBinding = DataBindingUtil.inflate(layoutInflater,
                 R.layout.sources_item_card, parent, false);
 
-        return new SourcesAdapter.ViewHolder(mSourcesItemCardBinding.getRoot());
+        return new SourcesAdapter.ViewHolder(sourcesItemCardBinding.getRoot());
     }
 
     @Override
@@ -59,6 +56,8 @@ public class SourcesAdapter extends RecyclerView.Adapter<SourcesAdapter.ViewHold
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
+
+        private SourcesItemCardBinding mSourcesItemCardBinding;
 
         ViewHolder(View itemView) {
             super(itemView);

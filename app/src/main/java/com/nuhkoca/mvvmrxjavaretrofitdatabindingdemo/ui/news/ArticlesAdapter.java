@@ -19,7 +19,6 @@ import java.util.List;
 public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHolder> {
 
     private List<Articles> mArticlesList;
-    private NewsItemCardBinding mNewsItemCardBinding;
 
     ArticlesAdapter() {
         mArticlesList = new ArrayList<>();
@@ -32,10 +31,10 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHo
 
         LayoutInflater layoutInflater = LayoutInflater.from(context);
 
-        mNewsItemCardBinding = DataBindingUtil.inflate(layoutInflater,
+        NewsItemCardBinding newsItemCardBinding = DataBindingUtil.inflate(layoutInflater,
                 R.layout.news_item_card, parent, false);
 
-        return new ViewHolder(mNewsItemCardBinding.getRoot());
+        return new ViewHolder(newsItemCardBinding.getRoot());
     }
 
     @Override
@@ -57,6 +56,8 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHo
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
+
+        private NewsItemCardBinding mNewsItemCardBinding;
 
         ViewHolder(View itemView) {
             super(itemView);

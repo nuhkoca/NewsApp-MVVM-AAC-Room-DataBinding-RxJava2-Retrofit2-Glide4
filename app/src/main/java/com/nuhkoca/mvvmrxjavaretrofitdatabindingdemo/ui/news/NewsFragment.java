@@ -23,6 +23,7 @@ import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.remote.SourcesWrapper;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.databinding.FragmentNewsBinding;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.helper.Constants;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.helper.RecyclerViewScrollHelper;
+import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.util.RecyclerViewItemDivider;
 
 import java.util.List;
 import java.util.Objects;
@@ -88,6 +89,7 @@ public class NewsFragment extends Fragment {
 
         mFragmentNewsBinding.rvNews.setHasFixedSize(true);
         mFragmentNewsBinding.rvNews.setLayoutManager(linearLayoutManager);
+        mFragmentNewsBinding.rvNews.addItemDecoration(new RecyclerViewItemDivider(getActivity(), LinearLayoutManager.VERTICAL, 16));
 
         SourcesAdapter sourcesAdapter = new SourcesAdapter();
         sourcesAdapter.swapData(sourcesList);

@@ -27,7 +27,6 @@
         <item name="cardBackgroundColor">@color/white</item>
         <item name="android:layout_margin">@dimen/cardViewMargin</item>
         <item name="cardCornerRadius">@dimen/cardViewCornerRadius</item>
-        <item name="android:background">?android:selectableItemBackground</item>
         <item name="cardElevation">@dimen/cardViewElevation</item>
     </style>
 
