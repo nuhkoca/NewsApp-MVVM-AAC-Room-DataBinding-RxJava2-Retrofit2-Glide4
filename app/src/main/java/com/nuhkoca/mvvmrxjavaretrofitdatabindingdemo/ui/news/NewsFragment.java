@@ -116,7 +116,7 @@ public class NewsFragment extends Fragment {
         switch (endpointVal) {
             case 0:
                 newsFragmentViewModel = ViewModelProviders
-                        .of(Objects.requireNonNull(getActivity()), new TopHeadlinesModelFactory(null, null, "business", null)).get(NewsFragmentViewModel.class);
+                        .of(Objects.requireNonNull(getActivity()), new TopHeadlinesModelFactory(getActivity().getApplication(),null, null, "business", null)).get(NewsFragmentViewModel.class);
 
                 newsFragmentViewModel.fetchTopHeadlines().observe(getActivity(), new Observer<ArticlesWrapper>() {
                     @Override
@@ -133,7 +133,7 @@ public class NewsFragment extends Fragment {
 
             case 1:
                 newsFragmentViewModel = ViewModelProviders
-                        .of(Objects.requireNonNull(getActivity()), new EverythingModelFactory("apple")).get(NewsFragmentViewModel.class);
+                        .of(Objects.requireNonNull(getActivity()), new EverythingModelFactory(getActivity().getApplication(),"apple")).get(NewsFragmentViewModel.class);
 
                 newsFragmentViewModel.fetchEverything().observe(getActivity(), new Observer<ArticlesWrapper>() {
                     @Override
@@ -150,7 +150,7 @@ public class NewsFragment extends Fragment {
 
             case 2:
                 newsFragmentViewModel = ViewModelProviders
-                        .of(Objects.requireNonNull(getActivity()), new SourcesViewModelFactory("en", null)).get(NewsFragmentViewModel.class);
+                        .of(Objects.requireNonNull(getActivity()), new SourcesViewModelFactory(getActivity().getApplication(),"en", null)).get(NewsFragmentViewModel.class);
 
                 newsFragmentViewModel.fetchSources().observe(getActivity(), new Observer<SourcesWrapper>() {
                     @Override

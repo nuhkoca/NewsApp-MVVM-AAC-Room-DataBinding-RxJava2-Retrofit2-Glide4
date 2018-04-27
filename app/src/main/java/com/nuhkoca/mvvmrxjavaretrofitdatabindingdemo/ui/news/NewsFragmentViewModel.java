@@ -1,5 +1,7 @@
 package com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.ui.news;
 
+import android.app.Application;
+import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 
@@ -13,7 +15,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
-public class NewsFragmentViewModel extends ViewModel {
+public class NewsFragmentViewModel extends AndroidViewModel {
     private MutableLiveData<ArticlesWrapper> mNewsWrapper = new MutableLiveData<>();
     private MutableLiveData<SourcesWrapper> mSourcesWrapper = new MutableLiveData<>();
 
@@ -23,18 +25,21 @@ public class NewsFragmentViewModel extends ViewModel {
     private String query;
     private String language;
 
-    NewsFragmentViewModel(String countryCode, String sources, String category, String query) {
+    NewsFragmentViewModel(Application application, String countryCode, String sources, String category, String query) {
+        super(application);
         this.countryCode = countryCode;
         this.sources = sources;
         this.category = category;
         this.query = query;
     }
 
-    NewsFragmentViewModel(String query) {
+    NewsFragmentViewModel(Application application, String query) {
+        super(application);
         this.query = query;
     }
 
-    NewsFragmentViewModel(String language, String countryCode) {
+    NewsFragmentViewModel(Application application, String language, String countryCode) {
+        super(application);
         this.countryCode = countryCode;
         this.language = language;
     }

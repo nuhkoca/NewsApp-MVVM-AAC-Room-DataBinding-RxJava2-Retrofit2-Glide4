@@ -1,13 +1,18 @@
 package com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.ui.news;
 
+import android.app.Application;
 import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
 
 public class SourcesViewModelFactory implements ViewModelProvider.Factory {
+
+    private Application application;
+
     private String language;
     private String country;
 
-    SourcesViewModelFactory(String language, String country) {
+    SourcesViewModelFactory(Application application, String language, String country) {
+        this.application = application;
         this.language = language;
         this.country = country;
     }
@@ -16,6 +21,6 @@ public class SourcesViewModelFactory implements ViewModelProvider.Factory {
     @NonNull
     @Override
     public NewsFragmentViewModel create(@NonNull Class modelClass) {
-        return new NewsFragmentViewModel(language, country);
+        return new NewsFragmentViewModel(application, language, country);
     }
 }
