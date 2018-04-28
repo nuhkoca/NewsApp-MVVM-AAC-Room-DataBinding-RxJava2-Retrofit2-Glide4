@@ -10,6 +10,4 @@
     <dimen name="titleTextSize">14sp</dimen>
     <dimen name="descriptionTextSize">14sp</dimen>
     <dimen name="titleMargin">8dp</dimen>
-    <dimen name="appBarPaddingLeft">16dp</dimen>
-    <dimen name="appBarPaddingRight">16dp</dimen>
 </resources>

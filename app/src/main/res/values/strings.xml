@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Bundle</string>
-    <string name="header">Bundle</string>
+    <string name="main_header">Bundle</string>
+    <string name="settings_header">Settings</string>
 
     <string name="article_image_view_content_description">This view holds the image for each news.</string>
 
@@ -8,4 +9,11 @@
     <string name="top_headlines_header">Top Headlines</string>
     <string name="everything_header">Everything</string>
     <string name="sources_header">Sources</string>
+
+    <!-- Menu Strings -->
+    <string name="settings_text">Settings</string>
+    <string name="twice_press_to_exit">Press back again to exit.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

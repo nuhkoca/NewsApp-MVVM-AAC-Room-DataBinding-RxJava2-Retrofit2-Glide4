@@ -1,4 +1,4 @@
-package com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.api;
+package com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.repository;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;

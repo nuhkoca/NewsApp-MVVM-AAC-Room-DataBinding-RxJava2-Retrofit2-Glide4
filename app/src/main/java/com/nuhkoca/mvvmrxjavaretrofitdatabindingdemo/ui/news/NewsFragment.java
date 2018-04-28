@@ -14,7 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.R;
-import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.api.INewsAPI;
+import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.repository.INewsAPI;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.callback.IRecyclerViewScrollListener;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.remote.Articles;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.remote.ArticlesWrapper;
@@ -58,7 +58,6 @@ public class NewsFragment extends Fragment {
 
         return mFragmentNewsBinding.getRoot();
     }
-
 
     private void setupNewsRV(List<Articles> articlesList) {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
@@ -152,7 +151,7 @@ public class NewsFragment extends Fragment {
 
             case 2:
                 newsFragmentViewModel = ViewModelProviders
-                        .of(Objects.requireNonNull(getActivity()), new SourcesViewModelFactory(getActivity().getApplication(),"en", null)).get(NewsFragmentViewModel.class);
+                        .of(Objects.requireNonNull(getActivity()), new SourcesViewModelFactory(getActivity().getApplication(),"de", null)).get(NewsFragmentViewModel.class);
 
                 newsFragmentViewModel.fetchSources().observe(getActivity(), new Observer<SourcesWrapper>() {
                     @Override

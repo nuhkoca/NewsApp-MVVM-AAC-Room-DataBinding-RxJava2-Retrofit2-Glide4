@@ -3,6 +3,7 @@ package com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.ui.news;
 import android.app.Application;
 import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 public class SourcesViewModelFactory implements ViewModelProvider.Factory {
 
@@ -11,7 +12,7 @@ public class SourcesViewModelFactory implements ViewModelProvider.Factory {
     private String language;
     private String country;
 
-    SourcesViewModelFactory(Application application, String language, String country) {
+    SourcesViewModelFactory(Application application, @Nullable String language, @Nullable String country) {
         this.application = application;
         this.language = language;
         this.country = country;

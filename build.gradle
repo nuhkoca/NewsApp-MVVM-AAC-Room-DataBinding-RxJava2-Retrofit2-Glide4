@@ -36,6 +36,7 @@ ext {
     leakCanaryVersion = '1.5.4'
     okHttpVersion = '3.8.0'
     stethoVersion = '1.5.0'
+    viewPagerTransformerVersion = '1.2.32@aar'
 }
 
 task clean(type: Delete) {

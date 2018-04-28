@@ -29,6 +29,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "com.android.support:appcompat-v7:$rootProject.ext.supportVersion"
     implementation "com.android.support:support-v4:$rootProject.ext.supportVersion"
+    implementation "com.android.support:preference-v7:$rootProject.ext.supportVersion"
     implementation "com.android.support:design:$rootProject.ext.supportVersion"
     implementation "com.android.support:recyclerview-v7:$rootProject.ext.supportVersion"
     implementation "com.android.support:cardview-v7:$rootProject.ext.supportVersion"
@@ -37,6 +38,7 @@ dependencies {
     //MVVM
     implementation "android.arch.lifecycle:extensions:$rootProject.ext.mvvm"
     implementation 'com.android.support:support-v4:27.1.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     annotationProcessor "android.arch.lifecycle:compiler:$rootProject.ext.mvvm"
     testImplementation "android.arch.core:core-testing:$rootProject.ext.mvvm"
 
@@ -62,6 +64,9 @@ dependencies {
     //Stetho
     implementation "com.facebook.stetho:stetho:$rootProject.ext.stethoVersion"
     implementation "com.facebook.stetho:stetho-okhttp3:$rootProject.ext.stethoVersion"
+
+    //ViewPagerTransformers
+    implementation "com.ToxicBakery.viewpager.transforms:view-pager-transforms:$rootProject.ext.viewPagerTransformerVersion"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'

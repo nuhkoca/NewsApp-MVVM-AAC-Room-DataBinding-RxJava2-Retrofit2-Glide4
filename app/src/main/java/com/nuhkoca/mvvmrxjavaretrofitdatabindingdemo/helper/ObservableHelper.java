@@ -1,8 +1,10 @@
 package com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.helper;
 
+import android.support.annotation.Nullable;
+
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.BuildConfig;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.NewsApp;
-import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.api.INewsAPI;
+import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.repository.INewsAPI;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.remote.ArticlesWrapper;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.remote.SourcesWrapper;
 
@@ -30,7 +32,7 @@ public class ObservableHelper {
         return iNewsAPI.fetchEverything(query, BuildConfig.API_KEY);
     }
 
-    public static Observable<SourcesWrapper> getSources(String language, String country) {
+    public static Observable<SourcesWrapper> getSources(@Nullable String language, @Nullable String country) {
         INewsAPI iNewsAPI = getNewsAPI();
 
         return iNewsAPI.fetchSources(language, country, BuildConfig.API_KEY);

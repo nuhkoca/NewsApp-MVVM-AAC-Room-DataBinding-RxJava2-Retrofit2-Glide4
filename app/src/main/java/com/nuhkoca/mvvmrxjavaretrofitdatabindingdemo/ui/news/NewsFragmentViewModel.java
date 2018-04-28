@@ -3,7 +3,7 @@ package com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.ui.news;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.ViewModel;
+import android.support.annotation.Nullable;
 
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.remote.ArticlesWrapper;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.remote.SourcesWrapper;
@@ -38,7 +38,7 @@ public class NewsFragmentViewModel extends AndroidViewModel {
         this.query = query;
     }
 
-    NewsFragmentViewModel(Application application, String language, String countryCode) {
+    NewsFragmentViewModel(Application application, @Nullable String language, @Nullable String countryCode) {
         super(application);
         this.countryCode = countryCode;
         this.language = language;

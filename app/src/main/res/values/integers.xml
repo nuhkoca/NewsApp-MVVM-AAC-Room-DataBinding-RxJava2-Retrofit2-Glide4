@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="delay_in_seconds_to_close">1500</integer>
+</resources>
