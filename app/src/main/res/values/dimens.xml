@@ -9,5 +9,8 @@
     <dimen name="cardViewElevation">4dp</dimen>
     <dimen name="titleTextSize">14sp</dimen>
     <dimen name="descriptionTextSize">14sp</dimen>
+    <dimen name="sourceTextSize">12sp</dimen>
     <dimen name="titleMargin">8dp</dimen>
+    <dimen name="sourceMarginTop">16dp</dimen>
+    <dimen name="recycler_view_padding">112dp</dimen>
 </resources>

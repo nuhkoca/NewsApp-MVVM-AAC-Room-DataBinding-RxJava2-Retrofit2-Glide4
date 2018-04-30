@@ -11,9 +11,62 @@
     <string name="sources_header">Sources</string>
 
     <!-- Menu Strings -->
-    <string name="settings_text">Settings</string>
+    <string name="settings_text">Preferences</string>
     <string name="twice_press_to_exit">Press back again to exit.</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- SharedPreference Keys and Labels -->
+    <string name="pref_country_label">Country</string>
+    <string name="pref_country_summary">News from the selected country will be displayed.</string>
+
+    <string name="pref_country_label_germany">Germany(DE)</string>
+    <string name="pref_country_de_value" translatable="false">de</string>
+
+    <string name="pref_country_label_italy">Italy(IT)</string>
+    <string name="pref_country_it_value" translatable="false">it</string>
+
+    <string name="pref_country_label_usa">USA(US)</string>
+    <string name="pref_country_us_value" translatable="false">us</string>
+
+    <string name="pref_country_label_belgium">Belgium(BE)</string>
+    <string name="pref_country_be_value" translatable="false">be</string>
+
+    <string name="pref_top_headlines_country_key" translatable="false">country</string>
+
+    <string name="pref_source_label">Source</string>
+    <string name="pref_source_summary">News from the selected source will be displayed.</string>
+
+    <string name="pref_source_label_aftenposten">Aftenposten(NO)</string>
+    <string name="pref_source_aftenposten_value" translatable="false">aftenposten</string>
+
+    <string name="pref_source_label_aljazeera">Al Jazeera English(US)</string>
+    <string name="pref_source_aljazeeraenglish_value" translatable="false">al-jazeera-english</string>
+
+    <string name="pref_source_label_associatedpress">Associated Press(US)</string>
+    <string name="pref_source_associatedpress_value" translatable="false">associated-press</string>
+
+    <string name="pref_source_label_bbcnews">BBC News(GB)</string>
+    <string name="pref_source_bbcnews_value" translatable="false">bbc-news</string>
+
+    <string name="pref_source_key" translatable="false">source</string>
+
+    <string name="pref_language_label">Language</string>
+    <string name="pref_language_summary">News sources from the selected language will be displayed.</string>
+
+    <string name="pref_language_label_german">German</string>
+    <string name="pref_language_german_value" translatable="false">de</string>
+
+    <string name="pref_language_label_french">French</string>
+    <string name="pref_language_french_value" translatable="false">fr</string>
+
+    <string name="pref_language_label_english">English</string>
+    <string name="pref_language_english_value" translatable="false">en</string>
+
+    <string name="pref_language_label_italian">Italian</string>
+    <string name="pref_language_italian_value" translatable="false">it</string>
+
+    <string name="pref_language_key" translatable="false">language</string>
+
+    <string name="pref_category_label">Category</string>
+    <string name="pref_query_label">Query</string>
+
 </resources>

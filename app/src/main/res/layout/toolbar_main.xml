@@ -5,21 +5,16 @@
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:clipToPadding="false">
 
         <android.support.design.widget.AppBarLayout
+            android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:elevation="30dp"
             tools:ignore="RtlSymmetry">
-
-            <android.support.design.widget.CollapsingToolbarLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:contentScrim="?attr/colorPrimary"
-                app:expandedTitleMarginEnd="@dimen/expandedTitleMarginEnd"
-                app:expandedTitleMarginStart="@dimen/expandedTitleMarginStart"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/toolbar"
@@ -35,7 +30,6 @@
                         style="@style/ToolbarHeaderAppearance.Title"/>
 
                 </android.support.v7.widget.Toolbar>
-            </android.support.design.widget.CollapsingToolbarLayout>
         </android.support.design.widget.AppBarLayout>
     </android.support.design.widget.CoordinatorLayout>
 </layout>

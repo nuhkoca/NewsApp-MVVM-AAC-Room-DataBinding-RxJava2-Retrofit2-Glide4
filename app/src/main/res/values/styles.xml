@@ -10,7 +10,7 @@
         <item name="windowNoTitle">true</item>
         <item name="android:itemBackground">@color/white</item>
         <item name="android:textColor">@color/black</item>
-        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
     </style>
 
     <!-- Toolbar Header Theme -->
@@ -49,6 +49,20 @@
         <item name="android:textColor">@color/secondaryText</item>
         <item name="android:textSize">@dimen/descriptionTextSize</item>
         <item name="android:layout_margin">@dimen/titleMargin</item>
+    </style>
+
+    <!-- Article Source Style-->
+    <style name="ArticleSourceAppearance">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/secondaryText</item>
+        <item name="android:textSize">@dimen/sourceTextSize</item>
+        <item name="android:layout_marginEnd">@dimen/titleMargin</item>
+        <item name="android:layout_marginStart">@dimen/titleMargin</item>
+        <item name="android:layout_marginBottom">@dimen/titleMargin</item>
+        <item name="android:layout_marginTop">@dimen/sourceMarginTop</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:layout_gravity">end</item>
     </style>
 
 </resources>

@@ -14,13 +14,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.Toast;
 
 import com.ToxicBakery.viewpager.transforms.DepthPageTransformer;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.R;
-import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.callback.IRecyclerViewScrollListener;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.databinding.ActivityNewsBinding;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.helper.Constants;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.ui.news.NewsFragment;
@@ -30,7 +27,7 @@ import static com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.repository.INew
 import static com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.repository.INewsAPI.Endpoints.SOURCES;
 import static com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.repository.INewsAPI.Endpoints.TOP_HEADLINES;
 
-public class NewsActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, IRecyclerViewScrollListener {
+public class NewsActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     private ActivityNewsBinding mActivityNewsBinding;
     private MenuItem mPrevMenuItem;
@@ -144,18 +141,6 @@ public class NewsActivity extends AppCompatActivity implements BottomNavigationV
         mBackPressed = System.currentTimeMillis();
     }
 
-    @Override
-    public void onHid() {
-        mActivityNewsBinding.bnvNews.animate().translationY(
-                mActivityNewsBinding.bnvNews.getHeight()).setInterpolator(new AccelerateInterpolator(2)).start();
-    }
-
-    @Override
-    public void onShown() {
-        mActivityNewsBinding.bnvNews.animate().translationY(0)
-                .setInterpolator(new DecelerateInterpolator(2)).start();
-    }
-
     private class ViewPagerInflater extends FragmentStatePagerAdapter {
         ViewPagerInflater(FragmentManager fm) {
             super(fm);
@@ -194,13 +179,13 @@ public class NewsActivity extends AppCompatActivity implements BottomNavigationV
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return NewsFragment.getInstance(TOP_HEADLINES, NewsActivity.this);
+                    return NewsFragment.getInstance(TOP_HEADLINES);
 
                 case 1:
-                    return NewsFragment.getInstance(EVERYTHING, NewsActivity.this);
+                    return NewsFragment.getInstance(EVERYTHING);
 
                 case 2:
-                    return NewsFragment.getInstance(SOURCES, NewsActivity.this);
+                    return NewsFragment.getInstance(SOURCES);
 
                 default:
                     break;

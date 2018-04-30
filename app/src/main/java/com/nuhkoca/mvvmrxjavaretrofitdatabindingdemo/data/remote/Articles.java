@@ -20,6 +20,8 @@ public class Articles extends BaseObservable {
     private String urlToImage;
     @SerializedName("publishedAt")
     private String publishedAt;
+    @SerializedName("source")
+    private Source source;
 
     public Articles() {}
 
@@ -79,5 +81,15 @@ public class Articles extends BaseObservable {
     public void setPublishedAt(String publishedAt) {
         this.publishedAt = publishedAt;
         notifyPropertyChanged(BR.publishedAt);
+    }
+
+    @Bindable
+    public Source getSource() {
+        return source;
+    }
+
+    public void setSource(Source source) {
+        this.source = source;
+        notifyPropertyChanged(BR.source);
     }
 }

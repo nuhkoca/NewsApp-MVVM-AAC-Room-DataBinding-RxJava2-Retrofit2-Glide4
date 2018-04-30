@@ -19,11 +19,9 @@
         android:id="@+id/vpNews"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/bnvNews"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layoutToolbar"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/layoutToolbar" />
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bnvNews"

@@ -11,9 +11,9 @@ public abstract class RecyclerViewScrollHelper extends RecyclerView.OnScrollList
     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
         super.onScrolled(recyclerView, dx, dy);
 
-        int firstCompletelyVisibleItem = ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
+        int firstVisibleItem = ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
         //show views if first item is first visible position and views are hidden
-        if (firstCompletelyVisibleItem == 0) {
+        if (firstVisibleItem == 0) {
             if (!controlsVisible) {
                 onShow();
                 controlsVisible = true;

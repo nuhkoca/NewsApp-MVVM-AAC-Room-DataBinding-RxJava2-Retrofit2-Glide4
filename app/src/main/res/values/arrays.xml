@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="pref_country_option_labels">
+        <item>@string/pref_country_label_germany</item>
+        <item>@string/pref_country_label_italy</item>
+        <item>@string/pref_country_label_usa</item>
+        <item>@string/pref_country_label_belgium</item>
+    </array>
+
+    <array name="pref_country_option_values">
+        <item>@string/pref_country_de_value</item>
+        <item>@string/pref_country_it_value</item>
+        <item>@string/pref_country_us_value</item>
+        <item>@string/pref_country_be_value</item>
+    </array>
+
+    <array name="pref_source_option_labels">
+        <item>@string/pref_source_label_aftenposten</item>
+        <item>@string/pref_source_label_aljazeera</item>
+        <item>@string/pref_source_label_associatedpress</item>
+        <item>@string/pref_source_label_bbcnews</item>
+    </array>
+
+    <array name="pref_source_option_values">
+        <item>@string/pref_source_aftenposten_value</item>
+        <item>@string/pref_source_aljazeeraenglish_value</item>
+        <item>@string/pref_source_associatedpress_value</item>
+        <item>@string/pref_source_bbcnews_value</item>
+    </array>
+
+    <array name="pref_language_option_labels">
+        <item>@string/pref_language_label_english</item>
+        <item>@string/pref_language_label_french</item>
+        <item>@string/pref_language_label_german</item>
+        <item>@string/pref_language_label_italian</item>
+    </array>
+
+    <array name="pref_language_option_values">
+        <item>@string/pref_language_english_value</item>
+        <item>@string/pref_language_french_value</item>
+        <item>@string/pref_language_german_value</item>
+        <item>@string/pref_language_italian_value</item>
+    </array>
+
+</resources>

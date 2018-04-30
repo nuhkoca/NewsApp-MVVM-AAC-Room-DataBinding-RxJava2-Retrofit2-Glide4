@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:wheel="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
 
     <data>
         <variable
@@ -20,12 +22,27 @@
                 android:background="?attr/selectableItemBackground"
                 android:orientation="vertical">
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <com.pnikosis.materialishprogress.ProgressWheel
+                    android:id="@+id/pbArticles"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_centerInParent="true"
+                    wheel:matProg_barColor="@color/secondaryText"
+                    wheel:matProg_progressIndeterminate="true" />
+
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:scaleType="centerCrop"
                     android:src="@{articles.urlToImage}"
+                    bind:articlesIndicator="@{pbArticles}"
                     android:contentDescription="@string/article_image_view_content_description" />
+
+                </RelativeLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -38,6 +55,12 @@
                 android:layout_height="wrap_content"
                 android:text="@{articles.description}"
                 style="@style/ArticleDescriptionAppearance"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{articles.source.name}"
+                style="@style/ArticleSourceAppearance"/>
 
             </LinearLayout>
     </android.support.v7.widget.CardView>

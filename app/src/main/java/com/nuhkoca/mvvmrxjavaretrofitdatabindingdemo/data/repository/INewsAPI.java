@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.remote.ArticlesWrapper;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.remote.SourcesWrapper;
+import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.helper.Constants;
 
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -13,9 +14,9 @@ import rx.Observable;
 public interface INewsAPI {
 
     enum Endpoints {
-        TOP_HEADLINES(0),
-        EVERYTHING(1),
-        SOURCES(2);
+        TOP_HEADLINES(Constants.TOP_NEWS_ID),
+        EVERYTHING(Constants.EVERYTHING_ID),
+        SOURCES(Constants.SOURCES_ID);
 
         private int value;
 
@@ -29,14 +30,14 @@ public interface INewsAPI {
     }
 
     @GET("/v2/top-headlines")
-    Observable<ArticlesWrapper> fetchTopHeadlines(@Query("country") @Nullable String countryCode,
+    Observable<ArticlesWrapper> fetchTopHeadlines(@Query("country") @Nullable String country,
                                                   @Query("source") @Nullable String sources,
                                                   @Query("category") @Nullable String category,
                                                   @Query("q") @Nullable String query,
                                                   @Query("apiKey") @NonNull String apiKey);
 
     @GET("/v2/everything")
-    Observable<ArticlesWrapper> fetchEverything(@Query("q") @Nullable String query,
+    Observable<ArticlesWrapper> fetchEverything(@Query("q") @NonNull String query,
                                                 @Query("apiKey") @NonNull String apiKey);
 
     @GET("/v2/sources")

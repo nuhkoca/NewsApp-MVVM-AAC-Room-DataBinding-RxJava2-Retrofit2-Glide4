@@ -12,29 +12,34 @@ import retrofit2.Retrofit;
 import rx.Observable;
 
 public class ObservableHelper {
-    private static INewsAPI getNewsAPI() {
-        return getRetrofit().create(INewsAPI.class);
+    private INewsAPI iNewsAPI;
+    private static ObservableHelper instance;
+
+    private ObservableHelper() {
+        iNewsAPI = getRetrofit().create(INewsAPI.class);
+    }
+
+    public static ObservableHelper getInstance(){
+        if (instance == null){
+            instance = new ObservableHelper();
+        }
+
+        return instance;
     }
 
     private static Retrofit getRetrofit() {
         return NewsApp.provideRetrofit();
     }
 
-    public static Observable<ArticlesWrapper> getTopHeadlines(String countryCode, String sources, String category, String query) {
-        INewsAPI iNewsAPI = getNewsAPI();
-
+    public Observable<ArticlesWrapper> getTopHeadlines(@Nullable String countryCode, @Nullable String sources, @Nullable String category, @Nullable String query) {
         return iNewsAPI.fetchTopHeadlines(countryCode, sources, category, query, BuildConfig.API_KEY);
     }
 
-    public static Observable<ArticlesWrapper> getEverything(String query) {
-        INewsAPI iNewsAPI = getNewsAPI();
-
+    public Observable<ArticlesWrapper> getEverything(String query) {
         return iNewsAPI.fetchEverything(query, BuildConfig.API_KEY);
     }
 
-    public static Observable<SourcesWrapper> getSources(@Nullable String language, @Nullable String country) {
-        INewsAPI iNewsAPI = getNewsAPI();
-
+    public Observable<SourcesWrapper> getSources(@Nullable String language, @Nullable String country) {
         return iNewsAPI.fetchSources(language, country, BuildConfig.API_KEY);
     }
 }
