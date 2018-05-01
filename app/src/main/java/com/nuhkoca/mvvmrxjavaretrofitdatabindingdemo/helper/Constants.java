@@ -5,6 +5,6 @@ public class Constants {
     public static final byte HIDE_THRESHOLD = 10;
     public static final String ENDPOINT_ARGS_KEY = "endpoint-args-key";
     public static final int TOP_NEWS_ID = 1564;
-    public static final int EVERYTHING_ID = 1565;
-    public static final int SOURCES_ID = 1566;
+    public static final int EVERYTHING_ID = 1785;
+    public static final int SOURCES_ID = 1945;
 }

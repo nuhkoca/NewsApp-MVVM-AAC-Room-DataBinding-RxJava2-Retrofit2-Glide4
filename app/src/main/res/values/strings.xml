@@ -14,23 +14,121 @@
     <string name="settings_text">Preferences</string>
     <string name="twice_press_to_exit">Press back again to exit.</string>
 
+    <!-- Preference Titles -->
+    <string name="top_headlines_preference_title">Preferences for Top Headline News</string>
+    <string name="sources_preference_title">Preferences for Sources</string>
+
     <!-- SharedPreference Keys and Labels -->
     <string name="pref_country_label">Country</string>
     <string name="pref_country_summary">News from the selected country will be displayed.</string>
 
-    <string name="pref_country_label_germany">Germany(DE)</string>
-    <string name="pref_country_de_value" translatable="false">de</string>
+    <string name="pref_country_label_argentina">Argentina(AR)</string>
+    <string name="pref_country_ar_value" translatable="false">ar</string>
 
-    <string name="pref_country_label_italy">Italy(IT)</string>
-    <string name="pref_country_it_value" translatable="false">it</string>
-
-    <string name="pref_country_label_usa">USA(US)</string>
-    <string name="pref_country_us_value" translatable="false">us</string>
+    <string name="pref_country_label_austria">Austria(AT)</string>
+    <string name="pref_country_at_value" translatable="false">at</string>
 
     <string name="pref_country_label_belgium">Belgium(BE)</string>
     <string name="pref_country_be_value" translatable="false">be</string>
 
+    <string name="pref_country_label_bulgaria">Bulgaria(BG)</string>
+    <string name="pref_country_bg_value" translatable="false">bg</string>
+
+    <string name="pref_country_label_brazil">Brazil(BR)</string>
+    <string name="pref_country_br_value" translatable="false">br</string>
+
+    <string name="pref_country_label_china">China(CN)</string>
+    <string name="pref_country_cn_value" translatable="false">cn</string>
+
+    <string name="pref_country_label_czech_republic">Czech Republic(CZ)</string>
+    <string name="pref_country_cz_value" translatable="false">cz</string>
+
+    <string name="pref_country_label_egypt">Egypt(EG)</string>
+    <string name="pref_country_eg_value" translatable="false">eg</string>
+
+    <string name="pref_country_label_france">France(FR)</string>
+    <string name="pref_country_fr_value" translatable="false">fr</string>
+
+    <string name="pref_country_label_germany">Germany(DE)</string>
+    <string name="pref_country_de_value" translatable="false">de</string>
+
+    <string name="pref_country_label_greece">Greece(GR)</string>
+    <string name="pref_country_gr_value" translatable="false">gr</string>
+
+    <string name="pref_country_label_india">India(IN)</string>
+    <string name="pref_country_in_value" translatable="false">in</string>
+
+    <string name="pref_country_label_ireland">Ireland(IE)</string>
+    <string name="pref_country_ie_value" translatable="false">ie</string>
+
+    <string name="pref_country_label_israel">Israel(IL)</string>
+    <string name="pref_country_il_value" translatable="false">il</string>
+
+    <string name="pref_country_label_italy">Italy(IT)</string>
+    <string name="pref_country_it_value" translatable="false">it</string>
+
+    <string name="pref_country_label_japan">Japan(JP)</string>
+    <string name="pref_country_jp_value" translatable="false">jp</string>
+
+    <string name="pref_country_label_latvia">Latvia(LT)</string>
+    <string name="pref_country_lt_value" translatable="false">lt</string>
+
+    <string name="pref_country_label_lithuania">Lithuania(LV)</string>
+    <string name="pref_country_lv_value" translatable="false">lv</string>
+
+    <string name="pref_country_label_mexico">Mexico(MX)</string>
+    <string name="pref_country_mx_value" translatable="false">mx</string>
+
+    <string name="pref_country_label_netherlands">Netherlands(NL)</string>
+    <string name="pref_country_nl_value" translatable="false">nl</string>
+
+    <string name="pref_country_label_norway">Norway(NO)</string>
+    <string name="pref_country_no_value" translatable="false">no</string>
+
+    <string name="pref_country_label_poland">Poland(PL)</string>
+    <string name="pref_country_pl_value" translatable="false">pl</string>
+
+    <string name="pref_country_label_romania">Romania(RO)</string>
+    <string name="pref_country_ro_value" translatable="false">ro</string>
+
+    <string name="pref_country_label_russia">Russia(RU)</string>
+    <string name="pref_country_ru_value" translatable="false">ru</string>
+
+    <string name="pref_country_label_saudi_arabia">Saudi Arabia(SA)</string>
+    <string name="pref_country_sa_value" translatable="false">sa</string>
+
+    <string name="pref_country_label_serbia">Serbia(RS)</string>
+    <string name="pref_country_rs_value" translatable="false">rs</string>
+
+    <string name="pref_country_label_slovakia">Slovakia(SK)</string>
+    <string name="pref_country_sk_value" translatable="false">sk</string>
+
+    <string name="pref_country_label_south_africa">South Africa(ZA)</string>
+    <string name="pref_country_za_value" translatable="false">za</string>
+
+    <string name="pref_country_label_sweden">Sweden(SE)</string>
+    <string name="pref_country_se_value" translatable="false">se</string>
+
+    <string name="pref_country_label_switzerland">Switzerland(CH)</string>
+    <string name="pref_country_ch_value" translatable="false">ch</string>
+
+    <string name="pref_country_label_turkey">Turkey(TR)</string>
+    <string name="pref_country_tr_value" translatable="false">tr</string>
+
+    <string name="pref_country_label_united_arab_emirates">United Arab Emirates(AE)</string>
+    <string name="pref_country_ae_value" translatable="false">ae</string>
+
+    <string name="pref_country_label_united_kingdom">United Kingdom(GB)</string>
+    <string name="pref_country_gb_value" translatable="false">gb</string>
+
+    <string name="pref_country_label_ukraine">Ukraine(UA)</string>
+    <string name="pref_country_ua_value" translatable="false">ua</string>
+
+    <string name="pref_country_label_usa">USA(US)</string>
+    <string name="pref_country_us_value" translatable="false">us</string>
+
     <string name="pref_top_headlines_country_key" translatable="false">country</string>
+
 
     <string name="pref_source_label">Source</string>
     <string name="pref_source_summary">News from the selected source will be displayed.</string>
@@ -52,17 +150,44 @@
     <string name="pref_language_label">Language</string>
     <string name="pref_language_summary">News sources from the selected language will be displayed.</string>
 
-    <string name="pref_language_label_german">German</string>
-    <string name="pref_language_german_value" translatable="false">de</string>
+    <string name="pref_language_label_arabic">Arabic</string>
+    <string name="pref_language_ar_value" translatable="false">ar</string>
 
-    <string name="pref_language_label_french">French</string>
-    <string name="pref_language_french_value" translatable="false">fr</string>
+    <string name="pref_language_label_chinese">Chinese</string>
+    <string name="pref_language_zh_value" translatable="false">zh</string>
 
     <string name="pref_language_label_english">English</string>
-    <string name="pref_language_english_value" translatable="false">en</string>
+    <string name="pref_language_en_value" translatable="false">en</string>
+
+    <string name="pref_language_label_french">French</string>
+    <string name="pref_language_fr_value" translatable="false">fr</string>
+
+    <string name="pref_language_label_german">German</string>
+    <string name="pref_language_de_value" translatable="false">de</string>
+
+    <string name="pref_language_label_hebrew">Hebrew</string>
+    <string name="pref_language_he_value" translatable="false">he</string>
 
     <string name="pref_language_label_italian">Italian</string>
-    <string name="pref_language_italian_value" translatable="false">it</string>
+    <string name="pref_language_it_value" translatable="false">it</string>
+
+    <string name="pref_language_label_norwegian">Norwegian</string>
+    <string name="pref_language_no_value" translatable="false">no</string>
+
+    <string name="pref_language_label_portuguese">Portuguese</string>
+    <string name="pref_language_pt_value" translatable="false">pt</string>
+
+    <string name="pref_language_label_russian">Russian</string>
+    <string name="pref_language_ru_value" translatable="false">ru</string>
+
+    <string name="pref_language_label_spanish">Spanish</string>
+    <string name="pref_language_es_value" translatable="false">es</string>
+
+    <string name="pref_language_label_swedish">Swedish</string>
+    <string name="pref_language_se_value" translatable="false">se</string>
+
+    <string name="pref_language_label_urdu">Urdu</string>
+    <string name="pref_language_ud_value" translatable="false">ud</string>
 
     <string name="pref_language_key" translatable="false">language</string>
 

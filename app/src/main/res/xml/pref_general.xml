@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory android:title="Preferences for Top Headline News" >
+    <PreferenceCategory android:title="@string/top_headlines_preference_title" >
 
     <ListPreference
         android:defaultValue="@string/pref_country_us_value"
@@ -21,10 +21,10 @@
 
 </PreferenceCategory>
 
-    <PreferenceCategory android:title="Preferences for Sources">
+    <PreferenceCategory android:title="@string/sources_preference_title">
 
         <ListPreference
-            android:defaultValue="@string/pref_language_english_value"
+            android:defaultValue="@string/pref_language_en_value"
             android:entries="@array/pref_language_option_labels"
             android:entryValues="@array/pref_language_option_values"
             android:key="@string/pref_language_key"

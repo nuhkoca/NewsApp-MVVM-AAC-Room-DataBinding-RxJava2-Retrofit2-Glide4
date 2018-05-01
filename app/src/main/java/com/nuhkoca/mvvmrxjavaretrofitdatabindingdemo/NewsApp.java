@@ -18,7 +18,7 @@ public class NewsApp extends Application {
 
     private static NewsApp newsApp;
 
-    public static NewsApp instance(){
+    public static NewsApp getInstance(){
         return newsApp;
     }
 

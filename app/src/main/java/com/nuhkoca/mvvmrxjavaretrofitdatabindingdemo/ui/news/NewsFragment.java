@@ -24,6 +24,7 @@ import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.repository.INewsAPI;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.databinding.FragmentNewsBinding;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.helper.Constants;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.helper.ObservableHelper;
+import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.util.ConnectionSniffer;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.util.RecyclerViewItemDivider;
 
 import java.util.List;
@@ -55,6 +56,9 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
         LayoutInflater layoutInflater = LayoutInflater.from(getContext());
 
         mFragmentNewsBinding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_news, container, false);
+
+        mNewsFragmentViewModel = ViewModelProviders
+                .of(this, new NewsFragmentViewModelFactory(ObservableHelper.getInstance())).get(NewsFragmentViewModel.class);
 
         return mFragmentNewsBinding.getRoot();
     }
@@ -94,14 +98,16 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        mNewsFragmentViewModel = ViewModelProviders
-                .of(Objects.requireNonNull(getActivity()), new NewsFragmentViewModelFactory(ObservableHelper.getInstance())).get(NewsFragmentViewModel.class);
+        setupUI();
+    }
 
+    public void setupUI() {
         int endpointVal = Objects.requireNonNull(getArguments()).getInt(Constants.ENDPOINT_ARGS_KEY);
+        showLoadingBar();
 
         switch (endpointVal) {
             case Constants.TOP_NEWS_ID:
-                mNewsFragmentViewModel.fetchTopHeadlines().observe(getActivity(), new Observer<ArticlesWrapper>() {
+                mNewsFragmentViewModel.fetchTopHeadlines().observe(this, new Observer<ArticlesWrapper>() {
                     @Override
                     public void onChanged(@Nullable ArticlesWrapper articlesWrapper) {
                         if (articlesWrapper != null) {
@@ -111,12 +117,11 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
                 });
 
                 loadTopHeadlineParametersFromPreferences(mSharedPreferences);
-                showLoading();
 
                 break;
 
             case Constants.EVERYTHING_ID:
-                mNewsFragmentViewModel.fetchEverything().observe(getActivity(), new Observer<ArticlesWrapper>() {
+                mNewsFragmentViewModel.fetchEverything().observe(this, new Observer<ArticlesWrapper>() {
                     @Override
                     public void onChanged(@Nullable ArticlesWrapper articlesWrapper) {
                         if (articlesWrapper != null) {
@@ -125,13 +130,12 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
                     }
                 });
 
-                mNewsFragmentViewModel.getEverything("apple");
-                showLoading();
+                mNewsFragmentViewModel.getEverything("bayern");
 
                 break;
 
             case Constants.SOURCES_ID:
-                mNewsFragmentViewModel.fetchSources().observe(getActivity(), new Observer<SourcesWrapper>() {
+                mNewsFragmentViewModel.fetchSources().observe(this, new Observer<SourcesWrapper>() {
                     @Override
                     public void onChanged(@Nullable SourcesWrapper sourcesWrapper) {
                         if (sourcesWrapper != null) {
@@ -141,26 +145,63 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
                 });
 
                 loadNewsSourceParametersFromPreferences(mSharedPreferences);
-                showLoading();
 
                 break;
 
             default:
                 break;
         }
+
+        boolean isConnectionAvailable = ConnectionSniffer.isActiveConnection();
+
+        if (!isConnectionAvailable) {
+            showError();
+        }
     }
 
-    private void loadTopHeadlineParametersFromPreferences(SharedPreferences sharedPreferences){
+    private void loadTopHeadlineParametersFromPreferences(SharedPreferences sharedPreferences) {
         mNewsFragmentViewModel.getTopHeadlines(
-                sharedPreferences.getString(getString(R.string.pref_top_headlines_country_key),getString(R.string.pref_country_us_value)),
+                sharedPreferences.getString(getString(R.string.pref_top_headlines_country_key), getString(R.string.pref_country_us_value)),
                 null, null, null);
     }
 
     private void loadNewsSourceParametersFromPreferences(SharedPreferences sharedPreferences) {
         mNewsFragmentViewModel.getSources(
                 sharedPreferences.getString(getString(R.string.pref_language_key),
-                        getString(R.string.pref_language_english_value)),
+                        getString(R.string.pref_language_en_value)),
                 null);
+    }
+
+    private void showLoadingBar() {
+        mNewsFragmentViewModel.mIsLoading.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(@Nullable Boolean isLoading) {
+                if (isLoading != null) {
+                    if (isLoading) {
+                        mFragmentNewsBinding.pbNews.setVisibility(View.VISIBLE);
+                    } else {
+                        mFragmentNewsBinding.pbNews.setVisibility(View.GONE);
+                    }
+                }
+            }
+        });
+    }
+
+    private void showError() {
+        mNewsFragmentViewModel.mIsErrorShown.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(@Nullable Boolean isEnabled) {
+                if (isEnabled != null) {
+                    if (isEnabled) {
+                        mFragmentNewsBinding.rvNews.setVisibility(View.GONE);
+                        mFragmentNewsBinding.ivNoConnection.setVisibility(View.VISIBLE);
+                    } else {
+                        mFragmentNewsBinding.rvNews.setVisibility(View.VISIBLE);
+                        mFragmentNewsBinding.ivNoConnection.setVisibility(View.GONE);
+                    }
+                }
+            }
+        });
     }
 
     @Override
@@ -168,22 +209,9 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
         if (key.equals(getString(R.string.pref_top_headlines_country_key))) {
             loadTopHeadlineParametersFromPreferences(sharedPreferences);
         }
-        if (key.equals(getString(R.string.pref_language_key))){
+        if (key.equals(getString(R.string.pref_language_key))) {
             loadNewsSourceParametersFromPreferences(sharedPreferences);
         }
-    }
-
-    private void showLoading(){
-        mNewsFragmentViewModel.isLoading.observe(getActivity(), new Observer<Boolean>() {
-            @Override
-            public void onChanged(@Nullable Boolean aBoolean) {
-                if (aBoolean){
-                    mFragmentNewsBinding.pbNews.setVisibility(View.VISIBLE);
-                }else {
-                    mFragmentNewsBinding.pbNews.setVisibility(View.GONE);
-                }
-            }
-        });
     }
 
     @Override
