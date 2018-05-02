@@ -23,6 +23,9 @@
     <string name="pref_country_label">Country</string>
     <string name="pref_country_summary">News from the selected country will be displayed.</string>
 
+    <string name="pref_country_label_all">All</string>
+    <string name="pref_country_all_value" translatable="false">all</string>
+
     <string name="pref_country_label_argentina">Argentina(AR)</string>
     <string name="pref_country_ar_value" translatable="false">ar</string>
 
@@ -185,6 +188,35 @@
     <string name="pref_top_headlines_country_key" translatable="false">country</string>
 
 
+
+    <!-- Category -->
+    <string name="pref_category_label">Category</string>
+
+    <string name="pref_category_label_all">All</string>
+    <string name="pref_category_all_value" translatable="false">all</string>
+
+    <string name="pref_category_business">Business</string>
+    <string name="pref_business_value" translatable="false">business</string>
+
+    <string name="pref_category_entertainment">Entertainment</string>
+    <string name="pref_entertainment_value" translatable="false">entertainment</string>
+
+    <string name="pref_category_general">General</string>
+    <string name="pref_general_value" translatable="false">general</string>
+
+    <string name="pref_category_health">Health</string>
+    <string name="pref_health_value" translatable="false">health</string>
+
+    <string name="pref_category_science">Science</string>
+    <string name="pref_science_value" translatable="false">science</string>
+
+    <string name="pref_category_sports">Sports</string>
+    <string name="pref_sports_value" translatable="false">sports</string>
+
+    <string name="pref_category_technology">Technology</string>
+    <string name="pref_technology_value" translatable="false">technology</string>
+
+    <string name="pref_category_key" translatable="false">category</string>
 
     <!-- Sources -->
     <string name="pref_source_label">Source</string>
@@ -366,7 +398,7 @@
 
     <string name="pref_source_country_key" translatable="false">source-country</string>
 
-    <string name="pref_category_label">Category</string>
+
     <string name="pref_query_label">Query</string>
 
 </resources>

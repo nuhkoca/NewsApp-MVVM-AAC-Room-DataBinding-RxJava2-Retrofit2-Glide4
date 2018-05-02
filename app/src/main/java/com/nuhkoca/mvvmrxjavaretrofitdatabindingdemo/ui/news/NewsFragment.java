@@ -162,9 +162,26 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
     }
 
     private void loadTopHeadlineParametersFromPreferences(SharedPreferences sharedPreferences) {
-        mNewsFragmentViewModel.getTopHeadlines(
-                sharedPreferences.getString(getString(R.string.pref_top_headlines_country_key), getString(R.string.pref_country_us_value)),
-                null, null, null);
+        boolean isCategoryNull = sharedPreferences.getString(getString(R.string.pref_category_key), getString(R.string.pref_category_all_value)).equals(getString(R.string.pref_category_all_value));
+
+        boolean isCountryNull = sharedPreferences.getString(getString(R.string.pref_top_headlines_country_key), getString(R.string.pref_country_us_value)).equals(getString(R.string.pref_country_all_value));
+
+        String country = sharedPreferences.getString(getString(R.string.pref_top_headlines_country_key), getString(R.string.pref_country_us_value));
+
+        String category = sharedPreferences.getString(getString(R.string.pref_category_key), getString(R.string.pref_category_all_value));
+
+        if (isCountryNull) {
+            mNewsFragmentViewModel.getTopHeadlines(null, null, category, null);
+        }
+
+        if (isCategoryNull) {
+            mNewsFragmentViewModel.getTopHeadlines(country, null, null, null);
+        }
+
+        if (!isCountryNull && !isCategoryNull) {
+            mNewsFragmentViewModel.getTopHeadlines(country,
+                    null, category, null);
+        }
     }
 
     private void loadNewsSourceParametersFromPreferences(SharedPreferences sharedPreferences) {
@@ -174,27 +191,27 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
         boolean isCountryNull = sharedPreferences.getString(getString(R.string.pref_source_country_key),
                 getString(R.string.pref_source_country_all_value)).equals(getString(R.string.pref_source_country_all_value));
 
+        String language = sharedPreferences.getString(getString(R.string.pref_language_key),
+                getString(R.string.pref_language_all_value));
+
+        String country = sharedPreferences.getString(getString(R.string.pref_source_country_key),
+                getString(R.string.pref_source_country_all_value));
+
         if (isLangNull) {
             mNewsFragmentViewModel.getSources(
                     null,
-                    sharedPreferences.getString(getString(R.string.pref_source_country_key),
-                            getString(R.string.pref_source_country_all_value)));
+                    country);
         }
         if (isCountryNull) {
             mNewsFragmentViewModel.getSources(
-                    sharedPreferences.getString(getString(R.string.pref_language_key),
-                            getString(R.string.pref_language_all_value)),
+                    language,
                     null);
         }
         if (isLangNull && isCountryNull) {
             mNewsFragmentViewModel.getSources(null, null);
         }
         if (!isLangNull && !isCountryNull) {
-            mNewsFragmentViewModel.getSources(
-                    sharedPreferences.getString(getString(R.string.pref_language_key),
-                            getString(R.string.pref_language_all_value)),
-                    sharedPreferences.getString(getString(R.string.pref_source_country_key),
-                            getString(R.string.pref_source_country_all_value)));
+            mNewsFragmentViewModel.getSources(language, country);
         }
     }
 
@@ -238,6 +255,9 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
         }
         if (key.equals(getString(R.string.pref_source_country_key))) {
             loadNewsSourceParametersFromPreferences(sharedPreferences);
+        }
+        if (key.equals(getString(R.string.pref_category_key))) {
+            loadTopHeadlineParametersFromPreferences(sharedPreferences);
         }
     }
 

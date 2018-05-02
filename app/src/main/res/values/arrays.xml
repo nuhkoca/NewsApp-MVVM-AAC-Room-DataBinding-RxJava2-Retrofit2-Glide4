@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="pref_country_option_labels">
+        <item>@string/pref_country_label_all</item>
         <item>@string/pref_country_label_argentina</item>
         <item>@string/pref_source_country_label_austria</item>
         <item>@string/pref_country_label_austria</item>
@@ -57,6 +58,7 @@
     </array>
 
     <array name="pref_country_option_values">
+        <item>@string/pref_category_all_value</item>
         <item>@string/pref_country_ar_value</item>
         <item>@string/pref_country_au_value</item>
         <item>@string/pref_country_at_value</item>
@@ -124,6 +126,28 @@
         <item>@string/pref_source_aljazeeraenglish_value</item>
         <item>@string/pref_source_associatedpress_value</item>
         <item>@string/pref_source_bbcnews_value</item>
+    </array>
+
+    <array name="pref_category_option_labels">
+        <item>@string/pref_category_label_all</item>
+        <item>@string/pref_category_business</item>
+        <item>@string/pref_category_entertainment</item>
+        <item>@string/pref_category_general</item>
+        <item>@string/pref_category_health</item>
+        <item>@string/pref_category_science</item>
+        <item>@string/pref_category_sports</item>
+        <item>@string/pref_category_technology</item>
+    </array>
+
+    <array name="pref_category_option_values">
+        <item>@string/pref_category_all_value</item>
+        <item>@string/pref_business_value</item>
+        <item>@string/pref_entertainment_value</item>
+        <item>@string/pref_general_value</item>
+        <item>@string/pref_health_value</item>
+        <item>@string/pref_science_value</item>
+        <item>@string/pref_sports_value</item>
+        <item>@string/pref_technology_value</item>
     </array>
 
     <array name="pref_language_option_labels">

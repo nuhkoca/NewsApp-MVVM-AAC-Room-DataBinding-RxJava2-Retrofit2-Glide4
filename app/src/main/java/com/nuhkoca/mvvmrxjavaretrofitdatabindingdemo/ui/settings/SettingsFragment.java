@@ -46,7 +46,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
     private void updateSummary(Preference p) {
         if (p instanceof ListPreference) {
             ListPreference listPref = (ListPreference) p;
-            p.setSummary(listPref.getValue());
+            p.setSummary(listPref.getEntry());
         }
     }
 
