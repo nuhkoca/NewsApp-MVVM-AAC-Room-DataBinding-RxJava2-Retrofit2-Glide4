@@ -3,23 +3,23 @@
 
     <PreferenceCategory android:title="@string/top_headlines_preference_title" >
 
-    <ListPreference
-        android:defaultValue="@string/pref_country_us_value"
-        android:entries="@array/pref_country_option_labels"
-        android:entryValues="@array/pref_country_option_values"
-        android:key="@string/pref_top_headlines_country_key"
-        android:title="@string/pref_country_label"
-        android:summary="@string/pref_country_summary"/>
+        <ListPreference
+            android:defaultValue="@string/pref_country_us_value"
+            android:entries="@array/pref_country_option_labels"
+            android:entryValues="@array/pref_country_option_values"
+            android:key="@string/pref_top_headlines_country_key"
+            android:title="@string/pref_country_label"
+            android:summary="@string/pref_country_summary"/>
 
-    <ListPreference
-        android:defaultValue="@string/pref_source_bbcnews_value"
-        android:entries="@array/pref_source_option_labels"
-        android:entryValues="@array/pref_source_option_values"
-        android:key="@string/pref_source_key"
-        android:title="@string/pref_source_label"
-        android:summary="@string/pref_source_summary"/>
+        <ListPreference
+            android:defaultValue="@string/pref_source_bbcnews_value"
+            android:entries="@array/pref_source_option_labels"
+            android:entryValues="@array/pref_source_option_values"
+            android:key="@string/pref_source_key"
+            android:title="@string/pref_source_label"
+            android:summary="@string/pref_source_summary"/>
 
-</PreferenceCategory>
+    </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/sources_preference_title">
 
@@ -28,8 +28,14 @@
             android:entries="@array/pref_language_option_labels"
             android:entryValues="@array/pref_language_option_values"
             android:key="@string/pref_language_key"
-            android:title="@string/pref_language_label"
-            android:summary="@string/pref_language_summary"/>
+            android:title="@string/pref_language_label" />
+
+        <ListPreference
+            android:defaultValue="@string/pref_source_country_us_value"
+            android:entries="@array/pref_source_country_option_labels"
+            android:entryValues="@array/pref_source_country_option_values"
+            android:key="@string/pref_source_country_key"
+            android:title="@string/pref_source_country_label" />
     </PreferenceCategory>
 
 </PreferenceScreen>

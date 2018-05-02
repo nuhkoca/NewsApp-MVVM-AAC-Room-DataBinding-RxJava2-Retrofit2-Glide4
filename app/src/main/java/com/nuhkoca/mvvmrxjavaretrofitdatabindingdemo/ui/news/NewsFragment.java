@@ -60,6 +60,7 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
         mNewsFragmentViewModel = ViewModelProviders
                 .of(this, new NewsFragmentViewModelFactory(ObservableHelper.getInstance())).get(NewsFragmentViewModel.class);
 
+
         return mFragmentNewsBinding.getRoot();
     }
 
@@ -104,6 +105,7 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
     public void setupUI() {
         int endpointVal = Objects.requireNonNull(getArguments()).getInt(Constants.ENDPOINT_ARGS_KEY);
         showLoadingBar();
+        showError();
 
         switch (endpointVal) {
             case Constants.TOP_NEWS_ID:
@@ -166,10 +168,34 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
     }
 
     private void loadNewsSourceParametersFromPreferences(SharedPreferences sharedPreferences) {
-        mNewsFragmentViewModel.getSources(
-                sharedPreferences.getString(getString(R.string.pref_language_key),
-                        getString(R.string.pref_language_en_value)),
-                null);
+        boolean isLangNull = sharedPreferences.getString(getString(R.string.pref_language_key),
+                getString(R.string.pref_language_all_value)).equals(getString(R.string.pref_language_all_value));
+
+        boolean isCountryNull = sharedPreferences.getString(getString(R.string.pref_source_country_key),
+                getString(R.string.pref_source_country_all_value)).equals(getString(R.string.pref_source_country_all_value));
+
+        if (isLangNull) {
+            mNewsFragmentViewModel.getSources(
+                    null,
+                    sharedPreferences.getString(getString(R.string.pref_source_country_key),
+                            getString(R.string.pref_source_country_all_value)));
+        }
+        if (isCountryNull) {
+            mNewsFragmentViewModel.getSources(
+                    sharedPreferences.getString(getString(R.string.pref_language_key),
+                            getString(R.string.pref_language_all_value)),
+                    null);
+        }
+        if (isLangNull && isCountryNull) {
+            mNewsFragmentViewModel.getSources(null, null);
+        }
+        if (!isLangNull && !isCountryNull) {
+            mNewsFragmentViewModel.getSources(
+                    sharedPreferences.getString(getString(R.string.pref_language_key),
+                            getString(R.string.pref_language_all_value)),
+                    sharedPreferences.getString(getString(R.string.pref_source_country_key),
+                            getString(R.string.pref_source_country_all_value)));
+        }
     }
 
     private void showLoadingBar() {
@@ -193,11 +219,9 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
             public void onChanged(@Nullable Boolean isEnabled) {
                 if (isEnabled != null) {
                     if (isEnabled) {
-                        mFragmentNewsBinding.rvNews.setVisibility(View.GONE);
-                        mFragmentNewsBinding.ivNoConnection.setVisibility(View.VISIBLE);
+                        mFragmentNewsBinding.tvErrorView.setVisibility(View.VISIBLE);
                     } else {
-                        mFragmentNewsBinding.rvNews.setVisibility(View.VISIBLE);
-                        mFragmentNewsBinding.ivNoConnection.setVisibility(View.GONE);
+                        mFragmentNewsBinding.tvErrorView.setVisibility(View.GONE);
                     }
                 }
             }
@@ -212,11 +236,14 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
         if (key.equals(getString(R.string.pref_language_key))) {
             loadNewsSourceParametersFromPreferences(sharedPreferences);
         }
+        if (key.equals(getString(R.string.pref_source_country_key))) {
+            loadNewsSourceParametersFromPreferences(sharedPreferences);
+        }
     }
 
     @Override
-    public void onDetach() {
-        super.onDetach();
+    public void onDestroy() {
+        super.onDestroy();
 
         mSharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
     }

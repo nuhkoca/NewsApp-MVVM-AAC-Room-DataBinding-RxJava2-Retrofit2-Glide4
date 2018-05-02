@@ -1,6 +1,5 @@
 package com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.ui.news;
 
-import android.accounts.NetworkErrorException;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.support.annotation.NonNull;
@@ -16,7 +15,6 @@ import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.helper.ObservableHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.HttpException;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -28,6 +26,7 @@ public class NewsFragmentViewModel extends ViewModel {
     private MutableLiveData<ArticlesWrapper> mTopHeadlines = new MutableLiveData<>();
     private MutableLiveData<ArticlesWrapper> mEverything = new MutableLiveData<>();
     private MutableLiveData<SourcesWrapper> mSources = new MutableLiveData<>();
+
     public MutableLiveData<Boolean> mIsLoading = new MutableLiveData<>();
     public MutableLiveData<Boolean> mIsErrorShown = new MutableLiveData<>();
 
@@ -62,35 +61,36 @@ public class NewsFragmentViewModel extends ViewModel {
 
                     @Override
                     public void onError(Throwable e) {
-                        if (e instanceof NullPointerException
-                                || e instanceof NetworkErrorException
-                                || e instanceof HttpException) {
-                            mIsErrorShown.setValue(true);
-                            mIsLoading.setValue(false);
-                        }
+                        mIsErrorShown.postValue(true);
+                        mIsLoading.setValue(false);
                     }
 
                     @Override
                     public void onNext(ArticlesWrapper articlesWrapper) {
-                        List<Articles> articlesList = new ArrayList<>();
-                        ArticlesWrapper wrapper = new ArticlesWrapper();
+                        if (articlesWrapper.getArticles().size() == 0) {
+                            mIsErrorShown.postValue(true);
+                            mIsLoading.setValue(false);
+                        } else {
+                            List<Articles> articlesList = new ArrayList<>();
+                            ArticlesWrapper wrapper = new ArticlesWrapper();
 
-                        for (int i = 0; i < articlesWrapper.getArticles().size(); i++) {
-                            if (TextUtils.isEmpty(articlesWrapper.getArticles().get(i).getDescription())
-                                    || TextUtils.isEmpty(articlesWrapper.getArticles().get(i).getUrlToImage())
-                                    || articlesWrapper.getArticles().get(i).getDescription() == null
-                                    || articlesWrapper.getArticles().get(i).getUrlToImage() == null) {
-                                Timber.d("Top headlines value is null, skipping...");
-                            } else {
-                                articlesList.add(articlesWrapper.getArticles().get(i));
+                            for (int i = 0; i < articlesWrapper.getArticles().size(); i++) {
+                                if (TextUtils.isEmpty(articlesWrapper.getArticles().get(i).getDescription())
+                                        || TextUtils.isEmpty(articlesWrapper.getArticles().get(i).getUrlToImage())
+                                        || articlesWrapper.getArticles().get(i).getDescription() == null
+                                        || articlesWrapper.getArticles().get(i).getUrlToImage() == null) {
+                                    Timber.d("Top headlines value is null, skipping...");
+                                } else {
+                                    articlesList.add(articlesWrapper.getArticles().get(i));
+                                }
                             }
+
+                            wrapper.setArticles(articlesList);
+
+                            mTopHeadlines.postValue(wrapper);
+                            mIsErrorShown.setValue(false);
+                            mIsLoading.setValue(false);
                         }
-
-                        wrapper.setArticles(articlesList);
-
-                        mTopHeadlines.setValue(wrapper);
-                        mIsErrorShown.setValue(false);
-                        mIsLoading.setValue(false);
                     }
                 });
     }
@@ -115,35 +115,36 @@ public class NewsFragmentViewModel extends ViewModel {
 
                     @Override
                     public void onError(Throwable e) {
-                        if (e instanceof NullPointerException
-                                || e instanceof NetworkErrorException
-                                || e instanceof HttpException) {
-                            mIsErrorShown.setValue(true);
-                            mIsLoading.setValue(false);
-                        }
+                        mIsErrorShown.postValue(true);
+                        mIsLoading.setValue(false);
                     }
 
                     @Override
                     public void onNext(ArticlesWrapper articlesWrapper) {
-                        List<Articles> articlesList = new ArrayList<>();
-                        ArticlesWrapper wrapper = new ArticlesWrapper();
+                        if (articlesWrapper.getArticles().size() == 0) {
+                            mIsErrorShown.postValue(true);
+                            mIsLoading.setValue(false);
+                        } else {
+                            List<Articles> articlesList = new ArrayList<>();
+                            ArticlesWrapper wrapper = new ArticlesWrapper();
 
-                        for (int i = 0; i < articlesWrapper.getArticles().size(); i++) {
-                            if (TextUtils.isEmpty(articlesWrapper.getArticles().get(i).getDescription())
-                                    || TextUtils.isEmpty(articlesWrapper.getArticles().get(i).getUrlToImage())
-                                    || articlesWrapper.getArticles().get(i).getDescription() == null
-                                    || articlesWrapper.getArticles().get(i).getUrlToImage() == null) {
-                                Timber.d("Everything value is null, skipping...");
-                            } else {
-                                articlesList.add(articlesWrapper.getArticles().get(i));
+                            for (int i = 0; i < articlesWrapper.getArticles().size(); i++) {
+                                if (TextUtils.isEmpty(articlesWrapper.getArticles().get(i).getDescription())
+                                        || TextUtils.isEmpty(articlesWrapper.getArticles().get(i).getUrlToImage())
+                                        || articlesWrapper.getArticles().get(i).getDescription() == null
+                                        || articlesWrapper.getArticles().get(i).getUrlToImage() == null) {
+                                    Timber.d("Everything value is null, skipping...");
+                                } else {
+                                    articlesList.add(articlesWrapper.getArticles().get(i));
+                                }
                             }
+
+                            wrapper.setArticles(articlesList);
+
+                            mEverything.setValue(wrapper);
+                            mIsErrorShown.postValue(false);
+                            mIsLoading.setValue(false);
                         }
-
-                        wrapper.setArticles(articlesList);
-
-                        mEverything.setValue(wrapper);
-                        mIsErrorShown.setValue(false);
-                        mIsLoading.setValue(false);
                     }
                 });
     }
@@ -169,32 +170,34 @@ public class NewsFragmentViewModel extends ViewModel {
 
                     @Override
                     public void onError(Throwable e) {
-                        if (e instanceof NullPointerException
-                                || e instanceof NetworkErrorException
-                                || e instanceof HttpException) {
-                            mIsErrorShown.setValue(true);
-                            mIsLoading.setValue(false);
-                        }
+                        mIsErrorShown.postValue(true);
+                        mIsLoading.setValue(false);
                     }
 
                     @Override
                     public void onNext(SourcesWrapper sourcesWrapper) {
-                        List<Sources> sourcesList = new ArrayList<>();
-                        SourcesWrapper wrapper = new SourcesWrapper();
+                        if (sourcesWrapper.getSources().size() == 0) {
+                            mIsErrorShown.postValue(true);
+                            mIsLoading.setValue(false);
+                        } else {
 
-                        for (int i = 0; i < sourcesWrapper.getSources().size(); i++) {
-                            if (TextUtils.isEmpty(sourcesWrapper.getSources().get(i).getDescription())) {
-                                Timber.d("Sources values is null, skipping...");
-                            } else {
-                                sourcesList.add(sourcesWrapper.getSources().get(i));
+                            List<Sources> sourcesList = new ArrayList<>();
+                            SourcesWrapper wrapper = new SourcesWrapper();
+
+                            for (int i = 0; i < sourcesWrapper.getSources().size(); i++) {
+                                if (TextUtils.isEmpty(sourcesWrapper.getSources().get(i).getDescription())) {
+                                    Timber.d("Sources values is null, skipping...");
+                                } else {
+                                    sourcesList.add(sourcesWrapper.getSources().get(i));
+                                }
                             }
+
+                            wrapper.setSources(sourcesList);
+
+                            mSources.setValue(wrapper);
+                            mIsErrorShown.postValue(false);
+                            mIsLoading.setValue(false);
                         }
-
-                        wrapper.setSources(sourcesList);
-
-                        mSources.setValue(wrapper);
-                        mIsErrorShown.setValue(false);
-                        mIsLoading.setValue(false);
                     }
                 });
     }

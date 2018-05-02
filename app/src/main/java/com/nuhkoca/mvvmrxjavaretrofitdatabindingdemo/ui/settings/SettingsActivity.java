@@ -19,7 +19,7 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         ActivitySettingsBinding activitySettingsBinding = DataBindingUtil.setContentView(this, R.layout.activity_settings);
         setSupportActionBar(Objects.requireNonNull(activitySettingsBinding.layoutToolbar).toolbar);
-        activitySettingsBinding.layoutToolbar.tvToolbarHeader.setText(getString(R.string.settings_header));
+        activitySettingsBinding.layoutToolbar.tvToolbarHeader.setText(getString(R.string.preferences_header));
 
         ActionBar actionBar = getSupportActionBar();
 

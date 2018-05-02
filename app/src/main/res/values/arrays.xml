@@ -2,78 +2,114 @@
 <resources>
     <array name="pref_country_option_labels">
         <item>@string/pref_country_label_argentina</item>
+        <item>@string/pref_source_country_label_austria</item>
         <item>@string/pref_country_label_austria</item>
         <item>@string/pref_country_label_belgium</item>
         <item>@string/pref_country_label_bulgaria</item>
         <item>@string/pref_country_label_brazil</item>
+        <item>@string/pref_country_label_canada</item>
         <item>@string/pref_country_label_china</item>
+        <item>@string/pref_country_label_colombia</item>
+        <item>@string/pref_country_label_cuba</item>
         <item>@string/pref_country_label_czech_republic</item>
         <item>@string/pref_country_label_egypt</item>
         <item>@string/pref_country_label_france</item>
         <item>@string/pref_country_label_germany</item>
         <item>@string/pref_country_label_greece</item>
+        <item>@string/pref_country_label_hong_kong</item>
+        <item>@string/pref_country_label_hungary</item>
         <item>@string/pref_country_label_india</item>
+        <item>@string/pref_country_label_indonesia</item>
         <item>@string/pref_country_label_ireland</item>
         <item>@string/pref_country_label_israel</item>
         <item>@string/pref_country_label_italy</item>
         <item>@string/pref_country_label_japan</item>
         <item>@string/pref_country_label_latvia</item>
         <item>@string/pref_country_label_lithuania</item>
+        <item>@string/pref_country_label_malaysia</item>
         <item>@string/pref_country_label_mexico</item>
+        <item>@string/pref_country_label_morocco</item>
         <item>@string/pref_country_label_netherlands</item>
+        <item>@string/pref_country_label_new_zealand</item>
+        <item>@string/pref_country_label_nigeria</item>
         <item>@string/pref_country_label_norway</item>
+        <item>@string/pref_country_label_philippines</item>
         <item>@string/pref_country_label_poland</item>
         <item>@string/pref_country_label_romania</item>
         <item>@string/pref_country_label_russia</item>
         <item>@string/pref_country_label_saudi_arabia</item>
         <item>@string/pref_country_label_serbia</item>
+        <item>@string/pref_country_label_singapore</item>
         <item>@string/pref_country_label_slovakia</item>
+        <item>@string/pref_country_label_slovenia</item>
         <item>@string/pref_country_label_south_africa</item>
+        <item>@string/pref_country_label_south_korea</item>
         <item>@string/pref_country_label_sweden</item>
         <item>@string/pref_country_label_switzerland</item>
+        <item>@string/pref_country_label_taiwan</item>
+        <item>@string/pref_country_label_thailand</item>
         <item>@string/pref_country_label_turkey</item>
         <item>@string/pref_country_label_united_arab_emirates</item>
         <item>@string/pref_country_label_united_kingdom</item>
         <item>@string/pref_country_label_ukraine</item>
         <item>@string/pref_country_label_usa</item>
+        <item>@string/pref_country_label_venezuela</item>
     </array>
 
     <array name="pref_country_option_values">
         <item>@string/pref_country_ar_value</item>
+        <item>@string/pref_country_au_value</item>
         <item>@string/pref_country_at_value</item>
         <item>@string/pref_country_be_value</item>
         <item>@string/pref_country_bg_value</item>
         <item>@string/pref_country_br_value</item>
+        <item>@string/pref_country_ca_value</item>
         <item>@string/pref_country_cn_value</item>
+        <item>@string/pref_country_co_value</item>
+        <item>@string/pref_country_cu_value</item>
         <item>@string/pref_country_cz_value</item>
         <item>@string/pref_country_eg_value</item>
         <item>@string/pref_country_fr_value</item>
         <item>@string/pref_country_de_value</item>
         <item>@string/pref_country_gr_value</item>
+        <item>@string/pref_country_hk_value</item>
+        <item>@string/pref_country_hu_value</item>
         <item>@string/pref_country_in_value</item>
+        <item>@string/pref_country_id_value</item>
         <item>@string/pref_country_ie_value</item>
         <item>@string/pref_country_il_value</item>
         <item>@string/pref_country_it_value</item>
         <item>@string/pref_country_jp_value</item>
         <item>@string/pref_country_lv_value</item>
         <item>@string/pref_country_lt_value</item>
+        <item>@string/pref_country_my_value</item>
         <item>@string/pref_country_mx_value</item>
+        <item>@string/pref_country_ma_value</item>
         <item>@string/pref_country_nl_value</item>
+        <item>@string/pref_country_nz_value</item>
+        <item>@string/pref_country_ng_value</item>
         <item>@string/pref_country_no_value</item>
+        <item>@string/pref_country_ph_value</item>
         <item>@string/pref_country_pl_value</item>
         <item>@string/pref_country_ro_value</item>
         <item>@string/pref_country_ru_value</item>
         <item>@string/pref_country_sa_value</item>
         <item>@string/pref_country_rs_value</item>
+        <item>@string/pref_country_sg_value</item>
         <item>@string/pref_country_sk_value</item>
+        <item>@string/pref_country_si_value</item>
         <item>@string/pref_country_za_value</item>
+        <item>@string/pref_country_kr_value</item>
         <item>@string/pref_country_se_value</item>
         <item>@string/pref_country_ch_value</item>
+        <item>@string/pref_country_tw_value</item>
+        <item>@string/pref_country_th_value</item>
         <item>@string/pref_country_tr_value</item>
         <item>@string/pref_country_ae_value</item>
         <item>@string/pref_country_gb_value</item>
         <item>@string/pref_country_ua_value</item>
         <item>@string/pref_country_us_value</item>
+        <item>@string/pref_country_ve_value</item>
     </array>
 
     <array name="pref_source_option_labels">
@@ -91,6 +127,7 @@
     </array>
 
     <array name="pref_language_option_labels">
+        <item>@string/pref_language_label_all</item>
         <item>@string/pref_language_label_arabic</item>
         <item>@string/pref_language_label_chinese</item>
         <item>@string/pref_language_label_english</item>
@@ -107,6 +144,7 @@
     </array>
 
     <array name="pref_language_option_values">
+        <item>@string/pref_language_all_value</item>
         <item>@string/pref_language_ar_value</item>
         <item>@string/pref_language_zh_value</item>
         <item>@string/pref_language_en_value</item>
@@ -120,6 +158,82 @@
         <item>@string/pref_language_es_value</item>
         <item>@string/pref_language_se_value</item>
         <item>@string/pref_language_ud_value</item>
+    </array>
+
+    <array name="pref_source_country_option_labels">
+        <item>@string/pref_source_country_label_all</item>
+        <item>@string/pref_source_country_label_argentina</item>
+        <item>@string/pref_source_country_label_austria</item>
+        <item>@string/pref_source_country_label_belgium</item>
+        <item>@string/pref_source_country_label_bulgaria</item>
+        <item>@string/pref_source_country_label_brazil</item>
+        <item>@string/pref_source_country_label_china</item>
+        <item>@string/pref_source_country_label_czech_republic</item>
+        <item>@string/pref_source_country_label_egypt</item>
+        <item>@string/pref_source_country_label_france</item>
+        <item>@string/pref_source_country_label_germany</item>
+        <item>@string/pref_source_country_label_greece</item>
+        <item>@string/pref_source_country_label_india</item>
+        <item>@string/pref_source_country_label_ireland</item>
+        <item>@string/pref_source_country_label_israel</item>
+        <item>@string/pref_source_country_label_italy</item>
+        <item>@string/pref_source_country_label_japan</item>
+        <item>@string/pref_source_country_label_latvia</item>
+        <item>@string/pref_source_country_label_lithuania</item>
+        <item>@string/pref_source_country_label_mexico</item>
+        <item>@string/pref_source_country_label_netherlands</item>
+        <item>@string/pref_source_country_label_norway</item>
+        <item>@string/pref_source_country_label_poland</item>
+        <item>@string/pref_source_country_label_romania</item>
+        <item>@string/pref_source_country_label_russia</item>
+        <item>@string/pref_source_country_label_saudi_arabia</item>
+        <item>@string/pref_source_country_label_serbia</item>
+        <item>@string/pref_source_country_label_slovakia</item>
+        <item>@string/pref_source_country_label_south_africa</item>
+        <item>@string/pref_source_country_label_sweden</item>
+        <item>@string/pref_source_country_label_switzerland</item>
+        <item>@string/pref_source_country_label_united_arab_emirates</item>
+        <item>@string/pref_source_country_label_united_kingdom</item>
+        <item>@string/pref_source_country_label_ukraine</item>
+        <item>@string/pref_source_country_label_usa</item>
+    </array>
+
+    <array name="pref_source_country_option_values">
+        <item>@string/pref_source_country_all_value</item>
+        <item>@string/pref_source_country_ar_value</item>
+        <item>@string/pref_source_country_at_value</item>
+        <item>@string/pref_source_country_be_value</item>
+        <item>@string/pref_source_country_bg_value</item>
+        <item>@string/pref_source_country_br_value</item>
+        <item>@string/pref_source_country_cn_value</item>
+        <item>@string/pref_source_country_cz_value</item>
+        <item>@string/pref_source_country_eg_value</item>
+        <item>@string/pref_source_country_fr_value</item>
+        <item>@string/pref_source_country_de_value</item>
+        <item>@string/pref_source_country_gr_value</item>
+        <item>@string/pref_source_country_in_value</item>
+        <item>@string/pref_source_country_ie_value</item>
+        <item>@string/pref_source_country_il_value</item>
+        <item>@string/pref_source_country_it_value</item>
+        <item>@string/pref_source_country_jp_value</item>
+        <item>@string/pref_source_country_lv_value</item>
+        <item>@string/pref_source_country_lt_value</item>
+        <item>@string/pref_source_country_mx_value</item>
+        <item>@string/pref_source_country_nl_value</item>
+        <item>@string/pref_source_country_no_value</item>
+        <item>@string/pref_source_country_pl_value</item>
+        <item>@string/pref_source_country_ro_value</item>
+        <item>@string/pref_source_country_ru_value</item>
+        <item>@string/pref_source_country_sa_value</item>
+        <item>@string/pref_source_country_rs_value</item>
+        <item>@string/pref_source_country_sk_value</item>
+        <item>@string/pref_source_country_za_value</item>
+        <item>@string/pref_source_country_se_value</item>
+        <item>@string/pref_source_country_ch_value</item>
+        <item>@string/pref_source_country_ae_value</item>
+        <item>@string/pref_source_country_gb_value</item>
+        <item>@string/pref_source_country_ua_value</item>
+        <item>@string/pref_source_country_us_value</item>
     </array>
 
 </resources>

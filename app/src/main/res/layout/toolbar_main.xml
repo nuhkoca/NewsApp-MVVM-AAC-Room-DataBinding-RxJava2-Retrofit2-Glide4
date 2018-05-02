@@ -21,7 +21,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     android:background="@color/colorPrimary"
-                    app:layout_scrollFlags="scroll|enterAlways">
+                    app:layout_collapseMode="pin">
 
                     <TextView
                         android:id="@+id/tvToolbarHeader"

@@ -1,7 +1,6 @@
 package com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.ui.main;
 
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,7 +9,6 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -22,9 +20,10 @@ import com.ToxicBakery.viewpager.transforms.DepthPageTransformer;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.R;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.databinding.ActivityNewsBinding;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.helper.Constants;
-import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.helper.InternetSnifferService;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.ui.news.NewsFragment;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.ui.settings.SettingsActivity;
+
+import java.util.Objects;
 
 import static com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.repository.INewsAPI.Endpoints.EVERYTHING;
 import static com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.repository.INewsAPI.Endpoints.SOURCES;
@@ -40,10 +39,7 @@ public class NewsActivity extends AppCompatActivity implements BottomNavigationV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivityNewsBinding = DataBindingUtil.setContentView(this, R.layout.activity_news);
-        setSupportActionBar(mActivityNewsBinding.layoutToolbar.toolbar);
-
-        LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(new InternetSnifferService(),
-                new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE"));
+        setSupportActionBar(Objects.requireNonNull(mActivityNewsBinding.layoutToolbar).toolbar);
 
         setupViewPager();
     }
@@ -150,8 +146,6 @@ public class NewsActivity extends AppCompatActivity implements BottomNavigationV
     @Override
     protected void onStop() {
         super.onStop();
-
-        LocalBroadcastManager.getInstance(getApplicationContext()).unregisterReceiver(new InternetSnifferService());
     }
 
     private class ViewPagerInflater extends FragmentStatePagerAdapter {
