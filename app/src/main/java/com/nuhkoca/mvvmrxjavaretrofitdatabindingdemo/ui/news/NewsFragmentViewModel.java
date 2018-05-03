@@ -20,7 +20,6 @@ import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
-import timber.log.Timber;
 
 public class NewsFragmentViewModel extends ViewModel {
     private MutableLiveData<ArticlesWrapper> mTopHeadlines = new MutableLiveData<>();
@@ -61,33 +60,31 @@ public class NewsFragmentViewModel extends ViewModel {
 
                     @Override
                     public void onError(Throwable e) {
-                        mIsErrorShown.postValue(true);
+                        mIsErrorShown.setValue(true);
                         mIsLoading.setValue(false);
                     }
 
                     @Override
                     public void onNext(ArticlesWrapper articlesWrapper) {
                         if (articlesWrapper.getArticles().size() == 0) {
-                            mIsErrorShown.postValue(true);
+                            mIsErrorShown.setValue(true);
                             mIsLoading.setValue(false);
                         } else {
                             List<Articles> articlesList = new ArrayList<>();
                             ArticlesWrapper wrapper = new ArticlesWrapper();
 
                             for (int i = 0; i < articlesWrapper.getArticles().size(); i++) {
-                                if (TextUtils.isEmpty(articlesWrapper.getArticles().get(i).getDescription())
-                                        || TextUtils.isEmpty(articlesWrapper.getArticles().get(i).getUrlToImage())
-                                        || articlesWrapper.getArticles().get(i).getDescription() == null
-                                        || articlesWrapper.getArticles().get(i).getUrlToImage() == null) {
-                                    Timber.d("Top headlines value is null, skipping...");
-                                } else {
+                                if (!TextUtils.isEmpty(articlesWrapper.getArticles().get(i).getDescription())
+                                        || !TextUtils.isEmpty(articlesWrapper.getArticles().get(i).getUrlToImage())
+                                        || articlesWrapper.getArticles().get(i).getDescription() != null
+                                        || articlesWrapper.getArticles().get(i).getUrlToImage() != null) {
                                     articlesList.add(articlesWrapper.getArticles().get(i));
                                 }
                             }
 
                             wrapper.setArticles(articlesList);
 
-                            mTopHeadlines.postValue(wrapper);
+                            mTopHeadlines.setValue(wrapper);
                             mIsErrorShown.setValue(false);
                             mIsLoading.setValue(false);
                         }
@@ -115,26 +112,24 @@ public class NewsFragmentViewModel extends ViewModel {
 
                     @Override
                     public void onError(Throwable e) {
-                        mIsErrorShown.postValue(true);
+                        mIsErrorShown.setValue(true);
                         mIsLoading.setValue(false);
                     }
 
                     @Override
                     public void onNext(ArticlesWrapper articlesWrapper) {
                         if (articlesWrapper.getArticles().size() == 0) {
-                            mIsErrorShown.postValue(true);
+                            mIsErrorShown.setValue(true);
                             mIsLoading.setValue(false);
                         } else {
                             List<Articles> articlesList = new ArrayList<>();
                             ArticlesWrapper wrapper = new ArticlesWrapper();
 
                             for (int i = 0; i < articlesWrapper.getArticles().size(); i++) {
-                                if (TextUtils.isEmpty(articlesWrapper.getArticles().get(i).getDescription())
-                                        || TextUtils.isEmpty(articlesWrapper.getArticles().get(i).getUrlToImage())
-                                        || articlesWrapper.getArticles().get(i).getDescription() == null
-                                        || articlesWrapper.getArticles().get(i).getUrlToImage() == null) {
-                                    Timber.d("Everything value is null, skipping...");
-                                } else {
+                                if (!TextUtils.isEmpty(articlesWrapper.getArticles().get(i).getDescription())
+                                        || !TextUtils.isEmpty(articlesWrapper.getArticles().get(i).getUrlToImage())
+                                        || articlesWrapper.getArticles().get(i).getDescription() != null
+                                        || articlesWrapper.getArticles().get(i).getUrlToImage() != null) {
                                     articlesList.add(articlesWrapper.getArticles().get(i));
                                 }
                             }
@@ -142,7 +137,7 @@ public class NewsFragmentViewModel extends ViewModel {
                             wrapper.setArticles(articlesList);
 
                             mEverything.setValue(wrapper);
-                            mIsErrorShown.postValue(false);
+                            mIsErrorShown.setValue(false);
                             mIsLoading.setValue(false);
                         }
                     }
@@ -150,8 +145,9 @@ public class NewsFragmentViewModel extends ViewModel {
     }
 
     public void getSources(@Nullable String language,
-                           @Nullable String countryCode) {
-        Observable<SourcesWrapper> getSources = observableHelper.getSources(language, countryCode);
+                           @Nullable String countryCode,
+                           @Nullable String category) {
+        Observable<SourcesWrapper> getSources = observableHelper.getSources(language, countryCode, category);
 
         getSources.subscribeOn(Schedulers.io())
                 .retry(3)
@@ -170,14 +166,14 @@ public class NewsFragmentViewModel extends ViewModel {
 
                     @Override
                     public void onError(Throwable e) {
-                        mIsErrorShown.postValue(true);
+                        mIsErrorShown.setValue(true);
                         mIsLoading.setValue(false);
                     }
 
                     @Override
                     public void onNext(SourcesWrapper sourcesWrapper) {
                         if (sourcesWrapper.getSources().size() == 0) {
-                            mIsErrorShown.postValue(true);
+                            mIsErrorShown.setValue(true);
                             mIsLoading.setValue(false);
                         } else {
 
@@ -185,9 +181,7 @@ public class NewsFragmentViewModel extends ViewModel {
                             SourcesWrapper wrapper = new SourcesWrapper();
 
                             for (int i = 0; i < sourcesWrapper.getSources().size(); i++) {
-                                if (TextUtils.isEmpty(sourcesWrapper.getSources().get(i).getDescription())) {
-                                    Timber.d("Sources values is null, skipping...");
-                                } else {
+                                if (!TextUtils.isEmpty(sourcesWrapper.getSources().get(i).getDescription())) {
                                     sourcesList.add(sourcesWrapper.getSources().get(i));
                                 }
                             }
@@ -195,7 +189,7 @@ public class NewsFragmentViewModel extends ViewModel {
                             wrapper.setSources(sourcesList);
 
                             mSources.setValue(wrapper);
-                            mIsErrorShown.postValue(false);
+                            mIsErrorShown.setValue(false);
                             mIsLoading.setValue(false);
                         }
                     }

@@ -39,7 +39,7 @@ public class ObservableHelper {
         return iNewsAPI.fetchEverything(query, BuildConfig.API_KEY);
     }
 
-    public Observable<SourcesWrapper> getSources(@Nullable String language, @Nullable String country) {
-        return iNewsAPI.fetchSources(language, country, BuildConfig.API_KEY);
+    public Observable<SourcesWrapper> getSources(@Nullable String language, @Nullable String country, @Nullable String category) {
+        return iNewsAPI.fetchSources(language, country, category, BuildConfig.API_KEY);
     }
 }

@@ -31,7 +31,7 @@ public interface INewsAPI {
 
     @GET("/v2/top-headlines")
     Observable<ArticlesWrapper> fetchTopHeadlines(@Query("country") @Nullable String country,
-                                                  @Query("source") @Nullable String sources,
+                                                  @Query("sources") @Nullable String sources,
                                                   @Query("category") @Nullable String category,
                                                   @Query("q") @Nullable String query,
                                                   @Query("apiKey") @NonNull String apiKey);
@@ -43,5 +43,6 @@ public interface INewsAPI {
     @GET("/v2/sources")
     Observable<SourcesWrapper> fetchSources(@Query("language") @Nullable  String language,
                                             @Query("country") @Nullable  String country,
+                                            @Query("category") @Nullable  String category,
                                             @Query("apiKey") @NonNull String apiKey);
 }

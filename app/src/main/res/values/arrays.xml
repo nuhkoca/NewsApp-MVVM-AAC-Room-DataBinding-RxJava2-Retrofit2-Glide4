@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Top Headlines -->
     <array name="pref_country_option_labels">
         <item>@string/pref_country_label_all</item>
         <item>@string/pref_country_label_argentina</item>
@@ -56,9 +57,8 @@
         <item>@string/pref_country_label_usa</item>
         <item>@string/pref_country_label_venezuela</item>
     </array>
-
     <array name="pref_country_option_values">
-        <item>@string/pref_category_all_value</item>
+        <item></item>
         <item>@string/pref_country_ar_value</item>
         <item>@string/pref_country_au_value</item>
         <item>@string/pref_country_at_value</item>
@@ -114,20 +114,6 @@
         <item>@string/pref_country_ve_value</item>
     </array>
 
-    <array name="pref_source_option_labels">
-        <item>@string/pref_source_label_aftenposten</item>
-        <item>@string/pref_source_label_aljazeera</item>
-        <item>@string/pref_source_label_associatedpress</item>
-        <item>@string/pref_source_label_bbcnews</item>
-    </array>
-
-    <array name="pref_source_option_values">
-        <item>@string/pref_source_aftenposten_value</item>
-        <item>@string/pref_source_aljazeeraenglish_value</item>
-        <item>@string/pref_source_associatedpress_value</item>
-        <item>@string/pref_source_bbcnews_value</item>
-    </array>
-
     <array name="pref_category_option_labels">
         <item>@string/pref_category_label_all</item>
         <item>@string/pref_category_business</item>
@@ -138,9 +124,8 @@
         <item>@string/pref_category_sports</item>
         <item>@string/pref_category_technology</item>
     </array>
-
     <array name="pref_category_option_values">
-        <item>@string/pref_category_all_value</item>
+        <item></item>
         <item>@string/pref_business_value</item>
         <item>@string/pref_entertainment_value</item>
         <item>@string/pref_general_value</item>
@@ -150,6 +135,195 @@
         <item>@string/pref_technology_value</item>
     </array>
 
+    <array name="pref_sources_option_labels">
+        <item>@string/pref_sources_label_all</item>
+        <item>@string/pref_sources_label_abc_news</item>
+        <item>@string/pref_sources_label_abc_news_au</item>
+        <item>@string/pref_sources_label_al_jazeera_english</item>
+        <item>@string/pref_sources_label_ars_technica</item>
+        <item>@string/pref_sources_label_associated_press</item>
+        <item>@string/pref_sources_label_australian_financial_review</item>
+        <item>@string/pref_sources_label_axios</item>
+        <item>@string/pref_sources_label_bbc_news</item>
+        <item>@string/pref_sources_label_bbc_sport</item>
+        <item>@string/pref_sources_label_bleacher_report</item>
+        <item>@string/pref_sources_label_bloomberg</item>
+        <item>@string/pref_sources_label_breitbart_news</item>
+        <item>@string/pref_sources_label_business_insider</item>
+        <item>@string/pref_sources_label_business_insider_uk</item>
+        <item>@string/pref_sources_label_buzz_feed</item>
+        <item>@string/pref_sources_label_cbc_news_ca</item>
+        <item>@string/pref_sources_label_cbc_news</item>
+        <item>@string/pref_sources_label_cnbc</item>
+        <item>@string/pref_sources_label_cnn</item>
+        <item>@string/pref_sources_label_crypto_coins_news</item>
+        <item>@string/pref_sources_label_daily_mail</item>
+        <item>@string/pref_sources_label_engadget</item>
+        <item>@string/pref_sources_label_entertainment_weekly</item>
+        <item>@string/pref_sources_label_espn</item>
+        <item>@string/pref_sources_label_espn_cric_info</item>
+        <item>@string/pref_sources_label_financial_post</item>
+        <item>@string/pref_sources_label_financial_times</item>
+        <item>@string/pref_sources_label_football_italia</item>
+        <item>@string/pref_sources_label_fortune</item>
+        <item>@string/pref_sources_label_four_four_two</item>
+        <item>@string/pref_sources_label_fox_news</item>
+        <item>@string/pref_sources_label_fox_sports</item>
+        <item>@string/pref_sources_label_google_news</item>
+        <item>@string/pref_sources_label_google_news_au</item>
+        <item>@string/pref_sources_label_google_news_ca</item>
+        <item>@string/pref_sources_label_google_news_in</item>
+        <item>@string/pref_sources_label_google_news_uk</item>
+        <item>@string/pref_sources_label_hacker_news</item>
+        <item>@string/pref_sources_label_ign</item>
+        <item>@string/pref_sources_label_independent</item>
+        <item>@string/pref_sources_label_mashable</item>
+        <item>@string/pref_sources_label_medical_news_today</item>
+        <item>@string/pref_sources_label_metro</item>
+        <item>@string/pref_sources_label_mirror</item>
+        <item>@string/pref_sources_label_msnbc</item>
+        <item>@string/pref_sources_label_mtv_news</item>
+        <item>@string/pref_sources_label_mtv_news_uk</item>
+        <item>@string/pref_sources_label_national_geopraphic</item>
+        <item>@string/pref_sources_label_national_review</item>
+        <item>@string/pref_sources_label_nbc_news</item>
+        <item>@string/pref_sources_label_news24</item>
+        <item>@string/pref_sources_label_new_scientist</item>
+        <item>@string/pref_sources_label_news_com_au</item>
+        <item>@string/pref_sources_label_newsweek</item>
+        <item>@string/pref_sources_label_new_york_magazine</item>
+        <item>@string/pref_sources_label_next_big_future</item>
+        <item>@string/pref_sources_label_nfl_news</item>
+        <item>@string/pref_sources_label_nhl_news</item>
+        <item>@string/pref_sources_label_politico</item>
+        <item>@string/pref_sources_label_polygon</item>
+        <item>@string/pref_sources_label_recode</item>
+        <item>@string/pref_sources_label_reddit</item>
+        <item>@string/pref_sources_label_reuters</item>
+        <item>@string/pref_sources_label_rte</item>
+        <item>@string/pref_sources_label_talksport</item>
+        <item>@string/pref_sources_label_techcrunch</item>
+        <item>@string/pref_sources_label_techradar</item>
+        <item>@string/pref_sources_label_the_american_conservative</item>
+        <item>@string/pref_sources_label_the_economist</item>
+        <item>@string/pref_sources_label_the_globe_and_mail</item>
+        <item>@string/pref_sources_label_the_guardian_au</item>
+        <item>@string/pref_sources_label_the_guardian</item>
+        <item>@string/pref_sources_label_the_hills</item>
+        <item>@string/pref_sources_label_the_hindu</item>
+        <item>@string/pref_sources_label_the_huffington_post</item>
+        <item>@string/pref_sources_label_the_irish_times</item>
+        <item>@string/pref_sources_label_the_lad_bible</item>
+        <item>@string/pref_sources_label_the_new_york_times</item>
+        <item>@string/pref_sources_label_the_next_week</item>
+        <item>@string/pref_sources_label_the_sport_bible</item>
+        <item>@string/pref_sources_label_the_telegraph</item>
+        <item>@string/pref_sources_label_the_times_of_india</item>
+        <item>@string/pref_sources_label_the_verge</item>
+        <item>@string/pref_sources_label_the_wall_street_journal</item>
+        <item>@string/pref_sources_label_the_washington_post</item>
+        <item>@string/pref_sources_label_the_washington_times</item>
+        <item>@string/pref_sources_label_time</item>
+        <item>@string/pref_sources_label_usa_today</item>
+        <item>@string/pref_sources_label_vice_news</item>
+        <item>@string/pref_sources_label_wired</item>
+    </array>
+    <array name="pref_sources_option_values">
+        <item></item>
+        <item>@string/pref_sources_abc_news_value</item>
+        <item>@string/pref_sources_abc_news_au_value</item>
+        <item>@string/pref_sources_al_jazeera_english_value</item>
+        <item>@string/pref_sources_ars_technica_value</item>
+        <item>@string/pref_sources_associated_press_value</item>
+        <item>@string/pref_sources_australian_financial_review_value</item>
+        <item>@string/pref_sources_axios_value</item>
+        <item>@string/pref_sources_bbc_news_value</item>
+        <item>@string/pref_sources_bbc_sport_value</item>
+        <item>@string/pref_sources_bleacher_report_value</item>
+        <item>@string/pref_sources_bloomberg_value</item>
+        <item>@string/pref_sources_breitbart_news_value</item>
+        <item>@string/pref_sources_business_insider_value</item>
+        <item>@string/pref_sources_business_insider_uk_value</item>
+        <item>@string/pref_sources_buzz_feed_value</item>
+        <item>@string/pref_sources_cbc_news_ca_value</item>
+        <item>@string/pref_sources_cbc_news_value</item>
+        <item>@string/pref_sources_cnbc_value</item>
+        <item>@string/pref_sources_cnn_value</item>
+        <item>@string/pref_sources_crypto_coins_news_value</item>
+        <item>@string/pref_sources_daily_mail_value</item>
+        <item>@string/pref_sources_engadget_value</item>
+        <item>@string/pref_sources_entertainment_weekly_value</item>
+        <item>@string/pref_sources_espn_value</item>
+        <item>@string/pref_sources_espn_cric_info_value</item>
+        <item>@string/pref_sources_financial_post_value</item>
+        <item>@string/pref_sources_financial_times_value</item>
+        <item>@string/pref_sources_football_italia_value</item>
+        <item>@string/pref_sources_fortune_value</item>
+        <item>@string/pref_sources_four_four_two_value</item>
+        <item>@string/pref_sources_fox_news_value</item>
+        <item>@string/pref_sources_fox_sports_value</item>
+        <item>@string/pref_sources_google_news_value</item>
+        <item>@string/pref_sources_google_news_au_value</item>
+        <item>@string/pref_sources_google_news_ca_value</item>
+        <item>@string/pref_sources_google_news_in_value</item>
+        <item>@string/pref_sources_google_news_uk_value</item>
+        <item>@string/pref_sources_hacker_news_value</item>
+        <item>@string/pref_sources_ign_value</item>
+        <item>@string/pref_sources_independent_value</item>
+        <item>@string/pref_sources_mashable_value</item>
+        <item>@string/pref_sources_medical_news_today_value</item>
+        <item>@string/pref_sources_metro_value</item>
+        <item>@string/pref_sources_mirror_value</item>
+        <item>@string/pref_sources_msnbc_value</item>
+        <item>@string/pref_sources_mtv_news_value</item>
+        <item>@string/pref_sources_mtv_news_uk_value</item>
+        <item>@string/pref_sources_national_geopraphic_value</item>
+        <item>@string/pref_sources_national_review_value</item>
+        <item>@string/pref_sources_nbc_news_value</item>
+        <item>@string/pref_sources_news24_value</item>
+        <item>@string/pref_sources_new_scientist_value</item>
+        <item>@string/pref_sources_news_com_au_value</item>
+        <item>@string/pref_sources_newsweek_value</item>
+        <item>@string/pref_sources_new_york_magazine_value</item>
+        <item>@string/pref_sources_next_big_future_value</item>
+        <item>@string/pref_sources_nfl_news_value</item>
+        <item>@string/pref_sources_nhl_news_value</item>
+        <item>@string/pref_sources_politico_value</item>
+        <item>@string/pref_sources_polygon_value</item>
+        <item>@string/pref_sources_recode_value</item>
+        <item>@string/pref_sources_reddit_value</item>
+        <item>@string/pref_sources_reuters_value</item>
+        <item>@string/pref_sources_rte_value</item>
+        <item>@string/pref_sources_talksport_value</item>
+        <item>@string/pref_sources_techcrunch_value</item>
+        <item>@string/pref_sources_techradar_value</item>
+        <item>@string/pref_sources_the_american_conservative_value</item>
+        <item>@string/pref_sources_the_economist_value</item>
+        <item>@string/pref_sources_the_globe_and_mail_value</item>
+        <item>@string/pref_sources_the_guardian_au_value</item>
+        <item>@string/pref_sources_the_guardian_value</item>
+        <item>@string/pref_sources_the_hills_value</item>
+        <item>@string/pref_sources_the_hindu_value</item>
+        <item>@string/pref_sources_the_huffington_post_value</item>
+        <item>@string/pref_sources_the_irish_times_value</item>
+        <item>@string/pref_sources_the_lad_bible_value</item>
+        <item>@string/pref_sources_the_new_york_times_value</item>
+        <item>@string/pref_sources_the_next_week_value</item>
+        <item>@string/pref_sources_the_sport_bible_value</item>
+        <item>@string/pref_sources_the_telegraph_value</item>
+        <item>@string/pref_sources_the_times_of_india_value</item>
+        <item>@string/pref_sources_the_verge_value</item>
+        <item>@string/pref_sources_the_wall_street_journal_value</item>
+        <item>@string/pref_sources_the_washington_post_value</item>
+        <item>@string/pref_sources_the_washington_times_value</item>
+        <item>@string/pref_sources_time_value</item>
+        <item>@string/pref_sources_usa_today_value</item>
+        <item>@string/pref_sources_vice_news_value</item>
+        <item>@string/pref_sources_wired_value</item>
+    </array>
+
+
+    <!-- Sources -->
     <array name="pref_language_option_labels">
         <item>@string/pref_language_label_all</item>
         <item>@string/pref_language_label_arabic</item>
@@ -160,15 +334,15 @@
         <item>@string/pref_language_label_hebrew</item>
         <item>@string/pref_language_label_italian</item>
         <item>@string/pref_language_label_norwegian</item>
+        <item>@string/pref_language_label_netherlandish</item>
         <item>@string/pref_language_label_portuguese</item>
         <item>@string/pref_language_label_russian</item>
         <item>@string/pref_language_label_spanish</item>
         <item>@string/pref_language_label_swedish</item>
         <item>@string/pref_language_label_urdu</item>
     </array>
-
     <array name="pref_language_option_values">
-        <item>@string/pref_language_all_value</item>
+        <item></item>
         <item>@string/pref_language_ar_value</item>
         <item>@string/pref_language_zh_value</item>
         <item>@string/pref_language_en_value</item>
@@ -177,6 +351,7 @@
         <item>@string/pref_language_he_value</item>
         <item>@string/pref_language_it_value</item>
         <item>@string/pref_language_no_value</item>
+        <item>@string/pref_language_nl_value</item>
         <item>@string/pref_language_pt_value</item>
         <item>@string/pref_language_ru_value</item>
         <item>@string/pref_language_es_value</item>
@@ -188,76 +363,134 @@
         <item>@string/pref_source_country_label_all</item>
         <item>@string/pref_source_country_label_argentina</item>
         <item>@string/pref_source_country_label_austria</item>
+        <item>@string/pref_source_country_label_austria</item>
         <item>@string/pref_source_country_label_belgium</item>
         <item>@string/pref_source_country_label_bulgaria</item>
         <item>@string/pref_source_country_label_brazil</item>
+        <item>@string/pref_source_country_label_canada</item>
         <item>@string/pref_source_country_label_china</item>
+        <item>@string/pref_source_country_label_colombia</item>
+        <item>@string/pref_source_country_label_cuba</item>
         <item>@string/pref_source_country_label_czech_republic</item>
         <item>@string/pref_source_country_label_egypt</item>
         <item>@string/pref_source_country_label_france</item>
         <item>@string/pref_source_country_label_germany</item>
         <item>@string/pref_source_country_label_greece</item>
+        <item>@string/pref_source_country_label_hong_kong</item>
+        <item>@string/pref_source_country_label_hungary</item>
         <item>@string/pref_source_country_label_india</item>
+        <item>@string/pref_source_country_label_indonesia</item>
         <item>@string/pref_source_country_label_ireland</item>
         <item>@string/pref_source_country_label_israel</item>
         <item>@string/pref_source_country_label_italy</item>
         <item>@string/pref_source_country_label_japan</item>
         <item>@string/pref_source_country_label_latvia</item>
         <item>@string/pref_source_country_label_lithuania</item>
+        <item>@string/pref_source_country_label_malaysia</item>
         <item>@string/pref_source_country_label_mexico</item>
+        <item>@string/pref_source_country_label_morocco</item>
         <item>@string/pref_source_country_label_netherlands</item>
+        <item>@string/pref_source_country_label_new_zealand</item>
+        <item>@string/pref_source_country_label_nigeria</item>
         <item>@string/pref_source_country_label_norway</item>
+        <item>@string/pref_source_country_label_philippines</item>
         <item>@string/pref_source_country_label_poland</item>
         <item>@string/pref_source_country_label_romania</item>
         <item>@string/pref_source_country_label_russia</item>
         <item>@string/pref_source_country_label_saudi_arabia</item>
         <item>@string/pref_source_country_label_serbia</item>
+        <item>@string/pref_source_country_label_singapore</item>
         <item>@string/pref_source_country_label_slovakia</item>
+        <item>@string/pref_source_country_label_slovenia</item>
         <item>@string/pref_source_country_label_south_africa</item>
+        <item>@string/pref_source_country_label_south_korea</item>
         <item>@string/pref_source_country_label_sweden</item>
         <item>@string/pref_source_country_label_switzerland</item>
+        <item>@string/pref_source_country_label_taiwan</item>
+        <item>@string/pref_source_country_label_thailand</item>
+        <item>@string/pref_source_country_label_turkey</item>
         <item>@string/pref_source_country_label_united_arab_emirates</item>
         <item>@string/pref_source_country_label_united_kingdom</item>
         <item>@string/pref_source_country_label_ukraine</item>
         <item>@string/pref_source_country_label_usa</item>
+        <item>@string/pref_source_country_label_venezuela</item>
     </array>
-
     <array name="pref_source_country_option_values">
-        <item>@string/pref_source_country_all_value</item>
+        <item></item>
         <item>@string/pref_source_country_ar_value</item>
+        <item>@string/pref_source_country_au_value</item>
         <item>@string/pref_source_country_at_value</item>
         <item>@string/pref_source_country_be_value</item>
         <item>@string/pref_source_country_bg_value</item>
         <item>@string/pref_source_country_br_value</item>
+        <item>@string/pref_source_country_ca_value</item>
         <item>@string/pref_source_country_cn_value</item>
+        <item>@string/pref_source_country_co_value</item>
+        <item>@string/pref_source_country_cu_value</item>
         <item>@string/pref_source_country_cz_value</item>
         <item>@string/pref_source_country_eg_value</item>
         <item>@string/pref_source_country_fr_value</item>
         <item>@string/pref_source_country_de_value</item>
         <item>@string/pref_source_country_gr_value</item>
+        <item>@string/pref_source_country_hk_value</item>
+        <item>@string/pref_source_country_hu_value</item>
         <item>@string/pref_source_country_in_value</item>
+        <item>@string/pref_source_country_id_value</item>
         <item>@string/pref_source_country_ie_value</item>
         <item>@string/pref_source_country_il_value</item>
         <item>@string/pref_source_country_it_value</item>
         <item>@string/pref_source_country_jp_value</item>
         <item>@string/pref_source_country_lv_value</item>
         <item>@string/pref_source_country_lt_value</item>
+        <item>@string/pref_source_country_my_value</item>
         <item>@string/pref_source_country_mx_value</item>
+        <item>@string/pref_source_country_ma_value</item>
         <item>@string/pref_source_country_nl_value</item>
+        <item>@string/pref_source_country_nz_value</item>
+        <item>@string/pref_source_country_ng_value</item>
         <item>@string/pref_source_country_no_value</item>
+        <item>@string/pref_source_country_ph_value</item>
         <item>@string/pref_source_country_pl_value</item>
         <item>@string/pref_source_country_ro_value</item>
         <item>@string/pref_source_country_ru_value</item>
         <item>@string/pref_source_country_sa_value</item>
         <item>@string/pref_source_country_rs_value</item>
+        <item>@string/pref_source_country_sg_value</item>
         <item>@string/pref_source_country_sk_value</item>
+        <item>@string/pref_source_country_si_value</item>
         <item>@string/pref_source_country_za_value</item>
+        <item>@string/pref_source_country_kr_value</item>
         <item>@string/pref_source_country_se_value</item>
         <item>@string/pref_source_country_ch_value</item>
+        <item>@string/pref_source_country_tw_value</item>
+        <item>@string/pref_source_country_th_value</item>
+        <item>@string/pref_source_country_tr_value</item>
         <item>@string/pref_source_country_ae_value</item>
         <item>@string/pref_source_country_gb_value</item>
         <item>@string/pref_source_country_ua_value</item>
         <item>@string/pref_source_country_us_value</item>
+        <item>@string/pref_source_country_ve_value</item>
+    </array>
+
+    <array name="pref_source_category_option_labels">
+        <item>@string/pref_source_category_label_all</item>
+        <item>@string/pref_source_category_business</item>
+        <item>@string/pref_source_category_entertainment</item>
+        <item>@string/pref_source_category_general</item>
+        <item>@string/pref_source_category_health</item>
+        <item>@string/pref_source_category_science</item>
+        <item>@string/pref_source_category_sports</item>
+        <item>@string/pref_source_category_technology</item>
+    </array>
+    <array name="pref_source_category_option_values">
+        <item></item>
+        <item>@string/pref_source_business_value</item>
+        <item>@string/pref_source_entertainment_value</item>
+        <item>@string/pref_source_general_value</item>
+        <item>@string/pref_source_health_value</item>
+        <item>@string/pref_source_science_value</item>
+        <item>@string/pref_source_sports_value</item>
+        <item>@string/pref_source_technology_value</item>
     </array>
 
 </resources>

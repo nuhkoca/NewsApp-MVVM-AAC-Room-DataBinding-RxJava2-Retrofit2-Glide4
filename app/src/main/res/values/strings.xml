@@ -19,12 +19,13 @@
     <string name="sources_preference_title">Preferences for Sources</string>
 
     <!-- SharedPreference Keys and Labels -->
-    <!-- Countries -->
+
+    <!--region Top Headlines Countries -->
     <string name="pref_country_label">Country</string>
     <string name="pref_country_summary">News from the selected country will be displayed.</string>
 
     <string name="pref_country_label_all">All</string>
-    <string name="pref_country_all_value" translatable="false">all</string>
+    <string name="pref_country_all_value" translatable="false"></string>
 
     <string name="pref_country_label_argentina">Argentina(AR)</string>
     <string name="pref_country_ar_value" translatable="false">ar</string>
@@ -185,15 +186,14 @@
     <string name="pref_country_label_venezuela">Venezuela(VE)</string>
     <string name="pref_country_ve_value" translatable="false">ve</string>
 
-    <string name="pref_top_headlines_country_key" translatable="false">country</string>
+    <string name="pref_top_headlines_country_key" translatable="false">top-headlines-country</string>
+    <!--endregion-->
 
-
-
-    <!-- Category -->
+    <!--region Top Headlines Categories -->
     <string name="pref_category_label">Category</string>
 
     <string name="pref_category_label_all">All</string>
-    <string name="pref_category_all_value" translatable="false">all</string>
+    <string name="pref_category_all_value" translatable="false"></string>
 
     <string name="pref_category_business">Business</string>
     <string name="pref_business_value" translatable="false">business</string>
@@ -216,34 +216,295 @@
     <string name="pref_category_technology">Technology</string>
     <string name="pref_technology_value" translatable="false">technology</string>
 
-    <string name="pref_category_key" translatable="false">category</string>
+    <string name="pref_category_key" translatable="false">top-headlines-category</string>
+    <!--endregion -->
 
-    <!-- Sources -->
-    <string name="pref_source_label">Source</string>
-    <string name="pref_source_summary">News from the selected source will be displayed.</string>
+    <!--region Top Headlines Sources -->
+    <string name="pref_source_label">Sources</string>
 
-    <string name="pref_source_label_aftenposten">Aftenposten(NO)</string>
-    <string name="pref_source_aftenposten_value" translatable="false">aftenposten</string>
+    <string name="pref_sources_label_all">All</string>
+    <string name="pref_sources_all_value" translatable="false"></string>
 
-    <string name="pref_source_label_aljazeera">Al Jazeera English(US)</string>
-    <string name="pref_source_aljazeeraenglish_value" translatable="false">al-jazeera-english</string>
+    <string name="pref_sources_label_abc_news">ABC News(US)</string>
+    <string name="pref_sources_abc_news_value">abc-news</string>
 
-    <string name="pref_source_label_associatedpress">Associated Press(US)</string>
-    <string name="pref_source_associatedpress_value" translatable="false">associated-press</string>
+    <string name="pref_sources_label_abc_news_au">ABC News(AU)</string>
+    <string name="pref_sources_abc_news_au_value">abc-news-au</string>
 
-    <string name="pref_source_label_bbcnews">BBC News(GB)</string>
-    <string name="pref_source_bbcnews_value" translatable="false">bbc-news</string>
+    <string name="pref_sources_label_al_jazeera_english">Al Jazeera English(US)</string>
+    <string name="pref_sources_al_jazeera_english_value">al-jazeera-english</string>
 
-    <string name="pref_source_key" translatable="false">source</string>
+    <string name="pref_sources_label_ars_technica">Ars Technica(US)</string>
+    <string name="pref_sources_ars_technica_value">ars-technica</string>
+
+    <string name="pref_sources_label_associated_press">Associated Press(US)</string>
+    <string name="pref_sources_associated_press_value">associated-press</string>
+
+    <string name="pref_sources_label_australian_financial_review">Australian Financial Review(AU)</string>
+    <string name="pref_sources_australian_financial_review_value">australian-financial-review</string>
+
+    <string name="pref_sources_label_axios">Axios(US)</string>
+    <string name="pref_sources_axios_value">axios</string>
+
+    <string name="pref_sources_label_bbc_news">BBC News(UK)</string>
+    <string name="pref_sources_bbc_news_value">bbc-news</string>
+
+    <string name="pref_sources_label_bbc_sport">BBC Sport(UK)</string>
+    <string name="pref_sources_bbc_sport_value">bbc-sport</string>
+
+    <string name="pref_sources_label_bleacher_report">Bleacher Report(US)</string>
+    <string name="pref_sources_bleacher_report_value">bleacher-report</string>
+
+    <string name="pref_sources_label_bloomberg">Bloomberg(US)</string>
+    <string name="pref_sources_bloomberg_value">bloomberg</string>
+
+    <string name="pref_sources_label_breitbart_news">Breitbart News(US)</string>
+    <string name="pref_sources_breitbart_news_value">breitbart-news</string>
+
+    <string name="pref_sources_label_business_insider">Business Insider(US)</string>
+    <string name="pref_sources_business_insider_value">business-insider</string>
+
+    <string name="pref_sources_label_business_insider_uk">Business Insider(UK)</string>
+    <string name="pref_sources_business_insider_uk_value">business-insider-uk</string>
+
+    <string name="pref_sources_label_buzz_feed">Buzzfeed(US)</string>
+    <string name="pref_sources_buzz_feed_value">buzzfeed</string>
+
+    <string name="pref_sources_label_cbc_news_ca">CBC News(CA)</string>
+    <string name="pref_sources_cbc_news_ca_value">cbc-news</string>
+
+    <string name="pref_sources_label_cbc_news">CBS News(US)</string>
+    <string name="pref_sources_cbc_news_value">cbs-news</string>
+
+    <string name="pref_sources_label_cnbc">CNBC(US)</string>
+    <string name="pref_sources_cnbc_value">cnbc</string>
+
+    <string name="pref_sources_label_cnn">CNN(US)</string>
+    <string name="pref_sources_cnn_value">cnn</string>
+
+    <string name="pref_sources_label_crypto_coins_news">Crypto Coins News(US)</string>
+    <string name="pref_sources_crypto_coins_news_value">crypto-coins-news</string>
+
+    <string name="pref_sources_label_daily_mail">Daily Mail(UK)</string>
+    <string name="pref_sources_daily_mail_value">daily-mail</string>
+
+    <string name="pref_sources_label_engadget">Engadget(US)</string>
+    <string name="pref_sources_engadget_value">engadget</string>
+
+    <string name="pref_sources_label_entertainment_weekly">Entertainment Weekly(US)</string>
+    <string name="pref_sources_entertainment_weekly_value">entertainment-weekly</string>
+
+    <string name="pref_sources_label_espn">ESPN(US)</string>
+    <string name="pref_sources_espn_value">espn</string>
+
+    <string name="pref_sources_label_espn_cric_info">ESPN Cric Info(US)</string>
+    <string name="pref_sources_espn_cric_info_value">espn-cric-info</string>
+
+    <string name="pref_sources_label_financial_post">Financial Post(CA)</string>
+    <string name="pref_sources_financial_post_value">financial-post</string>
+
+    <string name="pref_sources_label_financial_times">Financial Times(UK)</string>
+    <string name="pref_sources_financial_times_value">financial-times</string>
+
+    <string name="pref_sources_label_football_italia">Football Italia(IT)</string>
+    <string name="pref_sources_football_italia_value">football-italia</string>
+
+    <string name="pref_sources_label_fortune">Fortune(US)</string>
+    <string name="pref_sources_fortune_value">fortune</string>
+
+    <string name="pref_sources_label_four_four_two">FourFourTwo(US)</string>
+    <string name="pref_sources_four_four_two_value">four-four-two</string>
+
+    <string name="pref_sources_label_fox_news">Fox News(US)</string>
+    <string name="pref_sources_fox_news_value">fox-news</string>
+
+    <string name="pref_sources_label_fox_sports">Fox Sports(US)</string>
+    <string name="pref_sources_fox_sports_value">fox-sports</string>
+
+    <string name="pref_sources_label_google_news">Google News(US)</string>
+    <string name="pref_sources_google_news_value">google-news</string>
+
+    <string name="pref_sources_label_google_news_au">Google News(Australia)(AU)</string>
+    <string name="pref_sources_google_news_au_value">google-news-au</string>
+
+    <string name="pref_sources_label_google_news_ca">Google News(Canada)(CA)</string>
+    <string name="pref_sources_google_news_ca_value">google-news-ca</string>
+
+    <string name="pref_sources_label_google_news_in">Google News(India)(IN)</string>
+    <string name="pref_sources_google_news_in_value">google-news-in</string>
+
+    <string name="pref_sources_label_google_news_uk">Google News(UK)</string>
+    <string name="pref_sources_google_news_uk_value">google-news-uk</string>
+
+    <string name="pref_sources_label_hacker_news">Hacker News(US)</string>
+    <string name="pref_sources_hacker_news_value">hacker-news</string>
+
+    <string name="pref_sources_label_ign">IGN(US)</string>
+    <string name="pref_sources_ign_value">ign</string>
+
+    <string name="pref_sources_label_independent">Independent(GB)</string>
+    <string name="pref_sources_independent_value">independent</string>
+
+    <string name="pref_sources_label_mashable">Mashable(US)</string>
+    <string name="pref_sources_mashable_value">mashable</string>
+
+    <string name="pref_sources_label_medical_news_today">Medical News Today(US)</string>
+    <string name="pref_sources_medical_news_today_value">medical-news-today</string>
+
+    <string name="pref_sources_label_metro">Metro(GB)</string>
+    <string name="pref_sources_metro_value">metro</string>
+
+    <string name="pref_sources_label_mirror">Mirror(UK)</string>
+    <string name="pref_sources_mirror_value">mirror</string>
+
+    <string name="pref_sources_label_msnbc">MSNBC(US)</string>
+    <string name="pref_sources_msnbc_value">msnbc</string>
+
+    <string name="pref_sources_label_mtv_news">MTV News(US)</string>
+    <string name="pref_sources_mtv_news_value">mtv-news</string>
+
+    <string name="pref_sources_label_mtv_news_uk">MTV News(UK)</string>
+    <string name="pref_sources_mtv_news_uk_value">mtv-news-uk</string>
+
+    <string name="pref_sources_label_national_geopraphic">National Geographic(US)</string>
+    <string name="pref_sources_national_geopraphic_value">national-geographic</string>
+
+    <string name="pref_sources_label_national_review">National Review(US)</string>
+    <string name="pref_sources_national_review_value">national-review</string>
+
+    <string name="pref_sources_label_nbc_news">NBC News(US)</string>
+    <string name="pref_sources_nbc_news_value">nbc-news</string>
+
+    <string name="pref_sources_label_news24">News24(ZA)</string>
+    <string name="pref_sources_news24_value">news24</string>
+
+    <string name="pref_sources_label_new_scientist">New Scientist(US)</string>
+    <string name="pref_sources_new_scientist_value">new-scientist</string>
+
+    <string name="pref_sources_label_news_com_au">News.com.au(AU)</string>
+    <string name="pref_sources_news_com_au_value">news-com-au</string>
+
+    <string name="pref_sources_label_newsweek">Newsweek(US)</string>
+    <string name="pref_sources_newsweek_value">newsweek</string>
+
+    <string name="pref_sources_label_new_york_magazine">New York Magazine(US)</string>
+    <string name="pref_sources_new_york_magazine_value">new-york-magazine</string>
+
+    <string name="pref_sources_label_next_big_future">Next Big Future(US)</string>
+    <string name="pref_sources_next_big_future_value">next-big-future</string>
+
+    <string name="pref_sources_label_nfl_news">NFL News(US)</string>
+    <string name="pref_sources_nfl_news_value">nfl-news</string>
+
+    <string name="pref_sources_label_nhl_news">NHL News(US)</string>
+    <string name="pref_sources_nhl_news_value">nhl-news</string>
+
+    <string name="pref_sources_label_politico">Politico(US)</string>
+    <string name="pref_sources_politico_value">politico</string>
+
+    <string name="pref_sources_label_polygon">Polygon(US)</string>
+    <string name="pref_sources_polygon_value">polygon</string>
+
+    <string name="pref_sources_label_recode">Recode(US)</string>
+    <string name="pref_sources_recode_value">recode</string>
+
+    <string name="pref_sources_label_reddit">Reddit /r/all(US)</string>
+    <string name="pref_sources_reddit_value">reddit-r-all</string>
+
+    <string name="pref_sources_label_reuters">Reuters(US)</string>
+    <string name="pref_sources_reuters_value">reuters</string>
+
+    <string name="pref_sources_label_rte">RTE(IE)</string>
+    <string name="pref_sources_rte_value">rte</string>
+
+    <string name="pref_sources_label_talksport">TalkSport(UK)</string>
+    <string name="pref_sources_talksport_value">talksport</string>
+
+    <string name="pref_sources_label_techcrunch">TechCrunch(US)</string>
+    <string name="pref_sources_techcrunch_value">techcrunch</string>
+
+    <string name="pref_sources_label_techradar">TechRadar(US)</string>
+    <string name="pref_sources_techradar_value">techradar</string>
+
+    <string name="pref_sources_label_the_american_conservative">The American Conservative(US)</string>
+    <string name="pref_sources_the_american_conservative_value">the-american-conservative</string>
+
+    <string name="pref_sources_label_the_economist">The Economist(UK)</string>
+    <string name="pref_sources_the_economist_value">the-economist</string>
+
+    <string name="pref_sources_label_the_globe_and_mail">The Globe And Mail(CA)</string>
+    <string name="pref_sources_the_globe_and_mail_value">the-globe-and-mail</string>
+
+    <string name="pref_sources_label_the_guardian_au">The Guardian(AU)</string>
+    <string name="pref_sources_the_guardian_au_value">the-guardian-au</string>
+
+    <string name="pref_sources_label_the_guardian">The Guardian(UK)</string>
+    <string name="pref_sources_the_guardian_value">the-guardian-uk</string>
+
+    <string name="pref_sources_label_the_hills">The Hill(US)</string>
+    <string name="pref_sources_the_hills_value">the-hill</string>
+
+    <string name="pref_sources_label_the_hindu">The Hindu(IN)</string>
+    <string name="pref_sources_the_hindu_value">the-hindu</string>
+
+    <string name="pref_sources_label_the_huffington_post">The Huffington Post(US)</string>
+    <string name="pref_sources_the_huffington_post_value">the-huffington-post</string>
+
+    <string name="pref_sources_label_the_irish_times">The Irish Times(IE)</string>
+    <string name="pref_sources_the_irish_times_value">the-irish-times</string>
+
+    <string name="pref_sources_label_the_lad_bible">The Lad Bible(UK)</string>
+    <string name="pref_sources_the_lad_bible_value">the-lad-bible</string>
+
+    <string name="pref_sources_label_the_new_york_times">The New York Times(US)</string>
+    <string name="pref_sources_the_new_york_times_value">the-new-york-times</string>
+
+    <string name="pref_sources_label_the_next_week">The Next Web(US)</string>
+    <string name="pref_sources_the_next_week_value">the-next-web</string>
+
+    <string name="pref_sources_label_the_sport_bible">The Sport Bible(UK)</string>
+    <string name="pref_sources_the_sport_bible_value">the-sport-bible</string>
+
+    <string name="pref_sources_label_the_telegraph">The Telegraph(UK)</string>
+    <string name="pref_sources_the_telegraph_value">the-telegraph</string>
+
+    <string name="pref_sources_label_the_times_of_india">The Times of India(IN)</string>
+    <string name="pref_sources_the_times_of_india_value">the-times-of-india</string>
+
+    <string name="pref_sources_label_the_verge">The Verge(US)</string>
+    <string name="pref_sources_the_verge_value">the-verge</string>
+
+    <string name="pref_sources_label_the_wall_street_journal">The Wall Street Journal(US)</string>
+    <string name="pref_sources_the_wall_street_journal_value">the-wall-street-journal</string>
+
+    <string name="pref_sources_label_the_washington_post">The Washington Post(US)</string>
+    <string name="pref_sources_the_washington_post_value">the-washington-post</string>
+
+    <string name="pref_sources_label_the_washington_times">The Washington Times(US)</string>
+    <string name="pref_sources_the_washington_times_value">the-washington-times</string>
+
+    <string name="pref_sources_label_time">Time(US)</string>
+    <string name="pref_sources_time_value">time</string>
+
+    <string name="pref_sources_label_usa_today">USA Today(US)</string>
+    <string name="pref_sources_usa_today_value">usa-today</string>
+
+    <string name="pref_sources_label_vice_news">Vice News(US)</string>
+    <string name="pref_sources_vice_news_value">vice-news</string>
+
+    <string name="pref_sources_label_wired">Wired(US)</string>
+    <string name="pref_sources_wired_value">wired</string>
+
+    <string name="pref_source_key" translatable="false">top-headlines-source</string>
+    <!--endregion -->
 
 
-
-    <!-- Languages -->
+    <!--region Source Languages -->
     <string name="pref_language_label">Language</string>
     <string name="pref_language_summary">News sources from the selected language will be displayed.</string>
 
     <string name="pref_language_label_all">All</string>
-    <string name="pref_language_all_value" translatable="false">all</string>
+    <string name="pref_language_all_value" translatable="false"></string>
 
     <string name="pref_language_label_arabic">Arabic</string>
     <string name="pref_language_ar_value" translatable="false">ar</string>
@@ -266,6 +527,9 @@
     <string name="pref_language_label_italian">Italian</string>
     <string name="pref_language_it_value" translatable="false">it</string>
 
+    <string name="pref_language_label_netherlandish">Netherlandish</string>
+    <string name="pref_language_nl_value" translatable="false">nl</string>
+
     <string name="pref_language_label_norwegian">Norwegian</string>
     <string name="pref_language_no_value" translatable="false">no</string>
 
@@ -284,18 +548,21 @@
     <string name="pref_language_label_urdu">Urdu</string>
     <string name="pref_language_ud_value" translatable="false">ud</string>
 
-    <string name="pref_language_key" translatable="false">language</string>
+    <string name="pref_language_key" translatable="false">source-language</string>
+    <!--endregion-->
 
-
-    <!-- Source Countries -->
+    <!--region Source Countries -->
     <string name="pref_source_country_label">Country</string>
-    <string name="pref_source_country_summary">News sources from the selected country will be displayed.</string>
+    <string name="pref_source_country_summary">News from the selected country will be displayed.</string>
 
     <string name="pref_source_country_label_all">All</string>
-    <string name="pref_source_country_all_value" translatable="false">all</string>
+    <string name="pref_source_country_all_value" translatable="false"></string>
 
     <string name="pref_source_country_label_argentina">Argentina(AR)</string>
     <string name="pref_source_country_ar_value" translatable="false">ar</string>
+
+    <string name="pref_source_country_label_australia">Australia(AU)</string>
+    <string name="pref_source_country_au_value" translatable="false">au</string>
 
     <string name="pref_source_country_label_austria">Austria(AT)</string>
     <string name="pref_source_country_at_value" translatable="false">at</string>
@@ -309,8 +576,17 @@
     <string name="pref_source_country_label_brazil">Brazil(BR)</string>
     <string name="pref_source_country_br_value" translatable="false">br</string>
 
+    <string name="pref_source_country_label_canada">Canada(CA)</string>
+    <string name="pref_source_country_ca_value" translatable="false">ca</string>
+
     <string name="pref_source_country_label_china">China(CN)</string>
-    <string name="pref_source_country_cn_value" translatable="false">zh</string>
+    <string name="pref_source_country_cn_value" translatable="false">cn</string>
+
+    <string name="pref_source_country_label_colombia">Colombia(CO)</string>
+    <string name="pref_source_country_co_value" translatable="false">co</string>
+
+    <string name="pref_source_country_label_cuba">Cuba(CU)</string>
+    <string name="pref_source_country_cu_value" translatable="false">cu</string>
 
     <string name="pref_source_country_label_czech_republic">Czech Republic(CZ)</string>
     <string name="pref_source_country_cz_value" translatable="false">cz</string>
@@ -327,14 +603,23 @@
     <string name="pref_source_country_label_greece">Greece(GR)</string>
     <string name="pref_source_country_gr_value" translatable="false">gr</string>
 
+    <string name="pref_source_country_label_hong_kong">Hong Kong(HK)</string>
+    <string name="pref_source_country_hk_value" translatable="false">hk</string>
+
+    <string name="pref_source_country_label_hungary">Hungary(HU)</string>
+    <string name="pref_source_country_hu_value" translatable="false">hu</string>
+
     <string name="pref_source_country_label_india">India(IN)</string>
     <string name="pref_source_country_in_value" translatable="false">in</string>
+
+    <string name="pref_source_country_label_indonesia">Indonesia(ID)</string>
+    <string name="pref_source_country_id_value" translatable="false">id</string>
 
     <string name="pref_source_country_label_ireland">Ireland(IE)</string>
     <string name="pref_source_country_ie_value" translatable="false">ie</string>
 
     <string name="pref_source_country_label_israel">Israel(IL)</string>
-    <string name="pref_source_country_il_value" translatable="false">is</string>
+    <string name="pref_source_country_il_value" translatable="false">il</string>
 
     <string name="pref_source_country_label_italy">Italy(IT)</string>
     <string name="pref_source_country_it_value" translatable="false">it</string>
@@ -348,14 +633,29 @@
     <string name="pref_source_country_label_lithuania">Lithuania(LV)</string>
     <string name="pref_source_country_lv_value" translatable="false">lv</string>
 
+    <string name="pref_source_country_label_malaysia">Malaysia(MY)</string>
+    <string name="pref_source_country_my_value" translatable="false">my</string>
+
     <string name="pref_source_country_label_mexico">Mexico(MX)</string>
     <string name="pref_source_country_mx_value" translatable="false">mx</string>
+
+    <string name="pref_source_country_label_morocco">Morocco(MA)</string>
+    <string name="pref_source_country_ma_value" translatable="false">ma</string>
 
     <string name="pref_source_country_label_netherlands">Netherlands(NL)</string>
     <string name="pref_source_country_nl_value" translatable="false">nl</string>
 
+    <string name="pref_source_country_label_new_zealand">New Zealand(NZ)</string>
+    <string name="pref_source_country_nz_value" translatable="false">nz</string>
+
+    <string name="pref_source_country_label_nigeria">Nigeria(NG)</string>
+    <string name="pref_source_country_ng_value" translatable="false">ng</string>
+
     <string name="pref_source_country_label_norway">Norway(NO)</string>
     <string name="pref_source_country_no_value" translatable="false">no</string>
+
+    <string name="pref_source_country_label_philippines">Philippines(PH)</string>
+    <string name="pref_source_country_ph_value" translatable="false">ph</string>
 
     <string name="pref_source_country_label_poland">Poland(PL)</string>
     <string name="pref_source_country_pl_value" translatable="false">pl</string>
@@ -372,17 +672,35 @@
     <string name="pref_source_country_label_serbia">Serbia(RS)</string>
     <string name="pref_source_country_rs_value" translatable="false">rs</string>
 
+    <string name="pref_source_country_label_singapore">Singapore(SG)</string>
+    <string name="pref_source_country_sg_value" translatable="false">sg</string>
+
     <string name="pref_source_country_label_slovakia">Slovakia(SK)</string>
     <string name="pref_source_country_sk_value" translatable="false">sk</string>
 
+    <string name="pref_source_country_label_slovenia">Slovenia(SI)</string>
+    <string name="pref_source_country_si_value" translatable="false">si</string>
+
     <string name="pref_source_country_label_south_africa">South Africa(ZA)</string>
     <string name="pref_source_country_za_value" translatable="false">za</string>
+
+    <string name="pref_source_country_label_south_korea">South Korea(KR)</string>
+    <string name="pref_source_country_kr_value" translatable="false">kr</string>
 
     <string name="pref_source_country_label_sweden">Sweden(SE)</string>
     <string name="pref_source_country_se_value" translatable="false">se</string>
 
     <string name="pref_source_country_label_switzerland">Switzerland(CH)</string>
     <string name="pref_source_country_ch_value" translatable="false">ch</string>
+
+    <string name="pref_source_country_label_taiwan">Taiwan(TW)</string>
+    <string name="pref_source_country_tw_value" translatable="false">tw</string>
+
+    <string name="pref_source_country_label_thailand">Thailand(TH)</string>
+    <string name="pref_source_country_th_value" translatable="false">th</string>
+
+    <string name="pref_source_country_label_turkey">Turkey(TR)</string>
+    <string name="pref_source_country_tr_value" translatable="false">tr</string>
 
     <string name="pref_source_country_label_united_arab_emirates">United Arab Emirates(AE)</string>
     <string name="pref_source_country_ae_value" translatable="false">ae</string>
@@ -396,9 +714,40 @@
     <string name="pref_source_country_label_usa">USA(US)</string>
     <string name="pref_source_country_us_value" translatable="false">us</string>
 
+    <string name="pref_source_country_label_venezuela">Venezuela(VE)</string>
+    <string name="pref_source_country_ve_value" translatable="false">ve</string>
+
     <string name="pref_source_country_key" translatable="false">source-country</string>
+    <!--endregion-->
 
+    <!--region Source Categories-->
+    <string name="pref_source_category_label">Category</string>
 
-    <string name="pref_query_label">Query</string>
+    <string name="pref_source_category_label_all">All</string>
+    <string name="pref_source_category_all_value" translatable="false"></string>
+
+    <string name="pref_source_category_business">Business</string>
+    <string name="pref_source_business_value" translatable="false">business</string>
+
+    <string name="pref_source_category_entertainment">Entertainment</string>
+    <string name="pref_source_entertainment_value" translatable="false">entertainment</string>
+
+    <string name="pref_source_category_general">General</string>
+    <string name="pref_source_general_value" translatable="false">general</string>
+
+    <string name="pref_source_category_health">Health</string>
+    <string name="pref_source_health_value" translatable="false">health</string>
+
+    <string name="pref_source_category_science">Science</string>
+    <string name="pref_source_science_value" translatable="false">science</string>
+
+    <string name="pref_source_category_sports">Sports</string>
+    <string name="pref_source_sports_value" translatable="false">sports</string>
+
+    <string name="pref_source_category_technology">Technology</string>
+    <string name="pref_source_technology_value" translatable="false">technology</string>
+
+    <string name="pref_source_category_key" translatable="false">source-category</string>
+    <!--endregion-->
 
 </resources>
