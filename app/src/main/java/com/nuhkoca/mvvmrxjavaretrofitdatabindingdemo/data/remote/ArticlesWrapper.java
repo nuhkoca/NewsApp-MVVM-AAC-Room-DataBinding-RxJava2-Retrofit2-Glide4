@@ -14,6 +14,8 @@ public class ArticlesWrapper extends BaseObservable {
     private String status;
     @SerializedName("totalResults")
     private int totalResults;
+    @SerializedName("message")
+    private String message;
     @SerializedName("articles")
     private List<Articles> articles;
 
@@ -37,6 +39,16 @@ public class ArticlesWrapper extends BaseObservable {
     public void setTotalResults(int totalResults) {
         this.totalResults = totalResults;
         notifyPropertyChanged(BR.totalResults);
+    }
+
+    @Bindable
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+        notifyPropertyChanged(BR.message);
     }
 
     @Bindable

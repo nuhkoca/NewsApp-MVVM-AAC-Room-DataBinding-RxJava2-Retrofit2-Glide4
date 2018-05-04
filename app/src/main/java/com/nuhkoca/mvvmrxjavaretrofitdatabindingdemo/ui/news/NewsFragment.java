@@ -24,12 +24,17 @@ import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.repository.INewsAPI;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.databinding.FragmentNewsBinding;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.helper.Constants;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.helper.ObservableHelper;
-import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.util.ConnectionSniffer;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.util.RecyclerViewItemDivider;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
+
+import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.BR;
+
+import timber.log.Timber;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,6 +44,7 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
     private FragmentNewsBinding mFragmentNewsBinding;
     private NewsFragmentViewModel mNewsFragmentViewModel;
     private SharedPreferences mSharedPreferences;
+    private ArticlesWrapper mArticlesWrapperList;
 
     public static NewsFragment getInstance(INewsAPI.Endpoints endpoints) {
         NewsFragment newsFragment = new NewsFragment();
@@ -98,12 +104,15 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
         setupUI();
     }
 
     public void setupUI() {
         int endpointVal = Objects.requireNonNull(getArguments()).getInt(Constants.ENDPOINT_ARGS_KEY);
         showLoadingBar();
+        showError();
+
 
         switch (endpointVal) {
             case Constants.TOP_NEWS_ID:
@@ -148,29 +157,27 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
             default:
                 break;
         }
-
-        boolean isConnectionAvailable = ConnectionSniffer.isActiveConnection();
-
-        if (!isConnectionAvailable) {
-            showError();
-        }
     }
 
     private void loadTopHeadlineParametersFromPreferences(SharedPreferences sharedPreferences) {
-        List<String> entries = new ArrayList<>(Objects.requireNonNull(sharedPreferences.getStringSet(getString(R.string.pref_source_key), null)));
-        StringBuilder allEntries = new StringBuilder();
+        Set<String> sourceSet = new HashSet<>();
+        sourceSet.add(getString(R.string.pref_sources_all_value));
+
+        List<String> entries = new ArrayList<>(Objects.requireNonNull(
+                sharedPreferences.getStringSet(getString(R.string.pref_source_key), sourceSet)));
+        StringBuilder selectedSources = new StringBuilder();
 
         for (int i = 0; i < entries.size(); i++) {
-            allEntries.append(entries.get(i)).append(",");
+            selectedSources.append(entries.get(i)).append(",");
         }
 
-        if (allEntries.length() > 0) {
-            allEntries.deleteCharAt(allEntries.length() - 1);
+        if (selectedSources.length() > 0) {
+            selectedSources.deleteCharAt(selectedSources.length() - 1);
         }
 
         mNewsFragmentViewModel.getTopHeadlines(
                 sharedPreferences.getString(getString(R.string.pref_top_headlines_country_key), getString(R.string.pref_country_us_value)),
-                allEntries.toString(),
+                selectedSources.toString(),
                 sharedPreferences.getString(getString(R.string.pref_category_key), null), null);
     }
 
@@ -209,6 +216,15 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
                         mFragmentNewsBinding.rvNews.setVisibility(View.VISIBLE);
                     }
                 }
+            }
+        });
+    }
+
+    private void showErrorText(){
+        mNewsFragmentViewModel.mErrorText.observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String s) {
+                mFragmentNewsBinding.tvErrorView.setText(s);
             }
         });
     }

@@ -9,7 +9,7 @@ public class NewsFragmentViewModelFactory implements ViewModelProvider.Factory {
 
     private ObservableHelper observableHelper;
 
-    public NewsFragmentViewModelFactory(ObservableHelper observableHelper) {
+    NewsFragmentViewModelFactory(ObservableHelper observableHelper) {
         this.observableHelper = observableHelper;
     }
 

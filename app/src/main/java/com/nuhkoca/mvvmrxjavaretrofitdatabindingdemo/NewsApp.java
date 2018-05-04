@@ -6,6 +6,7 @@ import com.facebook.stetho.Stetho;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.local.AppDatabase;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -18,7 +19,7 @@ public class NewsApp extends Application {
 
     private static NewsApp newsApp;
 
-    public static NewsApp getInstance(){
+    public static NewsApp getInstance() {
         return newsApp;
     }
 
@@ -54,13 +55,17 @@ public class NewsApp extends Application {
                 .build();
     }
 
-    public void provideTimber(){
-        if (BuildConfig.DEBUG){
+    public static AppDatabase provideAppDatabase() {
+        return AppDatabase.getInstance(getInstance().getApplicationContext());
+    }
+
+    public void provideTimber() {
+        if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
         }
     }
 
-    public void provideStetho(){
+    public void provideStetho() {
         Stetho.InitializerBuilder initializerBuilder = Stetho.newInitializerBuilder(this);
         initializerBuilder.enableWebKitInspector(Stetho.defaultInspectorModulesProvider(this));
         initializerBuilder.enableDumpapp(Stetho.defaultDumperPluginsProvider(this));

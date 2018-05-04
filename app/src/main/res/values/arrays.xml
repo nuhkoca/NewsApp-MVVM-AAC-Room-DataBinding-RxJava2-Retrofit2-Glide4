@@ -4,7 +4,7 @@
     <array name="pref_country_option_labels">
         <item>@string/pref_country_label_all</item>
         <item>@string/pref_country_label_argentina</item>
-        <item>@string/pref_source_country_label_austria</item>
+        <item>@string/pref_country_label_australia</item>
         <item>@string/pref_country_label_austria</item>
         <item>@string/pref_country_label_belgium</item>
         <item>@string/pref_country_label_bulgaria</item>
@@ -136,7 +136,7 @@
     </array>
 
     <array name="pref_sources_option_labels">
-        <item>@string/pref_sources_label_all</item>
+
         <item>@string/pref_sources_label_abc_news</item>
         <item>@string/pref_sources_label_abc_news_au</item>
         <item>@string/pref_sources_label_al_jazeera_english</item>
@@ -229,7 +229,7 @@
         <item>@string/pref_sources_label_wired</item>
     </array>
     <array name="pref_sources_option_values">
-        <item></item>
+
         <item>@string/pref_sources_abc_news_value</item>
         <item>@string/pref_sources_abc_news_au_value</item>
         <item>@string/pref_sources_al_jazeera_english_value</item>

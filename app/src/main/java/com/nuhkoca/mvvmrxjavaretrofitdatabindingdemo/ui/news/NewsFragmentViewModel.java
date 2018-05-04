@@ -28,6 +28,7 @@ public class NewsFragmentViewModel extends ViewModel {
 
     public MutableLiveData<Boolean> mIsLoading = new MutableLiveData<>();
     public MutableLiveData<Boolean> mIsErrorShown = new MutableLiveData<>();
+    public MutableLiveData<String> mErrorText = new MutableLiveData<>();
 
     private ObservableHelper observableHelper;
 
@@ -69,6 +70,7 @@ public class NewsFragmentViewModel extends ViewModel {
                         if (articlesWrapper.getArticles().size() == 0) {
                             mIsErrorShown.setValue(true);
                             mIsLoading.setValue(false);
+                            mErrorText.setValue(articlesWrapper.getMessage());
                         } else {
                             List<Articles> articlesList = new ArrayList<>();
                             ArticlesWrapper wrapper = new ArticlesWrapper();
@@ -176,7 +178,6 @@ public class NewsFragmentViewModel extends ViewModel {
                             mIsErrorShown.setValue(true);
                             mIsLoading.setValue(false);
                         } else {
-
                             List<Sources> sourcesList = new ArrayList<>();
                             SourcesWrapper wrapper = new SourcesWrapper();
 
