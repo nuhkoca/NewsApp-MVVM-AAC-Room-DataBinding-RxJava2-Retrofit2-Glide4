@@ -7,7 +7,7 @@ import android.net.NetworkInfo;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.NewsApp;
 
 public class ConnectionSniffer {
-    public static boolean isActiveConnection() {
+    public static boolean sniff() {
         ConnectivityManager connectivityManager = (ConnectivityManager) NewsApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo networkInfo = null;

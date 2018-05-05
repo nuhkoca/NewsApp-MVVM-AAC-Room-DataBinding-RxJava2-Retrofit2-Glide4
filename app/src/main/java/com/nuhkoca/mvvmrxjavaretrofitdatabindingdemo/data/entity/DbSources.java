@@ -6,10 +6,11 @@ import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
 @Entity(tableName = "sources")
-public class Sources {
+public class DbSources {
 
-    @PrimaryKey
-    @NonNull
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "sid")
+    private int sid;
     @ColumnInfo(name = "source_id")
     private String id;
     @ColumnInfo(name = "name")
@@ -25,7 +26,7 @@ public class Sources {
     @ColumnInfo(name = "country")
     private String country;
 
-    public Sources(@NonNull String id, String name, String description, String url, String category, String language, String country) {
+    public DbSources(String id, String name, String description, String url, String category, String language, String country) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -33,6 +34,14 @@ public class Sources {
         this.category = category;
         this.language = language;
         this.country = country;
+    }
+
+    public int getSid() {
+        return sid;
+    }
+
+    public void setSid(int sid) {
+        this.sid = sid;
     }
 
     @NonNull

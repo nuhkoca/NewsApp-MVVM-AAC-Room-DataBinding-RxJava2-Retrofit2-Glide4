@@ -10,15 +10,19 @@ import android.view.ViewGroup;
 
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.BR;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.R;
+import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.entity.DbSources;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.remote.Sources;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.databinding.SourcesItemCardBinding;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import timber.log.Timber;
+
 public class SourcesAdapter extends RecyclerView.Adapter<SourcesAdapter.ViewHolder> {
 
     private List<Sources> mSourcesList;
+    private List<DbSources> mDbSources;
 
     SourcesAdapter() {
         mSourcesList = new ArrayList<>();
@@ -39,9 +43,15 @@ public class SourcesAdapter extends RecyclerView.Adapter<SourcesAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Sources sources = mSourcesList.get(position);
+        if (mSourcesList != null) {
+            Sources sources = mSourcesList.get(position);
 
-        holder.bindViews(sources);
+            holder.bindViews(sources);
+        } else {
+            DbSources current = mDbSources.get(position);
+
+            holder.mSourcesItemCardBinding.tvSourceName.setText(current.getName());
+        }
     }
 
     public void swapData(List<Sources> sourcesList) {
@@ -50,9 +60,19 @@ public class SourcesAdapter extends RecyclerView.Adapter<SourcesAdapter.ViewHold
         notifyDataSetChanged();
     }
 
+    public void swapOfflineData(List<DbSources> dbSourcesList) {
+        this.mDbSources = dbSourcesList;
+
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemCount() {
-        return mSourcesList.size();
+        if (mSourcesList != null) {
+            return mSourcesList.size();
+        } else {
+            return mDbSources.size();
+        }
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

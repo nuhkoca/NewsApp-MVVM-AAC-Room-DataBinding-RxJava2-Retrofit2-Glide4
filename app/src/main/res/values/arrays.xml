@@ -323,7 +323,7 @@
     </array>
 
 
-    <!-- Sources -->
+    <!-- DbSources -->
     <array name="pref_language_option_labels">
         <item>@string/pref_language_label_all</item>
         <item>@string/pref_language_label_arabic</item>

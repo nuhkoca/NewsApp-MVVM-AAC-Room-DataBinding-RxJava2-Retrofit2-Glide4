@@ -22,7 +22,7 @@ public class InternetSnifferService extends BroadcastReceiver {
         if (isConnected) {
             Toast.makeText(context, "Internet Connection Lost", Toast.LENGTH_SHORT).show();
         } else {
-            //Toast.makeText(context, "Internet Connected", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Internet Connected", Toast.LENGTH_SHORT).show();
 
             //NewsFragment.getInstance(INewsAPI.Endpoints.TOP_HEADLINES).placeNews();
         }

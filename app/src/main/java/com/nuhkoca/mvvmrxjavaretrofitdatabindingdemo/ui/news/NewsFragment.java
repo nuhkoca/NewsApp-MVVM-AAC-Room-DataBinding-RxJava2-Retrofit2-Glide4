@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.R;
+import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.entity.DbSources;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.remote.Articles;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.remote.ArticlesWrapper;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.remote.Sources;
@@ -24,6 +25,7 @@ import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.repository.INewsAPI;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.databinding.FragmentNewsBinding;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.helper.Constants;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.helper.ObservableHelper;
+import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.repository.NewsRepository;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.util.RecyclerViewItemDivider;
 
 import java.util.ArrayList;
@@ -31,10 +33,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-
-import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.BR;
-
-import timber.log.Timber;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -44,7 +42,6 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
     private FragmentNewsBinding mFragmentNewsBinding;
     private NewsFragmentViewModel mNewsFragmentViewModel;
     private SharedPreferences mSharedPreferences;
-    private ArticlesWrapper mArticlesWrapperList;
 
     public static NewsFragment getInstance(INewsAPI.Endpoints endpoints) {
         NewsFragment newsFragment = new NewsFragment();
@@ -64,9 +61,23 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
         mFragmentNewsBinding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_news, container, false);
 
         mNewsFragmentViewModel = ViewModelProviders
-                .of(this, new NewsFragmentViewModelFactory(ObservableHelper.getInstance())).get(NewsFragmentViewModel.class);
+                .of(this, new NewsFragmentViewModelFactory(Objects.requireNonNull(getActivity()).getApplication(),
+                        ObservableHelper.getInstance())).get(NewsFragmentViewModel.class);
 
         return mFragmentNewsBinding.getRoot();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        mSharedPreferences.registerOnSharedPreferenceChangeListener(this);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        setupUI();
     }
 
     private void setupNewsRV(List<Articles> articlesList) {
@@ -94,27 +105,58 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
         mFragmentNewsBinding.rvNews.setAdapter(sourcesAdapter);
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
+    private void setupOfflineSourcesRV(List<DbSources> dbSourcesList) {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
 
-        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        mSharedPreferences.registerOnSharedPreferenceChangeListener(this);
+        mFragmentNewsBinding.rvNews.setHasFixedSize(true);
+        mFragmentNewsBinding.rvNews.setLayoutManager(linearLayoutManager);
+        mFragmentNewsBinding.rvNews.addItemDecoration(new RecyclerViewItemDivider(Objects.requireNonNull(getActivity()), LinearLayoutManager.VERTICAL, 0));
+
+        SourcesAdapter sourcesAdapter = new SourcesAdapter();
+        sourcesAdapter.swapOfflineData(dbSourcesList);
+
+        mFragmentNewsBinding.rvNews.setAdapter(sourcesAdapter);
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    private void setupUI() {
+        int endpointCode = Objects.requireNonNull(getArguments()).getInt(Constants.ENDPOINT_ARGS_KEY);
 
-        setupUI();
-    }
-
-    public void setupUI() {
-        int endpointVal = Objects.requireNonNull(getArguments()).getInt(Constants.ENDPOINT_ARGS_KEY);
         showLoadingBar();
-        showError();
+        showError(endpointCode);
+        createPages(endpointCode);
+    }
 
+    private void loadTopHeadlineParametersFromPreferences(SharedPreferences sharedPreferences) {
+        Set<String> sourceSet = new HashSet<>();
+        sourceSet.add(getString(R.string.pref_sources_all_value));
 
-        switch (endpointVal) {
+        List<String> entries = new ArrayList<>(Objects.requireNonNull(
+                sharedPreferences.getStringSet(getString(R.string.pref_source_key), sourceSet)));
+        StringBuilder selectedSources = new StringBuilder();
+
+        for (int i = 0; i < entries.size(); i++) {
+            selectedSources.append(entries.get(i)).append(",");
+        }
+
+        if (selectedSources.length() > 0) {
+            selectedSources.deleteCharAt(selectedSources.length() - 1);
+        }
+
+        mNewsFragmentViewModel.getTopHeadlines(
+                sharedPreferences.getString(getString(R.string.pref_top_headlines_country_key), getString(R.string.pref_country_us_value)),
+                selectedSources.toString(),
+                sharedPreferences.getString(getString(R.string.pref_category_key), null), null);
+    }
+
+    private void loadNewsSourceParametersFromPreferences(SharedPreferences sharedPreferences) {
+        mNewsFragmentViewModel.getSources
+                (sharedPreferences.getString(getString(R.string.pref_language_key), null),
+                        sharedPreferences.getString(getString(R.string.pref_source_country_key), null),
+                        sharedPreferences.getString(getString(R.string.pref_source_category_key), null));
+    }
+
+    private void createPages(int endpointCode) {
+        switch (endpointCode) {
             case Constants.TOP_NEWS_ID:
                 mNewsFragmentViewModel.fetchTopHeadlines().observe(this, new Observer<ArticlesWrapper>() {
                     @Override
@@ -159,33 +201,11 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
         }
     }
 
-    private void loadTopHeadlineParametersFromPreferences(SharedPreferences sharedPreferences) {
-        Set<String> sourceSet = new HashSet<>();
-        sourceSet.add(getString(R.string.pref_sources_all_value));
+    private void populateOfflineSources() {
+        NewsRepository newsRepository = new NewsRepository(Objects.requireNonNull(getActivity()).getApplication());
+        List<DbSources> dbSourcesList = newsRepository.getAllSources();
 
-        List<String> entries = new ArrayList<>(Objects.requireNonNull(
-                sharedPreferences.getStringSet(getString(R.string.pref_source_key), sourceSet)));
-        StringBuilder selectedSources = new StringBuilder();
-
-        for (int i = 0; i < entries.size(); i++) {
-            selectedSources.append(entries.get(i)).append(",");
-        }
-
-        if (selectedSources.length() > 0) {
-            selectedSources.deleteCharAt(selectedSources.length() - 1);
-        }
-
-        mNewsFragmentViewModel.getTopHeadlines(
-                sharedPreferences.getString(getString(R.string.pref_top_headlines_country_key), getString(R.string.pref_country_us_value)),
-                selectedSources.toString(),
-                sharedPreferences.getString(getString(R.string.pref_category_key), null), null);
-    }
-
-    private void loadNewsSourceParametersFromPreferences(SharedPreferences sharedPreferences) {
-        mNewsFragmentViewModel.getSources
-                (sharedPreferences.getString(getString(R.string.pref_language_key), null),
-                        sharedPreferences.getString(getString(R.string.pref_source_country_key), null),
-                        sharedPreferences.getString(getString(R.string.pref_source_category_key), null));
+        setupOfflineSourcesRV(dbSourcesList);
     }
 
     private void showLoadingBar() {
@@ -203,30 +223,67 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
         });
     }
 
-    private void showError() {
-        mNewsFragmentViewModel.mIsErrorShown.observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(@Nullable Boolean isEnabled) {
-                if (isEnabled != null) {
-                    if (isEnabled) {
-                        mFragmentNewsBinding.rvNews.setVisibility(View.GONE);
-                        mFragmentNewsBinding.tvErrorView.setVisibility(View.VISIBLE);
-                    } else {
-                        mFragmentNewsBinding.tvErrorView.setVisibility(View.GONE);
-                        mFragmentNewsBinding.rvNews.setVisibility(View.VISIBLE);
+    private void showError(int endpointCode) {
+        switch (endpointCode) {
+            case Constants.TOP_NEWS_ID:
+                mNewsFragmentViewModel.mTopHeadlinesError.observe(this, new Observer<Boolean>() {
+                    @Override
+                    public void onChanged(@Nullable Boolean isError) {
+                        if (isError != null) {
+                            if (isError) {
+                                mFragmentNewsBinding.tvErrorView.setVisibility(View.VISIBLE);
+                                mFragmentNewsBinding.rvNews.setVisibility(View.GONE);
+                            } else {
+                                mFragmentNewsBinding.tvErrorView.setVisibility(View.GONE);
+                                mFragmentNewsBinding.rvNews.setVisibility(View.VISIBLE);
+                            }
+                        }
                     }
-                }
-            }
-        });
-    }
+                });
 
-    private void showErrorText(){
-        mNewsFragmentViewModel.mErrorText.observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                mFragmentNewsBinding.tvErrorView.setText(s);
-            }
-        });
+                break;
+
+            case Constants.EVERYTHING_ID:
+                mNewsFragmentViewModel.mEverythingError.observe(this, new Observer<Boolean>() {
+                    @Override
+                    public void onChanged(@Nullable Boolean isError) {
+                        if (isError != null) {
+                            if (isError) {
+                                mFragmentNewsBinding.tvErrorView.setVisibility(View.VISIBLE);
+                                mFragmentNewsBinding.rvNews.setVisibility(View.GONE);
+                            } else {
+                                mFragmentNewsBinding.tvErrorView.setVisibility(View.GONE);
+                                mFragmentNewsBinding.rvNews.setVisibility(View.VISIBLE);
+                            }
+                        }
+                    }
+                });
+
+                break;
+
+            case Constants.SOURCES_ID:
+                mNewsFragmentViewModel.mSourcesError.observe(this, new Observer<Boolean>() {
+                    @Override
+                    public void onChanged(@Nullable Boolean isError) {
+                        if (isError != null) {
+                            if (isError) {
+                                mFragmentNewsBinding.tvErrorView.setVisibility(View.GONE);
+                                mFragmentNewsBinding.rvNews.setVisibility(View.VISIBLE);
+
+                                populateOfflineSources();
+                            } else {
+                                mFragmentNewsBinding.tvErrorView.setVisibility(View.GONE);
+                                mFragmentNewsBinding.rvNews.setVisibility(View.VISIBLE);
+                            }
+                        }
+                    }
+                });
+
+                break;
+
+            default:
+                break;
+        }
     }
 
     @Override

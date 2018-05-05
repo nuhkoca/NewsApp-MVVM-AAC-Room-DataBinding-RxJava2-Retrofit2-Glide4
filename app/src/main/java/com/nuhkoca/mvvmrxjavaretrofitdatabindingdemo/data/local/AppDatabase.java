@@ -6,9 +6,9 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.dao.SourcesDao;
-import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.entity.Sources;
+import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.entity.DbSources;
 
-@Database(entities = {Sources.class}, version = 1)
+@Database(entities = {DbSources.class}, version = 2)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase INSTANCE;
@@ -22,6 +22,7 @@ public abstract class AppDatabase extends RoomDatabase {
                     INSTANCE =
                             Room.databaseBuilder(context.getApplicationContext(),
                                     AppDatabase.class, "news-database")
+                                    .fallbackToDestructiveMigration()
                                     .build();
                 }
             }
