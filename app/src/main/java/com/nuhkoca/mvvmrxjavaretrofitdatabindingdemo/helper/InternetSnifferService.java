@@ -7,8 +7,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.widget.Toast;
 
-import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.repository.INewsAPI;
-import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.ui.news.NewsFragment;
+import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.R;
 
 public class InternetSnifferService extends BroadcastReceiver {
 
@@ -17,14 +16,8 @@ public class InternetSnifferService extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         boolean isConnected = intent.getBooleanExtra(ConnectivityManager.EXTRA_NO_CONNECTIVITY, false);
 
-        NewsFragment newsFragment = new NewsFragment();
-
         if (isConnected) {
-            Toast.makeText(context, "Internet Connection Lost", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(context, "Internet Connected", Toast.LENGTH_SHORT).show();
-
-            //NewsFragment.getInstance(INewsAPI.Endpoints.TOP_HEADLINES).placeNews();
+            Toast.makeText(context, context.getString(R.string.urgent_internet_warning), Toast.LENGTH_SHORT).show();
         }
     }
 }

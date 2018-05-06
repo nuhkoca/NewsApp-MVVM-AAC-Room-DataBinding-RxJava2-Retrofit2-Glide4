@@ -17,8 +17,6 @@ import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.databinding.SourcesItemCard
 import java.util.ArrayList;
 import java.util.List;
 
-import timber.log.Timber;
-
 public class SourcesAdapter extends RecyclerView.Adapter<SourcesAdapter.ViewHolder> {
 
     private List<Sources> mSourcesList;
@@ -26,6 +24,10 @@ public class SourcesAdapter extends RecyclerView.Adapter<SourcesAdapter.ViewHold
 
     SourcesAdapter() {
         mSourcesList = new ArrayList<>();
+    }
+
+    SourcesAdapter(List<DbSources> mDbSources) {
+        this.mDbSources = mDbSources;
     }
 
     @NonNull
@@ -45,12 +47,10 @@ public class SourcesAdapter extends RecyclerView.Adapter<SourcesAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         if (mSourcesList != null) {
             Sources sources = mSourcesList.get(position);
-
             holder.bindViews(sources);
         } else {
-            DbSources current = mDbSources.get(position);
-
-            holder.mSourcesItemCardBinding.tvSourceName.setText(current.getName());
+            DbSources dbSources = mDbSources.get(position);
+            holder.bindViews(dbSources);
         }
     }
 
@@ -86,9 +86,21 @@ public class SourcesAdapter extends RecyclerView.Adapter<SourcesAdapter.ViewHold
         }
 
         void bindViews(Sources sources) {
-            mSourcesItemCardBinding.setVariable(BR.sources, sources);
+            if (sources != null) {
+                mSourcesItemCardBinding.setVariable(BR.sourceName, sources.getName());
+                mSourcesItemCardBinding.setVariable(BR.sourceDescription, sources.getDescription());
+                mSourcesItemCardBinding.setVariable(BR.sourceCategory, sources.getCategory());
+                mSourcesItemCardBinding.executePendingBindings();
+            }
+        }
 
-            mSourcesItemCardBinding.executePendingBindings();
+        void bindViews(DbSources dbSources) {
+            if (dbSources != null) {
+                mSourcesItemCardBinding.setVariable(BR.sourceName, dbSources.getName());
+                mSourcesItemCardBinding.setVariable(BR.sourceDescription, dbSources.getDescription());
+                mSourcesItemCardBinding.setVariable(BR.sourceCategory, dbSources.getCategory());
+                mSourcesItemCardBinding.executePendingBindings();
+            }
         }
     }
 }

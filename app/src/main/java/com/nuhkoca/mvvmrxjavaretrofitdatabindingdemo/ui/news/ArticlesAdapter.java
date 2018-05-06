@@ -66,7 +66,10 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHo
         }
 
         void bindViews(Articles articles) {
-            mNewsItemCardBinding.setVariable(BR.articles, articles);
+            mNewsItemCardBinding.setVariable(BR.articlesImage, articles.getUrlToImage());
+            mNewsItemCardBinding.setVariable(BR.articlesTitle, articles.getTitle());
+            mNewsItemCardBinding.setVariable(BR.articlesDescription, articles.getDescription());
+            mNewsItemCardBinding.setVariable(BR.articlesSourceName, articles.getSource().getName());
 
             mNewsItemCardBinding.executePendingBindings();
         }

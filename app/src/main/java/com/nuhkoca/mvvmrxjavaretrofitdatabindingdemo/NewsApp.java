@@ -6,7 +6,8 @@ import com.facebook.stetho.Stetho;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.local.AppDatabase;
+
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -44,6 +45,8 @@ public class NewsApp extends Application {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+        httpClient.connectTimeout(15, TimeUnit.SECONDS);
+        httpClient.readTimeout(15, TimeUnit.SECONDS);
         httpClient.addInterceptor(new StethoInterceptor());
         httpClient.interceptors().add(logging);
 
@@ -53,10 +56,6 @@ public class NewsApp extends Application {
                 .addConverterFactory(GsonConverterFactory.create(provideGson()))
                 .client(httpClient.build())
                 .build();
-    }
-
-    public static AppDatabase provideAppDatabase() {
-        return AppDatabase.getInstance(getInstance().getApplicationContext());
     }
 
     public void provideTimber() {

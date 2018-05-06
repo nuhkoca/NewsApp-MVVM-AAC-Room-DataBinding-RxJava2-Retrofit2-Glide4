@@ -18,8 +18,12 @@
     <string name="top_headlines_preference_title">Preferences for Top Headline News</string>
     <string name="sources_preference_title">Preferences for Sources</string>
 
-
+    <!-- Warnings -->
     <string name="api_error_text">An error occurred. Check your internet connection or parameters. Please note you cannot mix the sources parameter with the country or category parameters.</string>
+    <string name="snackBar_warning_text">You seem to not have a valid connection!</string>
+    <string name="snackBar_action_text">Dismiss</string>
+    <string name="urgent_internet_warning">Couldn\'t refresh feed.</string>
+
 
     <!-- SharedPreference Keys and Labels -->
 
@@ -222,7 +226,7 @@
     <string name="pref_category_key" translatable="false">top-headlines-category</string>
     <!--endregion -->
 
-    <!--region Top Headlines DbSources -->
+    <!--region Top Headlines Sources -->
     <string name="pref_source_label">Sources</string>
 
     <string name="pref_sources_label_all">None</string>
@@ -504,7 +508,7 @@
 
     <!--region Source Languages -->
     <string name="pref_language_label">Language</string>
-    <string name="pref_language_summary">News dbSources from the selected language will be displayed.</string>
+    <string name="pref_language_summary">News sources from the selected language will be displayed.</string>
 
     <string name="pref_language_label_all">None</string>
     <string name="pref_language_all_value" translatable="false"></string>

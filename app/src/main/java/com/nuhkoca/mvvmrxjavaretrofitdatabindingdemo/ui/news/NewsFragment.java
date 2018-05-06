@@ -25,7 +25,7 @@ import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.repository.INewsAPI;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.databinding.FragmentNewsBinding;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.helper.Constants;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.helper.ObservableHelper;
-import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.repository.NewsRepository;
+import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.util.ConnectionSniffer;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.util.RecyclerViewItemDivider;
 
 import java.util.ArrayList;
@@ -112,10 +112,10 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
         mFragmentNewsBinding.rvNews.setLayoutManager(linearLayoutManager);
         mFragmentNewsBinding.rvNews.addItemDecoration(new RecyclerViewItemDivider(Objects.requireNonNull(getActivity()), LinearLayoutManager.VERTICAL, 0));
 
-        SourcesAdapter sourcesAdapter = new SourcesAdapter();
-        sourcesAdapter.swapOfflineData(dbSourcesList);
-
+        SourcesAdapter sourcesAdapter = new SourcesAdapter(dbSourcesList);
         mFragmentNewsBinding.rvNews.setAdapter(sourcesAdapter);
+
+        sourcesAdapter.swapOfflineData(dbSourcesList);
     }
 
     private void setupUI() {
@@ -202,14 +202,45 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
     }
 
     private void populateOfflineSources() {
-        NewsRepository newsRepository = new NewsRepository(Objects.requireNonNull(getActivity()).getApplication());
-        List<DbSources> dbSourcesList = newsRepository.getAllSources();
+        mNewsFragmentViewModel.getAllSources().observe(this, new Observer<List<DbSources>>() {
+            @Override
+            public void onChanged(@Nullable List<DbSources> dbSourcesList) {
+                setupOfflineSourcesRV(dbSourcesList);
 
-        setupOfflineSourcesRV(dbSourcesList);
+                mFragmentNewsBinding.tvErrorView.setVisibility(View.GONE);
+                mFragmentNewsBinding.rvNews.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     private void showLoadingBar() {
-        mNewsFragmentViewModel.mIsLoading.observe(this, new Observer<Boolean>() {
+        mNewsFragmentViewModel.mTopHeadlinesLoading.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(@Nullable Boolean isLoading) {
+                if (isLoading != null) {
+                    if (isLoading) {
+                        mFragmentNewsBinding.pbNews.setVisibility(View.VISIBLE);
+                    } else {
+                        mFragmentNewsBinding.pbNews.setVisibility(View.GONE);
+                    }
+                }
+            }
+        });
+
+        mNewsFragmentViewModel.mEverythingLoading.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(@Nullable Boolean isLoading) {
+                if (isLoading != null) {
+                    if (isLoading) {
+                        mFragmentNewsBinding.pbNews.setVisibility(View.VISIBLE);
+                    } else {
+                        mFragmentNewsBinding.pbNews.setVisibility(View.GONE);
+                    }
+                }
+            }
+        });
+
+        mNewsFragmentViewModel.mSourcesLoading.observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(@Nullable Boolean isLoading) {
                 if (isLoading != null) {
@@ -224,6 +255,8 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
     }
 
     private void showError(int endpointCode) {
+        final boolean isAvailableConnection = ConnectionSniffer.sniff();
+
         switch (endpointCode) {
             case Constants.TOP_NEWS_ID:
                 mNewsFragmentViewModel.mTopHeadlinesError.observe(this, new Observer<Boolean>() {
@@ -267,10 +300,13 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
                     public void onChanged(@Nullable Boolean isError) {
                         if (isError != null) {
                             if (isError) {
-                                mFragmentNewsBinding.tvErrorView.setVisibility(View.GONE);
-                                mFragmentNewsBinding.rvNews.setVisibility(View.VISIBLE);
+                                mFragmentNewsBinding.tvErrorView.setVisibility(View.VISIBLE);
+                                mFragmentNewsBinding.rvNews.setVisibility(View.GONE);
 
-                                populateOfflineSources();
+                                if (!isAvailableConnection) {
+                                    populateOfflineSources();
+                                }
+
                             } else {
                                 mFragmentNewsBinding.tvErrorView.setVisibility(View.GONE);
                                 mFragmentNewsBinding.rvNews.setVisibility(View.VISIBLE);

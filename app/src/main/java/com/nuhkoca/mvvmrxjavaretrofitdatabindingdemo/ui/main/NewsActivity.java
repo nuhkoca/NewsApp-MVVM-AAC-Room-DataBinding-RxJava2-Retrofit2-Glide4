@@ -6,14 +6,20 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ToxicBakery.viewpager.transforms.DepthPageTransformer;
@@ -22,6 +28,7 @@ import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.databinding.ActivityNewsBin
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.helper.Constants;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.ui.news.NewsFragment;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.ui.settings.SettingsActivity;
+import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.util.ConnectionSniffer;
 
 import java.util.Objects;
 
@@ -86,16 +93,48 @@ public class NewsActivity extends AppCompatActivity implements BottomNavigationV
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemThatWasClicked = item.getItemId();
 
+        boolean isActiveConnection = ConnectionSniffer.sniff();
+
         switch (itemThatWasClicked) {
             case R.id.settings_menu:
-                startActivity(new Intent(NewsActivity.this, SettingsActivity.class));
-                return true;
+                if (isActiveConnection) {
+                    startActivity(new Intent(NewsActivity.this, SettingsActivity.class));
+                    return true;
+                }else {
+                    createSnackBar();
+                    return false;
+                }
 
             default:
                 break;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void createSnackBar(){
+        final Snackbar snack = Snackbar.make(mActivityNewsBinding.vpNews,
+                getString(R.string.snackBar_warning_text), Snackbar.LENGTH_LONG);
+
+        View view = snack.getView();
+
+        TextView snackText = view.findViewById(android.support.design.R.id.snackbar_text);
+        snackText.setTextColor(ContextCompat.getColor(this, R.color.white));
+
+        Button snackButton = view.findViewById(android.support.design.R.id.snackbar_action);
+        snackButton.setTextColor(ContextCompat.getColor(this, R.color.snackBarActionColor));
+
+        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams)
+                snack.getView().getLayoutParams();
+        params.setMargins(0, 0, 0, mActivityNewsBinding.bnvNews.getHeight());
+        snack.getView().setLayoutParams(params);
+        snack.setAction(getString(R.string.snackBar_action_text), new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                snack.dismiss();
+            }
+        });
+        snack.show();
     }
 
     @Override

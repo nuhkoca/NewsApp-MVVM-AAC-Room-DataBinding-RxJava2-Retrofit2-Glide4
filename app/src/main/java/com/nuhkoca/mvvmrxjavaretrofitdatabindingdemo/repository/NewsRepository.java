@@ -1,7 +1,7 @@
 package com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.repository;
 
-import android.annotation.SuppressLint;
 import android.app.Application;
+import android.arch.lifecycle.LiveData;
 import android.os.AsyncTask;
 
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.dao.SourcesDao;
@@ -10,29 +10,27 @@ import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.local.AppDatabase;
 
 import java.util.List;
 
-import timber.log.Timber;
-
 public class NewsRepository {
 
     private SourcesDao mSourceDao;
-    private List<DbSources> mDbSources;
+    private LiveData<List<DbSources>> mDbSources;
 
     public NewsRepository(Application application) {
         AppDatabase appDatabase = AppDatabase.getInstance(application);
         mSourceDao = appDatabase.sourcesDao();
+
+        mDbSources = mSourceDao.getAll();
     }
 
     public void insertSources(DbSources dbSources) {
         new insertSources(mSourceDao).execute(dbSources);
     }
 
-    public List<DbSources> getAllSources() {
-        new getSources(mSourceDao).execute();
-
+    public LiveData<List<DbSources>> getAllSources() {
         return mDbSources;
     }
 
-    public void deleteAllSources(){
+    public void deleteAllSources() {
         new deleteSources(mSourceDao).execute();
     }
 
@@ -48,31 +46,6 @@ public class NewsRepository {
         protected Void doInBackground(final DbSources... params) {
             mAsyncTaskDao.insertAll(params[0]);
             return null;
-        }
-    }
-
-    @SuppressLint("StaticFieldLeak")
-    private class getSources extends AsyncTask<Void, Void, List<DbSources>> {
-
-        private SourcesDao mAsyncTaskDao;
-
-        getSources(SourcesDao dao) {
-            mAsyncTaskDao = dao;
-        }
-
-        @Override
-        protected List<DbSources> doInBackground(Void... voids) {
-            return mAsyncTaskDao.getAll();
-        }
-
-        @Override
-        protected void onPostExecute(List<DbSources> dbSourcesList) {
-            super.onPostExecute(dbSourcesList);
-            mDbSources = dbSourcesList;
-
-            for (int i = 0; i < dbSourcesList.size(); i++) {
-                Timber.d(dbSourcesList.get(i).getName());
-            }
         }
     }
 

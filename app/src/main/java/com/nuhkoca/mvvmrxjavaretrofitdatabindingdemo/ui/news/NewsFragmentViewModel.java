@@ -2,6 +2,7 @@ package com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.ui.news;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -31,7 +32,9 @@ public class NewsFragmentViewModel extends AndroidViewModel {
     private MutableLiveData<ArticlesWrapper> mEverything = new MutableLiveData<>();
     private MutableLiveData<SourcesWrapper> mSources = new MutableLiveData<>();
 
-    public MutableLiveData<Boolean> mIsLoading = new MutableLiveData<>();
+    public MutableLiveData<Boolean> mTopHeadlinesLoading = new MutableLiveData<>();
+    public MutableLiveData<Boolean> mEverythingLoading = new MutableLiveData<>();
+    public MutableLiveData<Boolean> mSourcesLoading = new MutableLiveData<>();
 
     public MutableLiveData<Boolean> mTopHeadlinesError = new MutableLiveData<>();
     public MutableLiveData<Boolean> mEverythingError = new MutableLiveData<>();
@@ -40,13 +43,21 @@ public class NewsFragmentViewModel extends AndroidViewModel {
     private ObservableHelper observableHelper;
     private NewsRepository mNewsRepository;
 
+    private LiveData<List<DbSources>> mDbSourcesList;
+
     NewsFragmentViewModel(Application application, ObservableHelper observableHelper) {
         super(application);
         this.observableHelper = observableHelper;
 
         mNewsRepository = new NewsRepository(application);
 
-        mIsLoading.setValue(true);
+        mDbSourcesList = mNewsRepository.getAllSources();
+
+        mTopHeadlinesLoading.setValue(true);
+        mEverythingLoading.setValue(true);
+        mSourcesLoading.setValue(true);
+
+
         mTopHeadlinesError.setValue(false);
         mEverythingError.setValue(false);
         mSourcesError.setValue(false);
@@ -76,14 +87,14 @@ public class NewsFragmentViewModel extends AndroidViewModel {
 
                     @Override
                     public void onError(Throwable e) {
-                        mIsLoading.setValue(false);
+                        mTopHeadlinesLoading.setValue(false);
                         mTopHeadlinesError.setValue(true);
                     }
 
                     @Override
                     public void onNext(ArticlesWrapper articlesWrapper) {
                         if (articlesWrapper.getArticles().size() == 0) {
-                            mIsLoading.setValue(false);
+                            mTopHeadlinesLoading.setValue(false);
                             mTopHeadlinesError.setValue(true);
                         } else {
                             List<Articles> articlesList = new ArrayList<>();
@@ -101,7 +112,7 @@ public class NewsFragmentViewModel extends AndroidViewModel {
                             wrapper.setArticles(articlesList);
                             mTopHeadlines.setValue(wrapper);
 
-                            mIsLoading.setValue(false);
+                            mTopHeadlinesLoading.setValue(false);
                             mTopHeadlinesError.setValue(false);
                         }
                     }
@@ -128,14 +139,14 @@ public class NewsFragmentViewModel extends AndroidViewModel {
 
                     @Override
                     public void onError(Throwable e) {
-                        mIsLoading.setValue(false);
+                        mEverythingLoading.setValue(false);
                         mEverythingError.setValue(true);
                     }
 
                     @Override
                     public void onNext(ArticlesWrapper articlesWrapper) {
                         if (articlesWrapper.getArticles().size() == 0) {
-                            mIsLoading.setValue(false);
+                            mEverythingLoading.setValue(false);
                             mEverythingError.setValue(true);
                         } else {
                             List<Articles> articlesList = new ArrayList<>();
@@ -153,7 +164,7 @@ public class NewsFragmentViewModel extends AndroidViewModel {
                             wrapper.setArticles(articlesList);
                             mEverything.setValue(wrapper);
 
-                            mIsLoading.setValue(false);
+                            mEverythingLoading.setValue(false);
                             mEverythingError.setValue(false);
                         }
                     }
@@ -182,14 +193,14 @@ public class NewsFragmentViewModel extends AndroidViewModel {
 
                     @Override
                     public void onError(Throwable e) {
-                        mIsLoading.setValue(false);
+                        mSourcesLoading.setValue(false);
                         mSourcesError.setValue(true);
                     }
 
                     @Override
                     public void onNext(SourcesWrapper sourcesWrapper) {
                         if (sourcesWrapper.getSources().size() == 0) {
-                            mIsLoading.setValue(false);
+                            mSourcesLoading.setValue(false);
                             mSourcesError.setValue(true);
                         } else {
                             List<Sources> sourcesList = new ArrayList<>();
@@ -211,14 +222,14 @@ public class NewsFragmentViewModel extends AndroidViewModel {
                                             sourcesWrapper.getSources().get(i).getCountry());
 
                                     mNewsRepository.insertSources(dbSources);
-                                    Timber.d("Datum successfuly added");
+                                    Timber.d("Datum successfully added to database");
                                 }
                             }
 
                             wrapper.setSources(sourcesList);
                             mSources.setValue(wrapper);
 
-                            mIsLoading.setValue(false);
+                            mSourcesLoading.setValue(false);
                             mSourcesError.setValue(false);
                         }
                     }
@@ -235,6 +246,10 @@ public class NewsFragmentViewModel extends AndroidViewModel {
 
     public MutableLiveData<SourcesWrapper> fetchSources() {
         return mSources;
+    }
+
+    public LiveData<List<DbSources>> getAllSources() {
+        return mDbSourcesList;
     }
 
     @Override

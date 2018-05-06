@@ -12,6 +12,7 @@ import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.preference.PreferenceGroup;
 import android.support.v7.preference.PreferenceManager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ListView;
 
@@ -22,16 +23,28 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import timber.log.Timber;
+
 /**
  * A simple {@link Fragment} subclass.
  */
 public class SettingsFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {
+
+    private ListPreference mCountryPref;
+    private ListPreference mCategoryPref;
+    private MultiSelectListPreference mSourcePref;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.pref_general);
 
         PreferenceManager.setDefaultValues(Objects.requireNonNull(getActivity()), R.xml.pref_general, false);
+
+        PreferenceGroup preferenceGroup = (PreferenceGroup) getPreferenceScreen().getPreference(0);
+
+        mCountryPref = (ListPreference) preferenceGroup.getPreference(0);
+        mSourcePref = (MultiSelectListPreference) preferenceGroup.getPreference(1);
+        mCategoryPref = (ListPreference) preferenceGroup.getPreference(2);
 
         initSummary(getPreferenceScreen());
     }
@@ -49,6 +62,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if (!key.equals(getString(R.string.pref_source_key))) {
             updateSummary(findPreference(key));
+
         } else {
             updateMultiSummary(findPreference(key),
                     sharedPreferences.getStringSet(getString(R.string.pref_source_key), null));
@@ -82,6 +96,8 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
             List<String> entries = new ArrayList<>(value);
             StringBuilder allEntries = new StringBuilder();
 
+            Timber.d(String.valueOf(value.size()));
+
             for (int i = 0; i < entries.size(); i++) {
                 allEntries.append(multiSelectListPreference.getEntries()[multiSelectListPreference.findIndexOfValue(entries.get(i))])
                         .append(", ");
@@ -92,6 +108,17 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
             }
 
             p.setSummary(allEntries.toString());
+
+            if (value.size() == 0) {
+                mCategoryPref.setEnabled(true);
+                mCountryPref.setEnabled(true);
+            } else {
+                mCategoryPref.setEnabled(false);
+                mCategoryPref.setValue(getString(R.string.pref_category_all_value));
+
+                mCountryPref.setEnabled(false);
+                mCountryPref.setValue(getString(R.string.pref_country_all_value));
+            }
         }
     }
 

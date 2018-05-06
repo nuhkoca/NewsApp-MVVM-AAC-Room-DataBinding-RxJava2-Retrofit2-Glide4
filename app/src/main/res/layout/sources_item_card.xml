@@ -3,8 +3,16 @@
 
     <data>
         <variable
-            name="sources"
-            type="com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.remote.Sources" />
+            name="sourceName"
+            type="String" />
+
+        <variable
+            name="sourceCategory"
+            type="String" />
+
+        <variable
+            name="sourceDescription"
+            type="String" />
     </data>
 
         <LinearLayout
@@ -15,17 +23,31 @@
             android:background="?attr/selectableItemBackground"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tvSourceName"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{sources.name}"
-                style="@style/ArticleTitleAppearance"/>
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="@{sourceName}"
+                    style="@style/ArticleTitleAppearance"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="@{sourceCategory}"
+                    style="@style/SourceCategoryAppearance"/>
+
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{sources.description}"
+                android:text="@{sourceDescription}"
                 style="@style/ArticleDescriptionAppearance"/>
 
         </LinearLayout>
