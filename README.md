@@ -4,6 +4,7 @@
 
 This project is a playground to clutch MVVM pattern, Architecture Components, Room and others. This project actively uses Room Persistence Library to show feed in case no internet connection. Along with Lifecycle Components, API datum are consistently observed to able to detect whether or not there is any update or change. The app also benefits from PreferenceScreen to display news according to users' preferences. You can choose country, category, source or languages for different lists.
 
+This repo is still under maintenance.
 
 # What the project uses
 
@@ -30,17 +31,16 @@ This project is a playground to clutch MVVM pattern, Architecture Components, Ro
 
 ## Phone
 
-Offline Screen             | No Internet Screen       | Preferences Screen
-:-------------------------:|:-------------------------:|:-------------------------:
 <p align="left">
-                                                                                                              <img src="https://github.com/nuhkoca/NewsApp-MVVM-DataBinding-RxJava-Retrofit/blob/master/art/offline_data.png" height="500"/></p>  |  <p align="left"> |  <p align="left">
-                                                                                                              <img src="https://github.com/nuhkoca/NewsApp-MVVM-DataBinding-RxJava-Retrofit/blob/master/art/no_internet_screen.png" height="500"/></p>  |  <p align="left">
-                                                                                                                                                                                                                                                                                                                                                                 <img src="https://github.com/nuhkoca/NewsApp-MVVM-DataBinding-RxJava-Retrofit/blob/master/art/preferences.png" height="500"/></p>  |  <p align="left">
+<img src="https://github.com/nuhkoca/NewsApp-MVVM-DataBinding-RxJava-Retrofit/blob/master/art/offline_data.png" height="500"/>
 
-No Internet Warning        |
-:-------------------------:|
-<p align="left">
-                                                                                                                                                                                                                                                                                                                                                                 <img src="https://github.com/nuhkoca/NewsApp-MVVM-DataBinding-RxJava-Retrofit/blob/master/art/no_internet_warning.png" height="500"/></p>  |  <p align="left">   |
+<img src="https://github.com/nuhkoca/NewsApp-MVVM-DataBinding-RxJava-Retrofit/blob/master/art/preferences.png" height="500"/>
+
+<img src="https://github.com/nuhkoca/NewsApp-MVVM-DataBinding-RxJava-Retrofit/blob/master/art/no_internet_screen.png" height="500"/>
+
+<img src="https://github.com/nuhkoca/NewsApp-MVVM-DataBinding-RxJava-Retrofit/blob/master/art/no_internet_warning.png" height="500"/>
+</p>
+
 
 # License
 
