@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -41,12 +42,19 @@ public class NewsActivity extends AppCompatActivity implements BottomNavigationV
     private ActivityNewsBinding mActivityNewsBinding;
     private MenuItem mPrevMenuItem;
     private long mBackPressed;
+    private boolean mIsActiveConnection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivityNewsBinding = DataBindingUtil.setContentView(this, R.layout.activity_news);
         setSupportActionBar(Objects.requireNonNull(mActivityNewsBinding.layoutToolbar).toolbar);
+
+        mIsActiveConnection = ConnectionSniffer.sniff();
+
+        if (!mIsActiveConnection) {
+            createSnackBar();
+        }
 
         setupViewPager();
     }
@@ -93,14 +101,12 @@ public class NewsActivity extends AppCompatActivity implements BottomNavigationV
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemThatWasClicked = item.getItemId();
 
-        boolean isActiveConnection = ConnectionSniffer.sniff();
-
         switch (itemThatWasClicked) {
             case R.id.settings_menu:
-                if (isActiveConnection) {
+                if (mIsActiveConnection) {
                     startActivity(new Intent(NewsActivity.this, SettingsActivity.class));
                     return true;
-                }else {
+                } else {
                     createSnackBar();
                     return false;
                 }
@@ -112,7 +118,7 @@ public class NewsActivity extends AppCompatActivity implements BottomNavigationV
         return super.onOptionsItemSelected(item);
     }
 
-    private void createSnackBar(){
+    private void createSnackBar() {
         final Snackbar snack = Snackbar.make(mActivityNewsBinding.vpNews,
                 getString(R.string.snackBar_warning_text), Snackbar.LENGTH_LONG);
 
@@ -124,10 +130,19 @@ public class NewsActivity extends AppCompatActivity implements BottomNavigationV
         Button snackButton = view.findViewById(android.support.design.R.id.snackbar_action);
         snackButton.setTextColor(ContextCompat.getColor(this, R.color.snackBarActionColor));
 
-        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams)
-                snack.getView().getLayoutParams();
-        params.setMargins(0, 0, 0, mActivityNewsBinding.bnvNews.getHeight());
-        snack.getView().setLayoutParams(params);
+        mActivityNewsBinding.bnvNews.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+            @Override
+            public boolean onPreDraw() {
+                mActivityNewsBinding.bnvNews.getViewTreeObserver().removeOnPreDrawListener(this);
+                FrameLayout.LayoutParams params = (FrameLayout.LayoutParams)
+                        snack.getView().getLayoutParams();
+                params.setMargins(0, 0, 0, mActivityNewsBinding.bnvNews.getHeight());
+                snack.getView().setLayoutParams(params);
+
+                return false;
+            }
+        });
+
         snack.setAction(getString(R.string.snackBar_action_text), new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">Bundle</string>
-    <string name="main_header">Bundle</string>
+    <string name="app_name" translatable="false">Bundle</string>
+    <string name="main_header" translatable="false">Bundle</string>
     <string name="preferences_header">Preferences</string>
 
-    <string name="article_image_view_content_description">This view holds the image for each news.</string>
+    <string name="article_image_view_content_description" translatable="false">This view holds the image for each news.</string>
 
     <!-- Bottom Navigation View Headers -->
     <string name="top_headlines_header">Top Headlines</string>
@@ -19,7 +19,7 @@
     <string name="sources_preference_title">Preferences for Sources</string>
 
     <!-- Warnings -->
-    <string name="api_error_text">An error occurred. Check your internet connection or parameters. Please note you cannot mix the sources parameter with the country or category parameters.</string>
+    <string name="api_error_text">An error occurred. Check your internet connection or the parameters.</string>
     <string name="snackBar_warning_text">You seem to not have a valid connection!</string>
     <string name="snackBar_action_text">Dismiss</string>
     <string name="urgent_internet_warning">Couldn\'t refresh feed.</string>

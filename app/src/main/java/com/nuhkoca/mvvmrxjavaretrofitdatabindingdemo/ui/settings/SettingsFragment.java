@@ -12,7 +12,6 @@ import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.preference.PreferenceGroup;
 import android.support.v7.preference.PreferenceManager;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.ListView;
 
@@ -22,8 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-
-import timber.log.Timber;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -86,6 +83,21 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
         if (p instanceof ListPreference) {
             ListPreference listPref = (ListPreference) p;
             p.setSummary(listPref.getEntry());
+
+            if (p.getKey().equals(getString(R.string.pref_top_headlines_country_key))
+                    || p.getKey().equals(getString(R.string.pref_category_key))) {
+                if (p.getSharedPreferences().getString(getString(R.string.pref_top_headlines_country_key),
+                        getString(R.string.pref_country_all_value)).equals("")
+                        && p.getSharedPreferences().getString(getString(R.string.pref_category_key),
+                        getString(R.string.pref_category_all_value)).equals("")) {
+                    mSourcePref.setEnabled(true);
+                } else if (p.getSharedPreferences().getString(getString(R.string.pref_top_headlines_country_key),
+                        getString(R.string.pref_country_all_value)).equals("")
+                        || p.getSharedPreferences().getString(getString(R.string.pref_category_key),
+                        getString(R.string.pref_category_all_value)).equals("")) {
+                    mSourcePref.setEnabled(false);
+                }
+            }
         }
     }
 
@@ -95,8 +107,6 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
 
             List<String> entries = new ArrayList<>(value);
             StringBuilder allEntries = new StringBuilder();
-
-            Timber.d(String.valueOf(value.size()));
 
             for (int i = 0; i < entries.size(); i++) {
                 allEntries.append(multiSelectListPreference.getEntries()[multiSelectListPreference.findIndexOfValue(entries.get(i))])
