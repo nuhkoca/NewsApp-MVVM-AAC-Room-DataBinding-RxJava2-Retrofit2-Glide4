@@ -94,9 +94,6 @@ public class NewsActivity extends AppCompatActivity implements BottomNavigationV
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.main_menu, menu);
 
-        MenuItem menuItem = menu.findItem(R.id.search_menu);
-        mActivityNewsBinding.layoutToolbar.searchView.setMenuItem(menuItem);
-
         return super.onCreateOptionsMenu(menu);
     }
 

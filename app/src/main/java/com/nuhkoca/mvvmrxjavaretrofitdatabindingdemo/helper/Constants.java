@@ -7,4 +7,6 @@ public class Constants {
     public static final int EVERYTHING_ID = 1785;
     public static final int SOURCES_ID = 1945;
     public static final int COLUMN_WIDTH = 700;
+    public static final String PREF_NAME = "news-shared-preference";
+    public static final String QUERY_PREF = "news-query";
 }

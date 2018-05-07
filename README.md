@@ -2,6 +2,8 @@
 
 ![App Logo](https://github.com/nuhkoca/NewsApp-MVVM-DataBinding-RxJava-Retrofit/blob/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png)
 
+:boom: A playground with the latest techs
+
 This project is a playground to clutch MVVM pattern, Architecture Components, Room and others. This project actively uses Room Persistence Library to show feed in case no internet connection. Along with Lifecycle Components, API datum are consistently observed to able to detect whether or not there is any update or change. The app also benefits from PreferenceScreen to display news according to users' preferences. You can choose country, category, source or languages for different lists.
 
 This repo is still under maintenance.
@@ -20,6 +22,7 @@ This repo is still under maintenance.
 * [Room Persistence Library](https://github.com/googlecodelabs/android-room-with-a-view)
 * [PreferenceScreen v14](https://developer.android.com/reference/android/preference/Preference)
 * [ViewPagerTransforms](https://github.com/ToxicBakery/ViewPagerTransforms)
+* [Stetho](http://facebook.github.io/stetho/)
 
 # ToDo List
 

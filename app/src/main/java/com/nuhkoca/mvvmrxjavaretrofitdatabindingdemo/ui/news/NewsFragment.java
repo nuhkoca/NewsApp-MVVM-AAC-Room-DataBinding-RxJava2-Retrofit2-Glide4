@@ -11,8 +11,10 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,10 +40,12 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import static android.content.Context.MODE_PRIVATE;
+
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NewsFragment extends Fragment implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class NewsFragment extends Fragment implements SharedPreferences.OnSharedPreferenceChangeListener, SearchView.OnQueryTextListener {
 
     private FragmentNewsBinding mFragmentNewsBinding;
     private NewsFragmentViewModel mNewsFragmentViewModel;
@@ -95,6 +99,17 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
                 || mEndpointCode == Constants.SOURCES_ID) {
             menuItem.setVisible(false);
         }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        MenuItem searchItem = menu.findItem(R.id.search_menu);
+        final SearchView searchView = (SearchView) searchItem.getActionView();
+        searchView.setIconified(true);
+
+        searchView.setOnQueryTextListener(this);
     }
 
     @Override
@@ -166,6 +181,22 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
                         sharedPreferences.getString(getString(R.string.pref_source_category_key), null));
     }
 
+    private void loadEverythingFromQuery() {
+        SharedPreferences prefs = Objects.requireNonNull(getActivity()).getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE);
+        String query = prefs.getString(Constants.QUERY_PREF, "news");
+
+        mNewsFragmentViewModel.getEverything(query);
+    }
+
+    private void saveQueryToSharedPreference(String query) {
+        SharedPreferences.Editor editor =
+                Objects.requireNonNull(getActivity()).getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE).edit();
+
+        editor.putString(Constants.QUERY_PREF, query);
+
+        editor.apply();
+    }
+
     private void createPages(int endpointCode) {
         switch (endpointCode) {
             case Constants.TOP_NEWS_ID:
@@ -195,7 +226,8 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
                     }
                 });
 
-                mNewsFragmentViewModel.getEverything("bayern");
+                loadEverythingFromQuery();
+
                 break;
 
             case Constants.SOURCES_ID:
@@ -400,5 +432,20 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
         super.onDestroy();
 
         mSharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        query = query.toLowerCase();
+
+        loadEverythingFromQuery();
+        saveQueryToSharedPreference(query);
+
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        return false;
     }
 }

@@ -13,7 +13,7 @@
 
     </item>
 
-    <item android:drawable="@drawable/ic_launcher_round"
+    <item android:drawable="@drawable/ic_splash_icon"
         android:gravity="center" />
 
 </layer-list>

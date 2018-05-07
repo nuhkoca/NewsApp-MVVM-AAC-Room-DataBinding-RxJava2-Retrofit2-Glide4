@@ -8,9 +8,10 @@
 
     <item
         android:id="@+id/search_menu"
-        android:icon="@drawable/ic_action_action_search"
+        android:icon="@drawable/ic_action_search"
         android:orderInCategory="100"
-        android:title="@string/abc_search_hint"
-        app:showAsAction="ifRoom" />
+        android:title="@string/search_text"
+        app:showAsAction="ifRoom"
+        app:actionViewClass="android.support.v7.widget.SearchView"/>
 
 </menu>

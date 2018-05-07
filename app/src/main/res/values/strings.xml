@@ -12,6 +12,9 @@
 
     <!-- Menu Strings -->
     <string name="settings_text">Preferences</string>
+    <string name="search_text">Search</string>
+    <string name="search_hint_text">Search Bundle</string>
+
     <string name="twice_press_to_exit">Press back again to exit.</string>
 
     <!-- Preference Titles -->
