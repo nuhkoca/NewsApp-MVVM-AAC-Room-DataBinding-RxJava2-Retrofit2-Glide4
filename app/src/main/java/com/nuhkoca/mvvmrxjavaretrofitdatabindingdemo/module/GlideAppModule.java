@@ -3,6 +3,7 @@ package com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.module;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.GlideBuilder;
@@ -16,6 +17,7 @@ import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.module.AppGlideModule;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.signature.ObjectKey;
+import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.R;
 
 import java.io.InputStream;
 import java.util.concurrent.TimeUnit;
@@ -57,9 +59,9 @@ public class GlideAppModule extends AppGlideModule {
                 .dontAnimate()
                 .encodeFormat(Bitmap.CompressFormat.PNG)
                 .encodeQuality(100)
-                //.fallback(ContextCompat.getDrawable(context, R.drawable.ic_not_found))
-                //.error(ContextCompat.getDrawable(context, R.drawable.ic_not_found))
-                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                .fallback(ContextCompat.getDrawable(context, R.drawable.not_loaded_image))
+                .error(ContextCompat.getDrawable(context, R.drawable.not_loaded_image))
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .format(PREFER_ARGB_8888)
                 .skipMemoryCache(false);
     }

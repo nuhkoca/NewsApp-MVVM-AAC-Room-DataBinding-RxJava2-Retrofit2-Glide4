@@ -19,10 +19,16 @@
     <string name="sources_preference_title">Preferences for Sources</string>
 
     <!-- Warnings -->
-    <string name="api_error_text">An error occurred. Check your internet connection or the parameters.</string>
+    <string name="top_headlines_error_text">An error occurred. Try changing search parameters or check connection.</string>
+    <string name="everything_error_text">An error occurred. Try changing search query or check connection.</string>
+    <string name="sources_error_text">An error occurred. Try changing search parameters or check connection.</string>
+
     <string name="snackBar_warning_text">You seem to not have a valid connection!</string>
+    <string name="snackBar_offline_warning_text">You seem to not have a valid connection! Offline data is displayed.</string>
     <string name="snackBar_action_text">Dismiss</string>
+
     <string name="urgent_internet_warning">Couldn\'t refresh feed.</string>
+    <string name="pref_screen_no_parameter_error">You have to choose at least 1 parameter among Country, Source or Category.</string>
 
 
     <!-- SharedPreference Keys and Labels -->

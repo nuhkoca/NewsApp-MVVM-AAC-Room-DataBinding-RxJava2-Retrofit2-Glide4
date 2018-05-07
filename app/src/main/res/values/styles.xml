@@ -13,6 +13,11 @@
         <item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
     </style>
 
+    <!-- Splash Screen Theme -->
+    <style name="AppTheme.Launcher" parent="AppTheme">
+        <item name="android:windowBackground">@drawable/splash_screen_background</item>
+    </style>
+
     <!-- Toolbar Header Theme -->
     <style name="ToolbarHeaderAppearance" parent="TextAppearance.AppCompat"/>
     <style name="ToolbarHeaderAppearance.Title">

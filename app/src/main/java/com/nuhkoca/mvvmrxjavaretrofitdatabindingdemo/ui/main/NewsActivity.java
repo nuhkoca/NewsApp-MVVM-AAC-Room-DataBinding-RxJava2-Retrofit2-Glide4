@@ -53,7 +53,7 @@ public class NewsActivity extends AppCompatActivity implements BottomNavigationV
         mIsActiveConnection = ConnectionSniffer.sniff();
 
         if (!mIsActiveConnection) {
-            createSnackBar();
+            createSnackBar(getString(R.string.snackBar_offline_warning_text));
         }
 
         setupViewPager();
@@ -94,6 +94,9 @@ public class NewsActivity extends AppCompatActivity implements BottomNavigationV
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.main_menu, menu);
 
+        MenuItem menuItem = menu.findItem(R.id.search_menu);
+        mActivityNewsBinding.layoutToolbar.searchView.setMenuItem(menuItem);
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -101,13 +104,15 @@ public class NewsActivity extends AppCompatActivity implements BottomNavigationV
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemThatWasClicked = item.getItemId();
 
+        mIsActiveConnection = ConnectionSniffer.sniff();
+
         switch (itemThatWasClicked) {
             case R.id.settings_menu:
                 if (mIsActiveConnection) {
                     startActivity(new Intent(NewsActivity.this, SettingsActivity.class));
                     return true;
                 } else {
-                    createSnackBar();
+                    createSnackBar(getString(R.string.snackBar_warning_text));
                     return false;
                 }
 
@@ -118,9 +123,9 @@ public class NewsActivity extends AppCompatActivity implements BottomNavigationV
         return super.onOptionsItemSelected(item);
     }
 
-    private void createSnackBar() {
+    private void createSnackBar(String content) {
         final Snackbar snack = Snackbar.make(mActivityNewsBinding.vpNews,
-                getString(R.string.snackBar_warning_text), Snackbar.LENGTH_LONG);
+                content, Snackbar.LENGTH_LONG);
 
         View view = snack.getView();
 

@@ -15,24 +15,31 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.main.NewsActivity"
-            android:launchMode="singleTop">
+        <activity android:name=".ui.splash.SplashActivity"
+            android:theme="@style/AppTheme.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.settings.SettingsActivity"
-            android:parentActivityName=".ui.main.NewsActivity"/>
 
-        <receiver android:exported="false"
-            android:name=".helper.InternetSnifferService">
+        <activity
+            android:name=".ui.main.NewsActivity"
+            android:launchMode="singleTop">
+        </activity>
+
+        <activity
+            android:name=".ui.settings.SettingsActivity"
+            android:parentActivityName=".ui.main.NewsActivity" />
+
+        <receiver
+            android:name=".helper.InternetSnifferService"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
-
     </application>
 
 </manifest>

@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.BR;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.R;
+import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.entity.DbEverything;
+import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.entity.DbTopHeadlines;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.remote.Articles;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.databinding.NewsItemCardBinding;
 
@@ -19,9 +21,16 @@ import java.util.List;
 public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHolder> {
 
     private List<Articles> mArticlesList;
+    private List<DbTopHeadlines> mDbTopHeadlines;
+    private List<DbEverything> mDbEverything;
 
-    ArticlesAdapter() {
+    public ArticlesAdapter() {
         mArticlesList = new ArrayList<>();
+    }
+
+    public ArticlesAdapter(List<DbTopHeadlines> mDbTopHeadlines, List<DbEverything> mDbEverything) {
+        this.mDbTopHeadlines = mDbTopHeadlines;
+        this.mDbEverything = mDbEverything;
     }
 
     @NonNull
@@ -39,9 +48,19 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Articles articles = mArticlesList.get(position);
+        if (mArticlesList != null) {
+            Articles articles = mArticlesList.get(position);
 
-        holder.bindViews(articles);
+            holder.bindViews(articles);
+        } else if (mDbTopHeadlines != null) {
+            DbTopHeadlines dbTopHeadlines = mDbTopHeadlines.get(position);
+
+            holder.bindViews(dbTopHeadlines);
+        } else {
+            DbEverything dbEverything = mDbEverything.get(position);
+
+            holder.bindViews(dbEverything);
+        }
     }
 
     public void swapData(List<Articles> articlesList) {
@@ -50,9 +69,27 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHo
         notifyDataSetChanged();
     }
 
+    public void swapOfflineTopHeadlines(List<DbTopHeadlines> dbTopHeadlinesList) {
+        this.mDbTopHeadlines = dbTopHeadlinesList;
+
+        notifyDataSetChanged();
+    }
+
+    public void swapOfflineEverything(List<DbEverything> dbEverythingList) {
+        this.mDbEverything = dbEverythingList;
+
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemCount() {
-        return mArticlesList.size();
+        if (mArticlesList != null) {
+            return mArticlesList.size();
+        } else if (mDbTopHeadlines != null) {
+            return mDbTopHeadlines.size();
+        } else {
+            return mDbEverything.size();
+        }
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -66,12 +103,36 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHo
         }
 
         void bindViews(Articles articles) {
-            mNewsItemCardBinding.setVariable(BR.articlesImage, articles.getUrlToImage());
-            mNewsItemCardBinding.setVariable(BR.articlesTitle, articles.getTitle());
-            mNewsItemCardBinding.setVariable(BR.articlesDescription, articles.getDescription());
-            mNewsItemCardBinding.setVariable(BR.articlesSourceName, articles.getSource().getName());
+            if (articles != null) {
+                mNewsItemCardBinding.setVariable(BR.articlesImage, articles.getUrlToImage());
+                mNewsItemCardBinding.setVariable(BR.articlesTitle, articles.getTitle());
+                mNewsItemCardBinding.setVariable(BR.articlesDescription, articles.getDescription());
+                mNewsItemCardBinding.setVariable(BR.articlesSourceName, articles.getSource().getName());
 
-            mNewsItemCardBinding.executePendingBindings();
+                mNewsItemCardBinding.executePendingBindings();
+            }
+        }
+
+        void bindViews(DbTopHeadlines dbTopHeadlines) {
+            if (dbTopHeadlines != null) {
+                mNewsItemCardBinding.setVariable(BR.articlesImage, dbTopHeadlines.getUrlToImage());
+                mNewsItemCardBinding.setVariable(BR.articlesTitle, dbTopHeadlines.getTitle());
+                mNewsItemCardBinding.setVariable(BR.articlesDescription, dbTopHeadlines.getDescription());
+                mNewsItemCardBinding.setVariable(BR.articlesSourceName, dbTopHeadlines.getSource());
+
+                mNewsItemCardBinding.executePendingBindings();
+            }
+        }
+
+        void bindViews(DbEverything dbEverything) {
+            if (dbEverything != null) {
+                mNewsItemCardBinding.setVariable(BR.articlesImage, dbEverything.getUrlToImage());
+                mNewsItemCardBinding.setVariable(BR.articlesTitle, dbEverything.getTitle());
+                mNewsItemCardBinding.setVariable(BR.articlesDescription, dbEverything.getDescription());
+                mNewsItemCardBinding.setVariable(BR.articlesSourceName, dbEverything.getSource());
+
+                mNewsItemCardBinding.executePendingBindings();
+            }
         }
     }
 }

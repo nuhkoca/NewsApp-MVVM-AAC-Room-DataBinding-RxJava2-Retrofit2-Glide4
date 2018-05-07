@@ -10,12 +10,12 @@ import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.local.AppDatabase;
 
 import java.util.List;
 
-public class NewsRepository {
+public class SourcesRepository {
 
     private SourcesDao mSourceDao;
     private LiveData<List<DbSources>> mDbSources;
 
-    public NewsRepository(Application application) {
+    public SourcesRepository(Application application) {
         AppDatabase appDatabase = AppDatabase.getInstance(application);
         mSourceDao = appDatabase.sourcesDao();
 

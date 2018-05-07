@@ -22,11 +22,11 @@ public class SourcesAdapter extends RecyclerView.Adapter<SourcesAdapter.ViewHold
     private List<Sources> mSourcesList;
     private List<DbSources> mDbSources;
 
-    SourcesAdapter() {
+    public SourcesAdapter() {
         mSourcesList = new ArrayList<>();
     }
 
-    SourcesAdapter(List<DbSources> mDbSources) {
+    public SourcesAdapter(List<DbSources> mDbSources) {
         this.mDbSources = mDbSources;
     }
 

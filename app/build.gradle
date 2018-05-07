@@ -87,7 +87,11 @@ dependencies {
     //ViewPagerTransformers
     implementation "com.ToxicBakery.viewpager.transforms:view-pager-transforms:$rootProject.ext.viewPagerTransformerVersion"
 
+    //Materialish Progress
     implementation "com.pnikosis:materialish-progress:$rootProject.ext.materialishProgressVersion"
+
+    //SearchView
+    implementation 'com.miguelcatalan:materialsearchview:1.4.0'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

@@ -8,14 +8,18 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
+import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.entity.DbEverything;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.entity.DbSources;
+import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.entity.DbTopHeadlines;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.local.AppDatabase;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.remote.Articles;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.remote.ArticlesWrapper;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.remote.Sources;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.remote.SourcesWrapper;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.helper.ObservableHelper;
-import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.repository.NewsRepository;
+import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.repository.EverythingRepository;
+import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.repository.SourcesRepository;
+import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.repository.TopHeadlinesRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +32,7 @@ import rx.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class NewsFragmentViewModel extends AndroidViewModel {
+
     private MutableLiveData<ArticlesWrapper> mTopHeadlines = new MutableLiveData<>();
     private MutableLiveData<ArticlesWrapper> mEverything = new MutableLiveData<>();
     private MutableLiveData<SourcesWrapper> mSources = new MutableLiveData<>();
@@ -41,22 +46,30 @@ public class NewsFragmentViewModel extends AndroidViewModel {
     public MutableLiveData<Boolean> mSourcesError = new MutableLiveData<>();
 
     private ObservableHelper observableHelper;
-    private NewsRepository mNewsRepository;
+
+    private SourcesRepository mSourcesRepository;
+    private TopHeadlinesRepository mTopHeadlinesRepository;
+    private EverythingRepository mEverythingRepository;
 
     private LiveData<List<DbSources>> mDbSourcesList;
+    private LiveData<List<DbTopHeadlines>> mDbTopHeadlines;
+    private LiveData<List<DbEverything>> mDbEverything;
 
     NewsFragmentViewModel(Application application, ObservableHelper observableHelper) {
         super(application);
         this.observableHelper = observableHelper;
 
-        mNewsRepository = new NewsRepository(application);
+        mSourcesRepository = new SourcesRepository(application);
+        mTopHeadlinesRepository = new TopHeadlinesRepository(application);
+        mEverythingRepository = new EverythingRepository(application);
 
-        mDbSourcesList = mNewsRepository.getAllSources();
+        mDbSourcesList = mSourcesRepository.getAllSources();
+        mDbTopHeadlines = mTopHeadlinesRepository.getAllTopHeadlines();
+        mDbEverything = mEverythingRepository.getAllEverything();
 
         mTopHeadlinesLoading.setValue(true);
         mEverythingLoading.setValue(true);
         mSourcesLoading.setValue(true);
-
 
         mTopHeadlinesError.setValue(false);
         mEverythingError.setValue(false);
@@ -99,6 +112,9 @@ public class NewsFragmentViewModel extends AndroidViewModel {
                         } else {
                             List<Articles> articlesList = new ArrayList<>();
                             ArticlesWrapper wrapper = new ArticlesWrapper();
+                            DbTopHeadlines dbTopHeadlines;
+
+                            mTopHeadlinesRepository.deleteAllTopHeadlines();
 
                             for (int i = 0; i < articlesWrapper.getArticles().size(); i++) {
                                 if (!TextUtils.isEmpty(articlesWrapper.getArticles().get(i).getDescription())
@@ -106,6 +122,17 @@ public class NewsFragmentViewModel extends AndroidViewModel {
                                         || articlesWrapper.getArticles().get(i).getDescription() != null
                                         || articlesWrapper.getArticles().get(i).getUrlToImage() != null) {
                                     articlesList.add(articlesWrapper.getArticles().get(i));
+
+                                    dbTopHeadlines = new DbTopHeadlines(articlesWrapper.getArticles().get(i).getAuthor(),
+                                            articlesWrapper.getArticles().get(i).getTitle(),
+                                            articlesWrapper.getArticles().get(i).getDescription(),
+                                            articlesWrapper.getArticles().get(i).getUrl(),
+                                            articlesWrapper.getArticles().get(i).getUrlToImage(),
+                                            articlesWrapper.getArticles().get(i).getPublishedAt(),
+                                            articlesWrapper.getArticles().get(i).getSource().getName());
+
+                                    mTopHeadlinesRepository.insertTopHeadlines(dbTopHeadlines);
+                                    Timber.d("TopHeadlines successfully added to database");
                                 }
                             }
 
@@ -151,6 +178,9 @@ public class NewsFragmentViewModel extends AndroidViewModel {
                         } else {
                             List<Articles> articlesList = new ArrayList<>();
                             ArticlesWrapper wrapper = new ArticlesWrapper();
+                            DbEverything dbEverything;
+
+                            mEverythingRepository.deleteAllEverything();
 
                             for (int i = 0; i < articlesWrapper.getArticles().size(); i++) {
                                 if (!TextUtils.isEmpty(articlesWrapper.getArticles().get(i).getDescription())
@@ -158,6 +188,17 @@ public class NewsFragmentViewModel extends AndroidViewModel {
                                         || articlesWrapper.getArticles().get(i).getDescription() != null
                                         || articlesWrapper.getArticles().get(i).getUrlToImage() != null) {
                                     articlesList.add(articlesWrapper.getArticles().get(i));
+
+                                    dbEverything = new DbEverything(articlesWrapper.getArticles().get(i).getAuthor(),
+                                            articlesWrapper.getArticles().get(i).getTitle(),
+                                            articlesWrapper.getArticles().get(i).getDescription(),
+                                            articlesWrapper.getArticles().get(i).getUrl(),
+                                            articlesWrapper.getArticles().get(i).getUrlToImage(),
+                                            articlesWrapper.getArticles().get(i).getPublishedAt(),
+                                            articlesWrapper.getArticles().get(i).getSource().getName());
+
+                                    mEverythingRepository.insertEverything(dbEverything);
+                                    Timber.d("Everything successfully added to database");
                                 }
                             }
 
@@ -207,10 +248,11 @@ public class NewsFragmentViewModel extends AndroidViewModel {
                             SourcesWrapper wrapper = new SourcesWrapper();
                             DbSources dbSources;
 
-                            mNewsRepository.deleteAllSources();
+                            mSourcesRepository.deleteAllSources();
 
                             for (int i = 0; i < sourcesWrapper.getSources().size(); i++) {
-                                if (!TextUtils.isEmpty(sourcesWrapper.getSources().get(i).getDescription())) {
+                                if (!TextUtils.isEmpty(sourcesWrapper.getSources().get(i).getDescription())
+                                        || sourcesWrapper.getSources().get(i).getDescription() != null) {
                                     sourcesList.add(sourcesWrapper.getSources().get(i));
 
                                     dbSources = new DbSources(sourcesWrapper.getSources().get(i).getId(),
@@ -221,8 +263,8 @@ public class NewsFragmentViewModel extends AndroidViewModel {
                                             sourcesWrapper.getSources().get(i).getLanguage(),
                                             sourcesWrapper.getSources().get(i).getCountry());
 
-                                    mNewsRepository.insertSources(dbSources);
-                                    Timber.d("Datum successfully added to database");
+                                    mSourcesRepository.insertSources(dbSources);
+                                    Timber.d("Sources successfully added to database");
                                 }
                             }
 
@@ -250,6 +292,14 @@ public class NewsFragmentViewModel extends AndroidViewModel {
 
     public LiveData<List<DbSources>> getAllSources() {
         return mDbSourcesList;
+    }
+
+    public LiveData<List<DbTopHeadlines>> getAllTopHeadlines() {
+        return mDbTopHeadlines;
+    }
+
+    public LiveData<List<DbEverything>> getAllEverything() {
+        return mDbEverything;
     }
 
     @Override
