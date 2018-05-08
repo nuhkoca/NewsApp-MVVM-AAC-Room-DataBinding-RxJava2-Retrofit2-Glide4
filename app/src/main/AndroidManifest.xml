@@ -15,7 +15,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-
         <activity
             android:name=".ui.splash.SplashActivity"
             android:theme="@style/AppTheme.Launcher">
@@ -25,12 +24,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ui.main.NewsActivity"
-            android:launchMode="singleTop" >
-        </activity>
-
+            android:launchMode="singleTop" />
         <activity
             android:name=".ui.settings.SettingsActivity"
             android:parentActivityName=".ui.main.NewsActivity" />
@@ -42,6 +38,10 @@
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
+
+        <activity
+            android:name=".ui.about.AboutActivity"
+            android:parentActivityName=".ui.main.NewsActivity" />
     </application>
 
 </manifest>

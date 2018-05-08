@@ -30,6 +30,7 @@ import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.R;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.callback.IOverflowMenuItemClickListener;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.databinding.ActivityNewsBinding;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.helper.Constants;
+import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.ui.about.AboutActivity;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.ui.news.NewsFragment;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.ui.settings.SettingsActivity;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.util.ConnectionSniffer;
@@ -113,6 +114,9 @@ public class NewsActivity extends AppCompatActivity implements BottomNavigationV
                     createSnackBar(getString(R.string.snackBar_warning_text));
                     return false;
                 }
+
+            case R.id.about_menu:
+                startActivity(new Intent(NewsActivity.this, AboutActivity.class));
 
             default:
                 break;

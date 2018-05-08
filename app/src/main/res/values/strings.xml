@@ -13,9 +13,11 @@
     <!-- Menu Strings -->
     <string name="settings_text">Preferences</string>
     <string name="search_text">Search</string>
+    <string name="about_text">About</string>
     <string name="search_hint_text">Search Bundle</string>
     <string name="open_in_browser_menu_text">Open in browser</string>
     <string name="share_menu_text">Share</string>
+    <string name="night_mode_text">Night Mode</string>
 
     <string name="twice_press_to_exit">Press back again to exit.</string>
 
@@ -26,6 +28,23 @@
     <!-- Preference Titles -->
     <string name="top_headlines_preference_title">Preferences for Top Headline News</string>
     <string name="sources_preference_title">Preferences for Sources</string>
+
+
+    <!-- About Texts -->
+    <string name="version" translatable="false">Version: %s</string>
+    <string name="connect_with_me" translatable="false">Connect with me</string>
+    <string name="copy_right" translatable="false">Copyrights © %1$d</string>
+    <string name="about_description">A playground with the latest techs.\n\n This project is a playground to clutch MVVM pattern, Architecture Components, Room and others. This project actively uses Room Persistence Library to show feed in case no internet connection. Along with Lifecycle Components, API datum are consistently observed to able to detect whether or not there is any update or change. The app also benefits from PreferenceScreen to display news according to users\' preferences. You can choose country, category, source or languages for different lists.\n\n <b>This repo is still under maintenance.</b></string>
+    <string name="connect_with_us">Connect with us</string>
+    <string name="email" translatable="false">nuhkocaa@gmail.com</string>
+    <string name="personal_website" translatable="false">http://www.nuhkoca.com/</string>
+    <string name="personal_facebook" translatable="false">nuhkocaa</string>
+    <string name="personal_twitter" translatable="false">nuhkocaa_</string>
+    <string name="personal_youtube" translatable="false">UCigh7hafmSrsQZvv6PKQptw</string>
+    <string name="personal_play_store" translatable="false">9011472759199976374</string>
+    <string name="personal_instagram" translatable="false">nuhkocaa</string>
+    <string name="github" translatable="false">nuhkoca</string>
+    <string name="chooser_title" translatable="false">Open with...</string>
 
     <!-- Warnings -->
     <string name="top_headlines_error_text">An error occurred. Try changing search parameters or check connection.</string>

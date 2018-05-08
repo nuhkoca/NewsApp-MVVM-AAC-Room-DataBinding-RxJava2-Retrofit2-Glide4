@@ -8,4 +8,5 @@
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="snackBarActionColor">#03A9F4</color>
+    <color name="rippleColor">#33ffffff</color>
 </resources>

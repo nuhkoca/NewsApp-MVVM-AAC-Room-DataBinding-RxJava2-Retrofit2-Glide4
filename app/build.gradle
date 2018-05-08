@@ -14,7 +14,7 @@ android {
         buildConfigField "String", "API_KEY", API_KEY
 
         javaCompileOptions {
-            annotationProcessorOptions{
+            annotationProcessorOptions {
                 arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
             }
         }
@@ -33,7 +33,7 @@ android {
 
     allprojects {
         gradle.projectsEvaluated {
-            tasks.withType(JavaCompile){
+            tasks.withType(JavaCompile) {
                 options.compilerArgs << "-Xmaxerrs" << "4000"
                 options.compilerArgs << "-Xmaxwarns" << "4000"
             }
@@ -53,6 +53,7 @@ dependencies {
 
     //Lifecycle
     implementation "android.arch.lifecycle:extensions:$rootProject.ext.mvvm"
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     annotationProcessor "android.arch.lifecycle:compiler:$rootProject.ext.mvvm"
     testImplementation "android.arch.core:core-testing:$rootProject.ext.mvvm"
 
@@ -88,6 +89,7 @@ dependencies {
     implementation "com.ToxicBakery.viewpager.transforms:view-pager-transforms:$rootProject.ext.viewPagerTransformerVersion"
     implementation "com.pnikosis:materialish-progress:$rootProject.ext.materialishProgressVersion"
     implementation "com.afollestad.material-dialogs:core:$rootProject.ext.materialDialogVersion"
+    implementation "com.github.medyo:android-about-page:$rootProject.ext.aboutPageVersion"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

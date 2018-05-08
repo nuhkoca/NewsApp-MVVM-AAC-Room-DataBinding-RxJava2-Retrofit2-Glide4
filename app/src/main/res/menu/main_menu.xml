@@ -4,14 +4,20 @@
 
     <item android:id="@+id/settings_menu"
         android:title="@string/settings_text"
-        app:showAsAction="never" />
+        app:showAsAction="never"
+        android:orderInCategory="100"/>
 
     <item
         android:id="@+id/search_menu"
         android:icon="@drawable/ic_action_search"
-        android:orderInCategory="100"
+        android:orderInCategory="101"
         android:title="@string/search_text"
         app:showAsAction="ifRoom"
         app:actionViewClass="android.support.v7.widget.SearchView"/>
+
+    <item android:id="@+id/about_menu"
+        android:title="@string/about_text"
+        app:showAsAction="never"
+        android:orderInCategory="102"/>
 
 </menu>

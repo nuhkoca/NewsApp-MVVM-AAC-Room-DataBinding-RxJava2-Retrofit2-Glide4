@@ -40,6 +40,7 @@ ext {
     viewPagerTransformerVersion = '1.2.32@aar'
     materialishProgressVersion = '1.7'
     materialDialogVersion = '0.9.6.0'
+    aboutPageVersion = '1.2.4'
 }
 
 task clean(type: Delete) {
