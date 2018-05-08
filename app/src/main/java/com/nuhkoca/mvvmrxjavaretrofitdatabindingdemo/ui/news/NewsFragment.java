@@ -4,13 +4,13 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -21,7 +21,9 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.R;
+import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.callback.IOverflowMenuItemClickListener;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.entity.DbEverything;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.entity.DbSources;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.entity.DbTopHeadlines;
@@ -45,15 +47,20 @@ import static android.content.Context.MODE_PRIVATE;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NewsFragment extends Fragment implements SharedPreferences.OnSharedPreferenceChangeListener, SearchView.OnQueryTextListener {
+public class NewsFragment extends Fragment implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     private FragmentNewsBinding mFragmentNewsBinding;
     private NewsFragmentViewModel mNewsFragmentViewModel;
     private SharedPreferences mSharedPreferences;
     private int mEndpointCode;
+    private MaterialDialog mMaterialDialog;
 
-    public static NewsFragment getInstance(INewsAPI.Endpoints endpoints) {
+    private static IOverflowMenuItemClickListener mIOverflowMenuItemClickListener;
+
+    public static NewsFragment getInstance(INewsAPI.Endpoints endpoints, IOverflowMenuItemClickListener iOverflowMenuItemClickListener) {
         NewsFragment newsFragment = new NewsFragment();
+
+        mIOverflowMenuItemClickListener = iOverflowMenuItemClickListener;
 
         Bundle bundle = new Bundle();
         bundle.putInt(Constants.ENDPOINT_ARGS_KEY, endpoints.getValue());
@@ -102,32 +109,52 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(final Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
 
         MenuItem searchItem = menu.findItem(R.id.search_menu);
         final SearchView searchView = (SearchView) searchItem.getActionView();
-        searchView.setIconified(true);
 
-        searchView.setOnQueryTextListener(this);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                query = query.toLowerCase();
+
+                MaterialDialog.Builder builder = new MaterialDialog.Builder(Objects.requireNonNull(getContext()))
+                        .content(getString(R.string.progress_dialog_wait))
+                        .progress(true, 0)
+                        .cancelable(false)
+                        .widgetColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+
+                mMaterialDialog = builder.build();
+                mMaterialDialog.show();
+
+                saveQueryToSharedPreference(query);
+                loadEverythingFromQuery();
+
+                searchView.setIconified(true);
+                searchView.clearFocus();
+                menu.findItem(R.id.search_menu).collapseActionView();
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        final int orientation = getResources().getConfiguration().orientation;
-
         mFragmentNewsBinding.rvNews.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             @Override
             public boolean onPreDraw() {
                 mFragmentNewsBinding.rvNews.getViewTreeObserver().removeOnPreDrawListener(this);
 
-                if (orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    mFragmentNewsBinding.rvNews.setPadding(0, 0, 0,
-                            (int) getResources().getDimension(R.dimen.recycler_view_padding));
-                } else {
-                    mFragmentNewsBinding.rvNews.setPadding(0, 0, 0,
-                            (int) getResources().getDimension(R.dimen.recycler_view_padding_landscape));
-                }
+                mFragmentNewsBinding.rvNews.setPadding(0, 0, 0,
+                        (int) getResources().getDimension(R.dimen.recycler_view_padding));
 
                 return false;
             }
@@ -206,7 +233,8 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
                         if (articlesWrapper != null) {
                             RecyclerViewUtil.populateOnlineArticles(Objects.requireNonNull(getContext()),
                                     mFragmentNewsBinding.rvNews,
-                                    articlesWrapper.getArticles());
+                                    articlesWrapper.getArticles(),
+                                    mIOverflowMenuItemClickListener);
                         }
                     }
                 });
@@ -221,7 +249,12 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
                         if (articlesWrapper != null) {
                             RecyclerViewUtil.populateOnlineArticles(Objects.requireNonNull(getContext()),
                                     mFragmentNewsBinding.rvNews,
-                                    articlesWrapper.getArticles());
+                                    articlesWrapper.getArticles(),
+                                    mIOverflowMenuItemClickListener);
+                        }
+
+                        if (mMaterialDialog != null) {
+                            mMaterialDialog.dismiss();
                         }
                     }
                 });
@@ -270,7 +303,8 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
             public void onChanged(@Nullable List<DbTopHeadlines> dbTopHeadlinesList) {
                 RecyclerViewUtil.populateOfflineTopHeadlines(getContext(),
                         mFragmentNewsBinding.rvNews,
-                        dbTopHeadlinesList);
+                        dbTopHeadlinesList,
+                        mIOverflowMenuItemClickListener);
 
                 mFragmentNewsBinding.tvErrorView.setVisibility(View.GONE);
                 mFragmentNewsBinding.rvNews.setVisibility(View.VISIBLE);
@@ -284,7 +318,8 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
             public void onChanged(@Nullable List<DbEverything> dbEverythingList) {
                 RecyclerViewUtil.populateOfflineEverything(getContext(),
                         mFragmentNewsBinding.rvNews,
-                        dbEverythingList);
+                        dbEverythingList,
+                        mIOverflowMenuItemClickListener);
 
                 mFragmentNewsBinding.tvErrorView.setVisibility(View.GONE);
                 mFragmentNewsBinding.rvNews.setVisibility(View.VISIBLE);
@@ -432,20 +467,5 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
         super.onDestroy();
 
         mSharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
-    }
-
-    @Override
-    public boolean onQueryTextSubmit(String query) {
-        query = query.toLowerCase();
-
-        loadEverythingFromQuery();
-        saveQueryToSharedPreference(query);
-
-        return false;
-    }
-
-    @Override
-    public boolean onQueryTextChange(String newText) {
-        return false;
     }
 }

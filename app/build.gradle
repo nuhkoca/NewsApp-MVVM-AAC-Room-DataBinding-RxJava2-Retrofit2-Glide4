@@ -84,11 +84,10 @@ dependencies {
     implementation "com.facebook.stetho:stetho:$rootProject.ext.stethoVersion"
     implementation "com.facebook.stetho:stetho-okhttp3:$rootProject.ext.stethoVersion"
 
-    //ViewPagerTransformers
+    //Other
     implementation "com.ToxicBakery.viewpager.transforms:view-pager-transforms:$rootProject.ext.viewPagerTransformerVersion"
-
-    //Materialish Progress
     implementation "com.pnikosis:materialish-progress:$rootProject.ext.materialishProgressVersion"
+    implementation "com.afollestad.material-dialogs:core:$rootProject.ext.materialDialogVersion"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

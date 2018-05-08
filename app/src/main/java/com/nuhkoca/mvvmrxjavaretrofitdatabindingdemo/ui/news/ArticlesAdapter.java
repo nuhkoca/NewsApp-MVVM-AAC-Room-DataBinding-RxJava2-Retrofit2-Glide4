@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.BR;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.R;
+import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.callback.IOverflowMenuItemClickListener;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.entity.DbEverything;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.entity.DbTopHeadlines;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.remote.Articles;
@@ -23,14 +24,17 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHo
     private List<Articles> mArticlesList;
     private List<DbTopHeadlines> mDbTopHeadlines;
     private List<DbEverything> mDbEverything;
+    private IOverflowMenuItemClickListener mIOverflowMenuItemClickListener;
 
-    public ArticlesAdapter() {
+    public ArticlesAdapter(IOverflowMenuItemClickListener mIOverflowMenuItemClickListener) {
         mArticlesList = new ArrayList<>();
+        this.mIOverflowMenuItemClickListener = mIOverflowMenuItemClickListener;
     }
 
-    public ArticlesAdapter(List<DbTopHeadlines> mDbTopHeadlines, List<DbEverything> mDbEverything) {
+    public ArticlesAdapter(List<DbTopHeadlines> mDbTopHeadlines, List<DbEverything> mDbEverything, IOverflowMenuItemClickListener mIOverflowMenuItemClickListener) {
         this.mDbTopHeadlines = mDbTopHeadlines;
         this.mDbEverything = mDbEverything;
+        this.mIOverflowMenuItemClickListener = mIOverflowMenuItemClickListener;
     }
 
     @NonNull
@@ -107,6 +111,8 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHo
                 mNewsItemCardBinding.setVariable(BR.articlesImage, articles.getUrlToImage());
                 mNewsItemCardBinding.setVariable(BR.articlesTitle, articles.getTitle());
                 mNewsItemCardBinding.setVariable(BR.articlesDescription, articles.getDescription());
+                mNewsItemCardBinding.setVariable(BR.articlesUrl, articles.getUrl());
+                mNewsItemCardBinding.setVariable(BR.overFlowClickListener, mIOverflowMenuItemClickListener);
                 mNewsItemCardBinding.setVariable(BR.articlesSourceName, articles.getSource().getName());
 
                 mNewsItemCardBinding.executePendingBindings();
@@ -118,6 +124,8 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHo
                 mNewsItemCardBinding.setVariable(BR.articlesImage, dbTopHeadlines.getUrlToImage());
                 mNewsItemCardBinding.setVariable(BR.articlesTitle, dbTopHeadlines.getTitle());
                 mNewsItemCardBinding.setVariable(BR.articlesDescription, dbTopHeadlines.getDescription());
+                mNewsItemCardBinding.setVariable(BR.articlesUrl, dbTopHeadlines.getUrl());
+                mNewsItemCardBinding.setVariable(BR.overFlowClickListener, mIOverflowMenuItemClickListener);
                 mNewsItemCardBinding.setVariable(BR.articlesSourceName, dbTopHeadlines.getSource());
 
                 mNewsItemCardBinding.executePendingBindings();
@@ -129,6 +137,8 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHo
                 mNewsItemCardBinding.setVariable(BR.articlesImage, dbEverything.getUrlToImage());
                 mNewsItemCardBinding.setVariable(BR.articlesTitle, dbEverything.getTitle());
                 mNewsItemCardBinding.setVariable(BR.articlesDescription, dbEverything.getDescription());
+                mNewsItemCardBinding.setVariable(BR.articlesUrl, dbEverything.getUrl());
+                mNewsItemCardBinding.setVariable(BR.overFlowClickListener, mIOverflowMenuItemClickListener);
                 mNewsItemCardBinding.setVariable(BR.articlesSourceName, dbEverything.getSource());
 
                 mNewsItemCardBinding.executePendingBindings();

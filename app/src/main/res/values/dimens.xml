@@ -12,8 +12,8 @@
     <dimen name="sourceTextSize">12sp</dimen>
     <dimen name="titleMargin">8dp</dimen>
     <dimen name="sourceMarginTop">16dp</dimen>
-    <dimen name="recycler_view_padding">112dp</dimen>
-    <dimen name="recycler_view_padding_landscape">104dp</dimen>
+    <dimen name="recycler_view_padding">56dp</dimen>
     <dimen name="preference_screen_padding">56dp</dimen>
     <dimen name="elevation">4dp</dimen>
+    <dimen name="bottom_navigation_view_elevation">8dp</dimen>
 </resources>

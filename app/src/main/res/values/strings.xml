@@ -14,8 +14,14 @@
     <string name="settings_text">Preferences</string>
     <string name="search_text">Search</string>
     <string name="search_hint_text">Search Bundle</string>
+    <string name="open_in_browser_menu_text">Open in browser</string>
+    <string name="share_menu_text">Share</string>
 
     <string name="twice_press_to_exit">Press back again to exit.</string>
+
+    <string name="openIntentTitle">Open "%s" in browser</string>
+    <string name="shareIntentTitle">Share "%s" with</string>
+    <string name="shareIntentExtraText">To view \'%s\', click the url: %s</string>
 
     <!-- Preference Titles -->
     <string name="top_headlines_preference_title">Preferences for Top Headline News</string>
@@ -25,6 +31,7 @@
     <string name="top_headlines_error_text">An error occurred. Try changing search parameters or check connection.</string>
     <string name="everything_error_text">An error occurred. Try changing search query or check connection.</string>
     <string name="sources_error_text">An error occurred. Try changing search parameters or check connection.</string>
+    <string name="progress_dialog_wait">Wait a second…</string>
 
     <string name="snackBar_warning_text">You seem to not have a valid connection!</string>
     <string name="snackBar_offline_warning_text">You seem to not have a valid connection! Offline data is displayed.</string>

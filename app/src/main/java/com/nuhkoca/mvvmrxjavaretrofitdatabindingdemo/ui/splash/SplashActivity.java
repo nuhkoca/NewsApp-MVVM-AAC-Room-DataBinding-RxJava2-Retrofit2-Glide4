@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.R;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.ui.main.NewsActivity;
 
 public class SplashActivity extends AppCompatActivity {
@@ -12,6 +13,8 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        int delayToActivity = getResources().getInteger(R.integer.delay_in_seconds_to_close);
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -23,6 +26,6 @@ public class SplashActivity extends AppCompatActivity {
 
                 startActivity(newsIntent);
             }
-        }, 1500);
+        }, delayToActivity);
     }
 }

@@ -1,16 +1,14 @@
 package com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.ui.settings;
 
 import android.databinding.DataBindingUtil;
+import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.R;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.databinding.ActivitySettingsBinding;
-
-import java.util.Objects;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -18,8 +16,7 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivitySettingsBinding activitySettingsBinding = DataBindingUtil.setContentView(this, R.layout.activity_settings);
-        setSupportActionBar(Objects.requireNonNull(activitySettingsBinding.layoutToolbar).toolbar);
-        activitySettingsBinding.layoutToolbar.tvToolbarHeader.setText(getString(R.string.preferences_header));
+        setTitle(getString(R.string.preferences_header));
 
         ActionBar actionBar = getSupportActionBar();
 

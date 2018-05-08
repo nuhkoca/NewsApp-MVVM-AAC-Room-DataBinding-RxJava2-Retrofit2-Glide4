@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.PopupMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -20,24 +21,25 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ToxicBakery.viewpager.transforms.DepthPageTransformer;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.R;
+import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.callback.IOverflowMenuItemClickListener;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.databinding.ActivityNewsBinding;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.helper.Constants;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.ui.news.NewsFragment;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.ui.settings.SettingsActivity;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.util.ConnectionSniffer;
-
-import java.util.Objects;
+import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.util.PopupMenuBuilder;
 
 import static com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.repository.INewsAPI.Endpoints.EVERYTHING;
 import static com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.repository.INewsAPI.Endpoints.SOURCES;
 import static com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.repository.INewsAPI.Endpoints.TOP_HEADLINES;
 
-public class NewsActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class NewsActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, IOverflowMenuItemClickListener {
 
     private ActivityNewsBinding mActivityNewsBinding;
     private MenuItem mPrevMenuItem;
@@ -48,7 +50,6 @@ public class NewsActivity extends AppCompatActivity implements BottomNavigationV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivityNewsBinding = DataBindingUtil.setContentView(this, R.layout.activity_news);
-        setSupportActionBar(Objects.requireNonNull(mActivityNewsBinding.layoutToolbar).toolbar);
 
         mIsActiveConnection = ConnectionSniffer.sniff();
 
@@ -203,6 +204,26 @@ public class NewsActivity extends AppCompatActivity implements BottomNavigationV
         super.onStop();
     }
 
+    @Override
+    public void onOverflowMenuItemClick(String articlesUrl, String articlesTitle, ImageView view) {
+        String openTitle = String.format(getString(R.string.openIntentTitle), articlesTitle);
+        String shareTitle = String.format(getString(R.string.openIntentTitle), articlesTitle);
+        String shareExtraText = String.format(getString(R.string.shareIntentExtraText), articlesTitle, articlesUrl);
+
+        PopupMenu popup = new PopupMenu(NewsActivity.this, view);
+
+        MenuInflater inflater = popup.getMenuInflater();
+        inflater.inflate(R.menu.overflow_menu, popup.getMenu());
+
+        popup.setOnMenuItemClickListener(new PopupMenuBuilder(
+                shareExtraText,
+                shareTitle,
+                articlesUrl,
+                openTitle));
+
+        popup.show();
+    }
+
     private class ViewPagerInflater extends FragmentStatePagerAdapter {
         ViewPagerInflater(FragmentManager fm) {
             super(fm);
@@ -241,13 +262,13 @@ public class NewsActivity extends AppCompatActivity implements BottomNavigationV
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return NewsFragment.getInstance(TOP_HEADLINES);
+                    return NewsFragment.getInstance(TOP_HEADLINES, NewsActivity.this);
 
                 case 1:
-                    return NewsFragment.getInstance(EVERYTHING);
+                    return NewsFragment.getInstance(EVERYTHING, NewsActivity.this);
 
                 case 2:
-                    return NewsFragment.getInstance(SOURCES);
+                    return NewsFragment.getInstance(SOURCES, NewsActivity.this);
 
                 default:
                     break;

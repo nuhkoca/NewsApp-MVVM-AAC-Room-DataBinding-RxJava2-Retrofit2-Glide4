@@ -6,6 +6,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.callback.IOverflowMenuItemClickListener;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.entity.DbEverything;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.entity.DbSources;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.entity.DbTopHeadlines;
@@ -43,28 +44,28 @@ public class RecyclerViewUtil {
         articlesRV.setLayoutManager(layoutManager);
     }
 
-    public static void populateOnlineArticles(Context context, RecyclerView articlesRV, List<Articles> articlesList) {
+    public static void populateOnlineArticles(Context context, RecyclerView articlesRV, List<Articles> articlesList, IOverflowMenuItemClickListener iOverflowMenuItemClickListener) {
         getLayoutManagerForArticles(context, articlesRV);
 
-        ArticlesAdapter articlesAdapter = new ArticlesAdapter();
+        ArticlesAdapter articlesAdapter = new ArticlesAdapter(iOverflowMenuItemClickListener);
         articlesAdapter.swapData(articlesList);
 
         articlesRV.setAdapter(articlesAdapter);
     }
 
-    public static void populateOfflineTopHeadlines(Context context, RecyclerView articlesRV, List<DbTopHeadlines> dbTopHeadlinesList) {
+    public static void populateOfflineTopHeadlines(Context context, RecyclerView articlesRV, List<DbTopHeadlines> dbTopHeadlinesList, IOverflowMenuItemClickListener iOverflowMenuItemClickListener) {
         getLayoutManagerForArticles(context, articlesRV);
 
-        ArticlesAdapter articlesAdapter = new ArticlesAdapter(dbTopHeadlinesList, null);
+        ArticlesAdapter articlesAdapter = new ArticlesAdapter(dbTopHeadlinesList, null, iOverflowMenuItemClickListener);
         articlesAdapter.swapOfflineTopHeadlines(dbTopHeadlinesList);
 
         articlesRV.setAdapter(articlesAdapter);
     }
 
-    public static void populateOfflineEverything(Context context, RecyclerView articlesRV, List<DbEverything> dbEverythingList) {
+    public static void populateOfflineEverything(Context context, RecyclerView articlesRV, List<DbEverything> dbEverythingList, IOverflowMenuItemClickListener iOverflowMenuItemClickListener) {
         getLayoutManagerForArticles(context, articlesRV);
 
-        ArticlesAdapter articlesAdapter = new ArticlesAdapter(null, dbEverythingList);
+        ArticlesAdapter articlesAdapter = new ArticlesAdapter(null, dbEverythingList, iOverflowMenuItemClickListener);
         articlesAdapter.swapOfflineEverything(dbEverythingList);
 
         articlesRV.setAdapter(articlesAdapter);

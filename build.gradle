@@ -39,6 +39,7 @@ ext {
     stethoVersion = '1.5.0'
     viewPagerTransformerVersion = '1.2.32@aar'
     materialishProgressVersion = '1.7'
+    materialDialogVersion = '0.9.6.0'
 }
 
 task clean(type: Delete) {

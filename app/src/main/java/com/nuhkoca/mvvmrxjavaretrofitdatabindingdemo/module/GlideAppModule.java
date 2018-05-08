@@ -18,24 +18,25 @@ import com.bumptech.glide.module.AppGlideModule;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.signature.ObjectKey;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.R;
+import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.helper.UnsafeOkHttpClient;
 
 import java.io.InputStream;
-import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 
 import static com.bumptech.glide.load.DecodeFormat.PREFER_ARGB_8888;
-
 
 @GlideModule
 public class GlideAppModule extends AppGlideModule {
 
     @Override
     public void registerComponents(@NonNull Context context, @NonNull Glide glide, @NonNull Registry registry) {
-        OkHttpClient client = new OkHttpClient.Builder()
+        /*OkHttpClient client = new OkHttpClient.Builder()
                 .readTimeout(20, TimeUnit.SECONDS)
                 .connectTimeout(20, TimeUnit.SECONDS)
-                .build();
+                .build();*/
+
+        OkHttpClient client = UnsafeOkHttpClient.getUnsafeOkHttpClient();
 
         OkHttpUrlLoader.Factory factory = new OkHttpUrlLoader.Factory(client);
 
