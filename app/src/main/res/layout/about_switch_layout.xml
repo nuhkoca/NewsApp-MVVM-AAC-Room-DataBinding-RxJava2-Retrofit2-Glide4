@@ -9,7 +9,7 @@
         android:id="@+id/switchForActionBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/night_mode_text"
+        android:text="@string/day_mode_text"
         app:switchPadding="4dp"
         android:textAlignment="textStart"
         android:textColor="@color/white"

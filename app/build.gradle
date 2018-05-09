@@ -90,8 +90,18 @@ dependencies {
     implementation "com.pnikosis:materialish-progress:$rootProject.ext.materialishProgressVersion"
     implementation "com.afollestad.material-dialogs:core:$rootProject.ext.materialDialogVersion"
     implementation "com.github.medyo:android-about-page:$rootProject.ext.aboutPageVersion"
+    implementation("com.mikepenz:aboutlibraries:$rootProject.ext.aboutLibrariesVersion") {
+        transitive = true
+    }
 
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    //Test
+    androidTestImplementation "com.android.support:support-annotations:$rootProject.ext.supportVersion"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$rootProject.ext.espressoVersion"
+    androidTestImplementation "com.android.support.test:rules:$rootProject.ext.testVersion"
+    androidTestImplementation "com.android.support.test:runner:$rootProject.ext.testVersion"
+    androidTestImplementation "com.android.support.test.espresso:espresso-contrib:$rootProject.ext.espressoVersion"
+    androidTestImplementation "com.android.support.test.espresso:espresso-intents:$rootProject.ext.espressoVersion"
+    testImplementation "junit:junit:$rootProject.ext.JUnitVersion"
+
+    implementation "com.android.support.test.espresso:espresso-idling-resource:$rootProject.ext.espressoVersion"
 }

@@ -4,7 +4,6 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
@@ -15,6 +14,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
 
+import com.mikepenz.aboutlibraries.Libs;
+import com.mikepenz.aboutlibraries.LibsBuilder;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.BuildConfig;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.R;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.databinding.ActivityAboutBinding;
@@ -39,30 +40,9 @@ public class AboutActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                loadSimulateFromSharedPreference();
-            }
-        }, 10000);
+        loadSimulateFromSharedPreference();
 
-
-        View aboutPage = new AboutPage(this)
-                .isRTL(false)
-                .setDescription(getString(R.string.about_description))
-                .setImage(R.drawable.ic_about_icon)
-                .addItem(new Element().setTitle(String.valueOf(String.format(getString(R.string.version), BuildConfig.VERSION_NAME))))
-                .addGroup(getString(R.string.connect_with_me))
-                .addEmail(getString(R.string.email))
-                .addWebsite(getString(R.string.personal_website))
-                .addFacebook(getString(R.string.personal_facebook))
-                .addTwitter(getString(R.string.personal_twitter))
-                .addYoutube(getString(R.string.personal_youtube))
-                .addPlayStore(getString(R.string.personal_play_store))
-                .addInstagram(getString(R.string.personal_instagram))
-                .addGitHub(getString(R.string.github))
-                .addItem(getCopyRightsElement())
-                .create();
+        View aboutPage = createPage();
 
         activityAboutBinding.aboutFrame.addView(aboutPage, 0);
     }
@@ -73,9 +53,18 @@ public class AboutActivity extends AppCompatActivity {
 
         MenuItem switchItem = menu.findItem(R.id.switch_menu);
 
-        SwitchCompat switchView = switchItem.getActionView().findViewById(R.id.switchForActionBar);
+        final SwitchCompat switchView = switchItem.getActionView().findViewById(R.id.switchForActionBar);
 
         switchView.setChecked(loadCheckableFromSharedPreference());
+
+        boolean isChecked = loadCheckableFromSharedPreference();
+
+        if (isChecked) {
+            switchView.setText(getString(R.string.night_mode_text));
+        } else {
+            switchView.setText(getString(R.string.day_mode_text));
+        }
+
         switchView.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -83,13 +72,15 @@ public class AboutActivity extends AppCompatActivity {
                     saveSimulateToSharedPreference(1, true);
                     loadSimulateFromSharedPreference();
 
-                    recreate();
+                    switchView.setText(getString(R.string.night_mode_text));
                 } else {
                     saveSimulateToSharedPreference(0, false);
                     loadSimulateFromSharedPreference();
 
-                    recreate();
+                    switchView.setText(getString(R.string.day_mode_text));
                 }
+
+                recreate();
             }
         });
 
@@ -138,6 +129,28 @@ public class AboutActivity extends AppCompatActivity {
         return prefs.getBoolean(Constants.CHECKED_MODE_PREF, false);
     }
 
+    private View createPage() {
+        return new AboutPage(this)
+                .isRTL(false)
+                .setDescription(getString(R.string.about_description))
+                .setImage(R.drawable.ic_about_icon)
+                .addItem(new Element().setTitle(String.valueOf(String.format(getString(R.string.version), BuildConfig.VERSION_NAME))))
+                .addGroup(getString(R.string.connect_with_me))
+                .addEmail(getString(R.string.email), getString(R.string.email_me))
+                .addWebsite(getString(R.string.personal_website), getString(R.string.visit_my_website))
+                .addGroup(getString(R.string.follow_me_on_social_media))
+                .addFacebook(getString(R.string.personal_facebook), getString(R.string.add_me_on_facebook))
+                .addTwitter(getString(R.string.personal_twitter), getString(R.string.follow_me_on_twitter))
+                .addYoutube(getString(R.string.personal_youtube), getString(R.string.follow_me_on_youtube))
+                .addPlayStore(getString(R.string.personal_play_store), getString(R.string.rate_me_on_google_play_store))
+                .addInstagram(getString(R.string.personal_instagram), getString(R.string.follow_me_on_instagram))
+                .addGitHub(getString(R.string.github), getString(R.string.fork_me_on_github))
+                .addGroup(getString(R.string.libs_that_we_inspire))
+                .addItem(getLibElement())
+                .addItem(getCopyRightsElement())
+                .create();
+    }
+
     private void saveSimulateToSharedPreference(int mode, boolean isChecked) {
         SharedPreferences.Editor editor =
                 getSharedPreferences(Constants.UI_PREF_NAME, MODE_PRIVATE).edit();
@@ -146,5 +159,23 @@ public class AboutActivity extends AppCompatActivity {
         editor.putBoolean(Constants.CHECKED_MODE_PREF, isChecked);
 
         editor.apply();
+    }
+
+    private Element getLibElement() {
+        Element libElement = new Element();
+
+        libElement.setTitle(getString(R.string.open_source_libs));
+        libElement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new LibsBuilder()
+                        .withActivityStyle(Libs.ActivityStyle.LIGHT_DARK_TOOLBAR)
+                        .withActivityTitle(getString(R.string.libs_text))
+                        .withAutoDetect(true)
+                        .start(getApplicationContext());
+            }
+        });
+
+        return libElement;
     }
 }

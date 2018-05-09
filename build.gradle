@@ -41,6 +41,10 @@ ext {
     materialishProgressVersion = '1.7'
     materialDialogVersion = '0.9.6.0'
     aboutPageVersion = '1.2.4'
+    espressoVersion = '3.0.2'
+    testVersion = '1.0.1'
+    JUnitVersion = '4.12'
+    aboutLibrariesVersion = '6.0.6'
 }
 
 task clean(type: Delete) {

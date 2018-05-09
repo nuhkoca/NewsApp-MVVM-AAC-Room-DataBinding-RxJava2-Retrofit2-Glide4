@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.VisibleForTesting;
+import android.support.test.espresso.IdlingResource;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.SearchView;
@@ -33,6 +35,7 @@ import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.repository.INewsAPI;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.databinding.FragmentNewsBinding;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.helper.Constants;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.helper.ObservableHelper;
+import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.test.SimpleIdlingResource;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.util.ConnectionSniffer;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.util.RecyclerViewUtil;
 
@@ -54,6 +57,24 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
     private SharedPreferences mSharedPreferences;
     private int mEndpointCode;
     private MaterialDialog mMaterialDialog;
+
+    @Nullable
+    private SimpleIdlingResource mIdlingResource;
+
+    @VisibleForTesting
+    @NonNull
+    public IdlingResource getIdlingResource() {
+        if (mIdlingResource == null) {
+            mIdlingResource = new SimpleIdlingResource();
+        }
+        return mIdlingResource;
+    }
+
+    @VisibleForTesting
+    @NonNull
+    public static NewsFragment getInstance() {
+        return new NewsFragment();
+    }
 
     private static IOverflowMenuItemClickListener mIOverflowMenuItemClickListener;
 
@@ -88,6 +109,12 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
         super.onCreate(savedInstanceState);
 
         setHasOptionsMenu(true);
+
+        getIdlingResource();
+
+        if (mIdlingResource != null) {
+            mIdlingResource.setIdleState(false);
+        }
     }
 
     @Override
@@ -235,6 +262,10 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
                                     mFragmentNewsBinding.rvNews,
                                     articlesWrapper.getArticles(),
                                     mIOverflowMenuItemClickListener);
+
+                            if (mIdlingResource != null) {
+                                mIdlingResource.setIdleState(true);
+                            }
                         }
                     }
                 });
@@ -251,6 +282,10 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
                                     mFragmentNewsBinding.rvNews,
                                     articlesWrapper.getArticles(),
                                     mIOverflowMenuItemClickListener);
+
+                            if (mIdlingResource != null) {
+                                mIdlingResource.setIdleState(true);
+                            }
                         }
 
                         if (mMaterialDialog != null) {
@@ -271,6 +306,10 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
                             RecyclerViewUtil.populateOnlineSources(getContext(),
                                     mFragmentNewsBinding.rvNews,
                                     sourcesWrapper.getSources());
+
+                            if (mIdlingResource != null) {
+                                mIdlingResource.setIdleState(true);
+                            }
                         }
                     }
                 });
@@ -386,9 +425,17 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
                                 if (!isAvailableConnection) {
                                     populateOfflineTopHeadlines();
                                 }
+
+                                if (mIdlingResource != null) {
+                                    mIdlingResource.setIdleState(false);
+                                }
                             } else {
                                 mFragmentNewsBinding.tvErrorView.setVisibility(View.GONE);
                                 mFragmentNewsBinding.rvNews.setVisibility(View.VISIBLE);
+
+                                if (mIdlingResource != null) {
+                                    mIdlingResource.setIdleState(true);
+                                }
                             }
                         }
                     }
@@ -409,9 +456,22 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
                                 if (!isAvailableConnection) {
                                     populateOfflineEverything();
                                 }
+
+                                if (mMaterialDialog != null) {
+                                    mMaterialDialog.dismiss();
+                                }
+
+                                if (mIdlingResource != null) {
+                                    mIdlingResource.setIdleState(false);
+                                }
+
                             } else {
                                 mFragmentNewsBinding.tvErrorView.setVisibility(View.GONE);
                                 mFragmentNewsBinding.rvNews.setVisibility(View.VISIBLE);
+
+                                if (mIdlingResource != null) {
+                                    mIdlingResource.setIdleState(true);
+                                }
                             }
                         }
                     }
@@ -433,9 +493,17 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
                                     populateOfflineSources();
                                 }
 
+                                if (mIdlingResource != null) {
+                                    mIdlingResource.setIdleState(false);
+                                }
+
                             } else {
                                 mFragmentNewsBinding.tvErrorView.setVisibility(View.GONE);
                                 mFragmentNewsBinding.rvNews.setVisibility(View.VISIBLE);
+
+                                if (mIdlingResource != null) {
+                                    mIdlingResource.setIdleState(true);
+                                }
                             }
                         }
                     }
