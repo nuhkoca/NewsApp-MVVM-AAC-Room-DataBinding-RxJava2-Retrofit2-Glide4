@@ -11,6 +11,7 @@ import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.dao.TopHeadlinesDao;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.entity.DbEverything;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.entity.DbSources;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.entity.DbTopHeadlines;
+import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.helper.Constants;
 
 @Database(entities = {DbSources.class, DbTopHeadlines.class, DbEverything.class}, version = 4)
 public abstract class AppDatabase extends RoomDatabase {
@@ -27,7 +28,7 @@ public abstract class AppDatabase extends RoomDatabase {
                 if (INSTANCE == null) {
                     INSTANCE =
                             Room.databaseBuilder(context.getApplicationContext(),
-                                    AppDatabase.class, "news-database")
+                                    AppDatabase.class, Constants.APP_DATABASE_NAME)
                                     .fallbackToDestructiveMigration()
                                     .build();
                 }

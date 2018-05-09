@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
@@ -85,6 +86,22 @@ public class AboutActivity extends AppCompatActivity {
         });
 
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemThatWasClicked = item.getItemId();
+
+        switch (itemThatWasClicked) {
+            case R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+
+            default:
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private Element getCopyRightsElement() {

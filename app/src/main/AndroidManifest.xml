@@ -31,6 +31,13 @@
             android:name=".ui.settings.SettingsActivity"
             android:parentActivityName=".ui.main.NewsActivity" />
 
+        <activity
+            android:name=".ui.about.AboutActivity"
+            android:parentActivityName=".ui.main.NewsActivity" />
+        <activity
+            android:name=".ui.custom_news.CustomNewsActivity"
+            android:parentActivityName=".ui.main.NewsActivity" />
+
         <receiver
             android:name=".helper.InternetSnifferService"
             android:exported="false">
@@ -38,13 +45,6 @@
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
-
-        <activity
-            android:name=".ui.about.AboutActivity"
-            android:parentActivityName=".ui.main.NewsActivity" />
-        <activity
-            android:name=".ui.custom_news.CustomNewsActivity"
-            android:parentActivityName=".ui.main.NewsActivity" />
     </application>
 
 </manifest>

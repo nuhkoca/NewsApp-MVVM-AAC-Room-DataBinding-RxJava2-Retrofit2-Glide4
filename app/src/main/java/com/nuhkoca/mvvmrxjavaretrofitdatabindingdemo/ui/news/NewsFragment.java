@@ -143,6 +143,8 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
         mSharedPreferences.registerOnSharedPreferenceChangeListener(this);
 
         sIRecyclerViewScrollListener = (IRecyclerViewScrollListener) getActivity();
+        sIOverflowMenuItemClickListener = (IOverflowMenuItemClickListener) getActivity();
+        sISourcesItemClickListener = (ISourcesItemClickListener) getActivity();
     }
 
     @Override
@@ -195,17 +197,17 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-       mFragmentNewsBinding.rvNews.addOnScrollListener(new RecyclerViewScrollUtil() {
-           @Override
-           public void onHide() {
-               sIRecyclerViewScrollListener.onViewsHide();
-           }
+        mFragmentNewsBinding.rvNews.addOnScrollListener(new RecyclerViewScrollUtil() {
+            @Override
+            public void onHide() {
+                sIRecyclerViewScrollListener.onViewsHide();
+            }
 
-           @Override
-           public void onShow() {
+            @Override
+            public void onShow() {
                 sIRecyclerViewScrollListener.onViewsShow();
-           }
-       });
+            }
+        });
 
         setupUI();
     }
@@ -257,7 +259,7 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
 
     private void loadEverythingFromQuery() {
         SharedPreferences prefs = Objects.requireNonNull(getActivity()).getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE);
-        String query = prefs.getString(Constants.QUERY_PREF, "news");
+        String query = prefs.getString(Constants.QUERY_PREF, Constants.DEFAULT_EVERYTHING_TOPIC);
 
         mNewsFragmentViewModel.getEverything(query);
     }
@@ -557,5 +559,9 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
         super.onDestroy();
 
         mSharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
+
+        sIOverflowMenuItemClickListener = null;
+        sISourcesItemClickListener = null;
+        sIRecyclerViewScrollListener = null;
     }
 }

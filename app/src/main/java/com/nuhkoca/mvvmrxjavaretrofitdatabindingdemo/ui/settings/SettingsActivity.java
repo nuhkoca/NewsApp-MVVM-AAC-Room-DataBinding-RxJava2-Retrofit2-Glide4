@@ -32,6 +32,10 @@ public class SettingsActivity extends AppCompatActivity {
         switch (itemThatWasClicked) {
             case R.id.home:
                 NavUtils.navigateUpFromSameTask(this);
+                return true;
+
+            default:
+                break;
         }
 
         return super.onOptionsItemSelected(item);

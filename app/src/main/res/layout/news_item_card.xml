@@ -36,7 +36,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:clickable="true"
                 android:focusable="true"
                 android:background="?attr/selectableItemBackground"
@@ -58,6 +58,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:scaleType="centerCrop"
+                    android:layout_centerInParent="true"
                     android:src="@{articlesImage}"
                     bind:articlesIndicator="@{pbArticles}"
                     android:contentDescription="@string/article_image_view_content_description" />
@@ -100,7 +101,8 @@
                         android:gravity="end"
                         android:layout_alignParentEnd="true"
                         android:text="@{articlesSourceName}"
-                        style="@style/ArticleSourceAppearance"/>
+                        style="@style/ArticleSourceAppearance"
+                        bind:ignore="RelativeOverlap" />
 
                 </RelativeLayout>
 

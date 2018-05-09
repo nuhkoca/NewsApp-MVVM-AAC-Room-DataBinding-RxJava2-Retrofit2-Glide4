@@ -15,4 +15,6 @@ public class Constants {
     public static final String CHECKED_MODE_PREF = "switch-checked-pref";
     public static final String CUSTOM_NEWS_SOURCE_ID = "custom-news-source-id";
     public static final String CUSTOM_NEWS_SOURCE_NAME = "custom-news-source-name";
+    public static final String APP_DATABASE_NAME = "news-database";
+    public static final String DEFAULT_EVERYTHING_TOPIC = "googleio";
 }
