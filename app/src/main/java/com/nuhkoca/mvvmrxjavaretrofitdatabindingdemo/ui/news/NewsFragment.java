@@ -179,7 +179,7 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
                 mMaterialDialog.show();
 
                 saveQueryToSharedPreference(query);
-                loadEverythingFromQuery();
+                loadEverythingFromQuery(mSharedPreferences);
 
                 searchView.setIconified(true);
                 searchView.clearFocus();
@@ -257,11 +257,15 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
                         sharedPreferences.getString(getString(R.string.pref_source_category_key), null));
     }
 
-    private void loadEverythingFromQuery() {
+    private void loadEverythingFromQuery(SharedPreferences sharedPreferences) {
         SharedPreferences prefs = Objects.requireNonNull(getActivity()).getSharedPreferences(Constants.PREF_NAME, MODE_PRIVATE);
         String query = prefs.getString(Constants.QUERY_PREF, Constants.DEFAULT_EVERYTHING_TOPIC);
 
-        mNewsFragmentViewModel.getEverything(query);
+        mNewsFragmentViewModel.getEverything(query,
+                sharedPreferences.getString(getString(R.string.pref_everything_sort_by_key),
+                        getString(R.string.pref_everything_sort_by_all_value)),
+                sharedPreferences.getString(getString(R.string.pref_everything_language_key),
+                        getString(R.string.pref_everything_language_all_value)));
     }
 
     private void saveQueryToSharedPreference(String query) {
@@ -316,7 +320,7 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
                     }
                 });
 
-                loadEverythingFromQuery();
+                loadEverythingFromQuery(mSharedPreferences);
 
                 break;
 
@@ -551,6 +555,10 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
                 || key.equals(getString(R.string.pref_source_country_key))
                 || key.equals(getString(R.string.pref_source_category_key))) {
             loadNewsSourceParametersFromPreferences(sharedPreferences);
+        }
+
+        if (key.equals(getString(R.string.pref_everything_sort_by_key)) || key.equals(getString(R.string.pref_everything_language_key))) {
+            loadEverythingFromQuery(sharedPreferences);
         }
     }
 

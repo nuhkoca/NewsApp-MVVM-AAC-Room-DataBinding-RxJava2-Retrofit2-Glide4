@@ -136,7 +136,6 @@
     </array>
 
     <array name="pref_sources_option_labels">
-
         <item>@string/pref_sources_label_abc_news</item>
         <item>@string/pref_sources_label_abc_news_au</item>
         <item>@string/pref_sources_label_al_jazeera_english</item>
@@ -229,7 +228,6 @@
         <item>@string/pref_sources_label_wired</item>
     </array>
     <array name="pref_sources_option_values">
-
         <item>@string/pref_sources_abc_news_value</item>
         <item>@string/pref_sources_abc_news_au_value</item>
         <item>@string/pref_sources_al_jazeera_english_value</item>
@@ -320,6 +318,57 @@
         <item>@string/pref_sources_usa_today_value</item>
         <item>@string/pref_sources_vice_news_value</item>
         <item>@string/pref_sources_wired_value</item>
+    </array>
+
+
+    <!-- Everything -->
+    <array name="pref_everything_sort_by_labels">
+        <item>@string/pref_everything_sort_by_label_all</item>
+        <item>@string/pref_everything_sort_by_label_relevancy</item>
+        <item>@string/pref_everything_sort_by_label_popularity</item>
+        <item>@string/pref_everything_sort_by_label_published_at</item>
+    </array>
+
+    <array name="pref_everything_sort_by_values">
+        <item></item>
+        <item>@string/pref_everything_sort_by_label_relevancy</item>
+        <item>@string/pref_everything_sort_by_label_popularity_value</item>
+        <item>@string/pref_everything_sort_by_label_published_at_value</item>
+    </array>
+
+    <array name="pref_everything_language_option_labels">
+        <item>@string/pref_everything_language_label_all</item>
+        <item>@string/pref_everything_language_label_arabic</item>
+        <item>@string/pref_everything_language_label_chinese</item>
+        <item>@string/pref_everything_language_label_english</item>
+        <item>@string/pref_everything_language_label_french</item>
+        <item>@string/pref_everything_language_label_german</item>
+        <item>@string/pref_everything_language_label_hebrew</item>
+        <item>@string/pref_everything_language_label_italian</item>
+        <item>@string/pref_everything_language_label_norwegian</item>
+        <item>@string/pref_everything_language_label_netherlandish</item>
+        <item>@string/pref_everything_language_label_portuguese</item>
+        <item>@string/pref_everything_language_label_russian</item>
+        <item>@string/pref_everything_language_label_spanish</item>
+        <item>@string/pref_everything_language_label_swedish</item>
+        <item>@string/pref_everything_language_label_urdu</item>
+    </array>
+    <array name="pref_everything_language_option_values">
+        <item></item>
+        <item>@string/pref_everything_language_ar_value</item>
+        <item>@string/pref_everything_language_zh_value</item>
+        <item>@string/pref_everything_language_en_value</item>
+        <item>@string/pref_everything_language_fr_value</item>
+        <item>@string/pref_everything_language_de_value</item>
+        <item>@string/pref_everything_language_he_value</item>
+        <item>@string/pref_everything_language_it_value</item>
+        <item>@string/pref_everything_language_no_value</item>
+        <item>@string/pref_everything_language_nl_value</item>
+        <item>@string/pref_everything_language_pt_value</item>
+        <item>@string/pref_everything_language_ru_value</item>
+        <item>@string/pref_everything_language_es_value</item>
+        <item>@string/pref_everything_language_se_value</item>
+        <item>@string/pref_everything_language_ud_value</item>
     </array>
 
 

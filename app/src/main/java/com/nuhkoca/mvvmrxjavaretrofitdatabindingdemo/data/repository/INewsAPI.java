@@ -38,6 +38,8 @@ public interface INewsAPI {
 
     @GET("/v2/everything")
     Observable<ArticlesWrapper> fetchEverything(@Query("q") @NonNull String query,
+                                                @Query("sortBy") @Nullable String sortBy,
+                                                @Query("language") @Nullable String language,
                                                 @Query("apiKey") @NonNull String apiKey);
 
     @GET("/v2/sources")

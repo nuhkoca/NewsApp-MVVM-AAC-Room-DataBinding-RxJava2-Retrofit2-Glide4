@@ -80,8 +80,6 @@ public class AboutActivity extends AppCompatActivity {
 
                     switchView.setText(getString(R.string.day_mode_text));
                 }
-
-                recreate();
             }
         });
 
@@ -132,6 +130,8 @@ public class AboutActivity extends AppCompatActivity {
             AppCompatDelegate.setDefaultNightMode(
                     AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
         }
+
+        getDelegate().applyDayNight();
     }
 
     private void loadSimulateFromSharedPreference() {

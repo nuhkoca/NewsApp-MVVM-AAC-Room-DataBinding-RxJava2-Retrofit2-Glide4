@@ -27,6 +27,26 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="@string/everything_preference_title">
+
+    <ListPreference
+        android:defaultValue="@string/pref_everything_sort_by_all_value"
+        android:entries="@array/pref_everything_sort_by_labels"
+        android:entryValues="@array/pref_everything_sort_by_values"
+        android:key="@string/pref_everything_sort_by_key"
+        android:title="@string/pref_everything_sort_by_label"
+        android:summary="@string/pref_everything_sort_by_label_all"/>
+
+        <ListPreference
+            android:defaultValue="@string/pref_everything_language_all_value"
+            android:entries="@array/pref_everything_language_option_labels"
+            android:entryValues="@array/pref_everything_language_option_values"
+            android:key="@string/pref_everything_language_key"
+            android:title="@string/pref_everything_language_label"
+            android:summary="@string/pref_everything_language_label_all"/>
+
+    </PreferenceCategory>
+
     <PreferenceCategory android:title="@string/sources_preference_title">
 
         <ListPreference

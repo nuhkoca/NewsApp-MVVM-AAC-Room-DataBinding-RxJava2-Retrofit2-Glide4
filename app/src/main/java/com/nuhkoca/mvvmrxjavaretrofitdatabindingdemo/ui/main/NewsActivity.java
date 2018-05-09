@@ -252,11 +252,17 @@ public class NewsActivity extends AppCompatActivity implements BottomNavigationV
     public void onViewsHide() {
         mActivityNewsBinding.bnvNews.animate().translationY(
                 mActivityNewsBinding.bnvNews.getHeight()).setInterpolator(new AccelerateInterpolator(2)).start();
+
+        mActivityNewsBinding.dropShadow.animate().translationY(
+                mActivityNewsBinding.bnvNews.getHeight()).setInterpolator(new AccelerateInterpolator(2)).start();
     }
 
     @Override
     public void onViewsShow() {
         mActivityNewsBinding.bnvNews.animate().translationY(0)
+                .setInterpolator(new DecelerateInterpolator(2)).start();
+
+        mActivityNewsBinding.dropShadow.animate().translationY(0)
                 .setInterpolator(new DecelerateInterpolator(2)).start();
     }
 

@@ -15,15 +15,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <View
+        android:id="@+id/dropShadow"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="@drawable/drop_shadow"
+        app:layout_constraintBottom_toTopOf="@+id/bnvNews" />
+
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bnvNews"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
+        android:elevation="@dimen/bottom_navigation_view_elevation"
+        app:elevation="@dimen/bottom_navigation_view_elevation"
         app:itemIconTint="@drawable/bottom_navigation_view_state"
         app:itemTextColor="@drawable/bottom_navigation_view_state"
-        app:elevation="@dimen/bottom_navigation_view_elevation"
-        android:elevation="@dimen/bottom_navigation_view_elevation"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

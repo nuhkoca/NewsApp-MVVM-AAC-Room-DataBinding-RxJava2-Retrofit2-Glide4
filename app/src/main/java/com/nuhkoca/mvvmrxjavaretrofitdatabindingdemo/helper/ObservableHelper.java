@@ -35,8 +35,8 @@ public class ObservableHelper {
         return iNewsAPI.fetchTopHeadlines(countryCode, sources, category, query, BuildConfig.API_KEY);
     }
 
-    public Observable<ArticlesWrapper> getEverything(String query) {
-        return iNewsAPI.fetchEverything(query, BuildConfig.API_KEY);
+    public Observable<ArticlesWrapper> getEverything(String query, String sortBy, String language) {
+        return iNewsAPI.fetchEverything(query, sortBy, language, BuildConfig.API_KEY);
     }
 
     public Observable<SourcesWrapper> getSources(@Nullable String language, @Nullable String country, @Nullable String category) {

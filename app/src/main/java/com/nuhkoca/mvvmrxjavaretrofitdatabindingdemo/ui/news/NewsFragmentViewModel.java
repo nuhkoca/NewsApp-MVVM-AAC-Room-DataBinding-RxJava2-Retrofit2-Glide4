@@ -146,8 +146,8 @@ public class NewsFragmentViewModel extends AndroidViewModel {
                 });
     }
 
-    public void getEverything(@NonNull String query) {
-        Observable<ArticlesWrapper> getEverything = observableHelper.getEverything(query);
+    public void getEverything(@NonNull String query, @Nullable String sortBy, @Nullable String language) {
+        Observable<ArticlesWrapper> getEverything = observableHelper.getEverything(query, sortBy, language);
 
         getEverything.subscribeOn(Schedulers.io())
                 .retry(3)
