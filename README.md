@@ -32,8 +32,6 @@ This project is powered by **NewsAPI.org**. To get your own API key, please visi
 
 <img src="https://github.com/nuhkoca/NewsApp-MVVM-DataBinding-RxJava-Retrofit/blob/master/art/2.png" height="450"/>
 
-<img src="https://github.com/nuhkoca/NewsApp-MVVM-DataBinding-RxJava-Retrofit/blob/master/art/3.png" height="450"/>
-
 <img src="https://github.com/nuhkoca/NewsApp-MVVM-DataBinding-RxJava-Retrofit/blob/master/art/4.png" height="450"/>
 
 <img src="https://github.com/nuhkoca/NewsApp-MVVM-DataBinding-RxJava-Retrofit/blob/master/art/5.png" height="450"/>
@@ -45,6 +43,8 @@ This project is powered by **NewsAPI.org**. To get your own API key, please visi
 <img src="https://github.com/nuhkoca/NewsApp-MVVM-DataBinding-RxJava-Retrofit/blob/master/art/8.png" height="450"/>
 
 <img src="https://github.com/nuhkoca/NewsApp-MVVM-DataBinding-RxJava-Retrofit/blob/master/art/9.png" height="450"/>
+
+<img src="https://github.com/nuhkoca/NewsApp-MVVM-DataBinding-RxJava-Retrofit/blob/master/art/3.png" height="450"/>
 </p>
 
 # What the project uses
