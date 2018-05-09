@@ -22,6 +22,7 @@ This project is powered by **NewsAPI.org**. To get your own API key, please visi
 - [x] Performed UI tests and passed successfully..
 - [ ] Implement Filter feature for Sources section and thus user can filter results.
 - [ ] Implement Firestore to send push notifications.
+- [ ] Implement endless scroll for more items.
 
 # Screenshots
 
