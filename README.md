@@ -10,27 +10,6 @@ This project is a playground to clutch MVVM pattern, Architecture Components, Ro
 
 This project is powered by **NewsAPI.org**. To get your own API key, please visit [NewsAPI.org](https://newsapi.org/)
 
-# What the project uses
-
-* [MVVM Pattern](https://github.com/googlesamples/android-architecture)
-* [BindingAdapter](https://developer.android.com/reference/android/databinding/BindingAdapter.html)
-* [Retrofit2](https://github.com/square/retrofit)
-* [RxJava2](https://github.com/ReactiveX/RxJava)
-* [Glide v4](https://github.com/bumptech/glide)
-* [GlideModule](http://bumptech.github.io/glide/doc/generatedapi.html#availability)
-* [Timber](https://github.com/JakeWharton/timber)
-* [OkHttp](https://github.com/square/okhttp)
-* [DataBinding](https://developer.android.com/topic/libraries/data-binding/index.html)
-* [Room Persistence Library](https://github.com/googlecodelabs/android-room-with-a-view)
-* [PreferenceScreen v14](https://developer.android.com/reference/android/preference/Preference)
-* [ViewPagerTransforms](https://github.com/ToxicBakery/ViewPagerTransforms)
-* [Stetho](http://facebook.github.io/stetho/)
-* [Android About Page](https://github.com/medyo/android-about-page)
-* [Espresso - Testing](https://github.com/googlesamples/android-testing)
-* [Materialish Progress](https://github.com/pnikosis/materialish-progress)
-* [Material Dialogs](https://github.com/afollestad/material-dialogs)
-* [About Libraries](https://github.com/mikepenz/AboutLibraries)
-
 # ToDo List
 
 - [x] Top Headlines, Everything and Sources are listed.
@@ -51,30 +30,45 @@ This project is powered by **NewsAPI.org**. To get your own API key, please visi
 <p align="left">
 <img src="https://github.com/nuhkoca/NewsApp-MVVM-DataBinding-RxJava-Retrofit/blob/master/art/1.png" height="450"/>
 
-<p align="left">
 <img src="https://github.com/nuhkoca/NewsApp-MVVM-DataBinding-RxJava-Retrofit/blob/master/art/2.png" height="450"/>
 
-<p align="left">
 <img src="https://github.com/nuhkoca/NewsApp-MVVM-DataBinding-RxJava-Retrofit/blob/master/art/3.png" height="450"/>
 
-<p align="left">
 <img src="https://github.com/nuhkoca/NewsApp-MVVM-DataBinding-RxJava-Retrofit/blob/master/art/4.png" height="450"/>
 
-<p align="left">
 <img src="https://github.com/nuhkoca/NewsApp-MVVM-DataBinding-RxJava-Retrofit/blob/master/art/5.png" height="450"/>
 
-<p align="left">
 <img src="https://github.com/nuhkoca/NewsApp-MVVM-DataBinding-RxJava-Retrofit/blob/master/art/6.png" height="450"/>
 
-<p align="left">
 <img src="https://github.com/nuhkoca/NewsApp-MVVM-DataBinding-RxJava-Retrofit/blob/master/art/7.png" height="450"/>
 
-<p align="left">
 <img src="https://github.com/nuhkoca/NewsApp-MVVM-DataBinding-RxJava-Retrofit/blob/master/art/8.png" height="450"/>
 
-<p align="left">
 <img src="https://github.com/nuhkoca/NewsApp-MVVM-DataBinding-RxJava-Retrofit/blob/master/art/9.png" height="450"/>
+</p>
 
+# What the project uses
+
+* [MVVM Pattern](https://github.com/googlesamples/android-architecture)
+* [Architecture Components](https://developer.android.com/topic/libraries/architecture/)
+* [BindingAdapter](https://developer.android.com/reference/android/databinding/BindingAdapter.html)
+* [ConstraintLayout](https://developer.android.com/training/constraint-layout/)
+* [Retrofit2](https://github.com/square/retrofit)
+* [RxJava2](https://github.com/ReactiveX/RxJava)
+* [Glide v4](https://github.com/bumptech/glide)
+* [GlideModule](http://bumptech.github.io/glide/doc/generatedapi.html#availability)
+* [Timber](https://github.com/JakeWharton/timber)
+* [OkHttp](https://github.com/square/okhttp)
+* [DataBinding](https://developer.android.com/topic/libraries/data-binding/index.html)
+* [Room Persistence Library](https://github.com/googlecodelabs/android-room-with-a-view)
+* [PreferenceScreen v14](https://developer.android.com/reference/android/preference/Preference)
+* [ViewPagerTransforms](https://github.com/ToxicBakery/ViewPagerTransforms)
+* [Stetho](http://facebook.github.io/stetho/)
+* [Android About Page](https://github.com/medyo/android-about-page)
+* [Espresso - Testing](https://github.com/googlesamples/android-testing)
+* [Materialish Progress](https://github.com/pnikosis/materialish-progress)
+* [Material Dialogs](https://github.com/afollestad/material-dialogs)
+* [About Libraries](https://github.com/mikepenz/AboutLibraries)
 
 
 # License
