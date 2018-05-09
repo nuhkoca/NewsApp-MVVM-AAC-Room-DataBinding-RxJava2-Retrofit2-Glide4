@@ -40,7 +40,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:text="@{sourceName}"
-                    style="@style/ArticleTitleAppearance"/>
+                    style="@style/SourceTitleAppearance"/>
 
                 <TextView
                     android:layout_width="0dp"
@@ -55,7 +55,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{sourceDescription}"
-                style="@style/ArticleDescriptionAppearance"/>
+                style="@style/SourceDescriptionAppearance"/>
 
         </LinearLayout>
 </layout>
