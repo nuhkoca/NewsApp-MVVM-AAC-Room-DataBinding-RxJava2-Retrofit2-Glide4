@@ -58,6 +58,7 @@ This project is powered by **NewsAPI.org**. To get your own API key, please visi
 * [Glide v4](https://github.com/bumptech/glide)
 * [GlideModule](http://bumptech.github.io/glide/doc/generatedapi.html#availability)
 * [Timber](https://github.com/JakeWharton/timber)
+* [LeakCanary](https://github.com/square/leakcanary)
 * [OkHttp](https://github.com/square/okhttp)
 * [DataBinding](https://developer.android.com/topic/libraries/data-binding/index.html)
 * [Room Persistence Library](https://github.com/googlecodelabs/android-room-with-a-view)
