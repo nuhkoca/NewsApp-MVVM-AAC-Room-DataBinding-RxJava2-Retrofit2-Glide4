@@ -96,6 +96,8 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                         || p.getSharedPreferences().getString(getString(R.string.pref_category_key),
                         getString(R.string.pref_category_all_value)).equals("")) {
                     mSourcePref.setEnabled(false);
+                } else {
+                    mSourcePref.setEnabled(false);
                 }
             }
         }
