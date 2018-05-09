@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.callback.IOverflowMenuItemClickListener;
+import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.callback.ISourcesItemClickListener;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.entity.DbEverything;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.entity.DbSources;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.entity.DbTopHeadlines;
@@ -71,19 +72,19 @@ public class RecyclerViewUtil {
         articlesRV.setAdapter(articlesAdapter);
     }
 
-    public static void populateOnlineSources(Context context, RecyclerView sourcesRV, List<Sources> sourcesList) {
+    public static void populateOnlineSources(Context context, RecyclerView sourcesRV, List<Sources> sourcesList, ISourcesItemClickListener iSourcesItemClickListener) {
         getLayoutManagerForSources(context, sourcesRV);
 
-        SourcesAdapter sourcesAdapter = new SourcesAdapter();
+        SourcesAdapter sourcesAdapter = new SourcesAdapter(iSourcesItemClickListener);
         sourcesAdapter.swapData(sourcesList);
 
         sourcesRV.setAdapter(sourcesAdapter);
     }
 
-    public static void populateOfflineSources(Context context, RecyclerView sourcesRV, List<DbSources> dbSourcesList) {
+    public static void populateOfflineSources(Context context, RecyclerView sourcesRV, List<DbSources> dbSourcesList, ISourcesItemClickListener iSourcesItemClickListener) {
         getLayoutManagerForSources(context, sourcesRV);
 
-        SourcesAdapter sourcesAdapter = new SourcesAdapter(dbSourcesList);
+        SourcesAdapter sourcesAdapter = new SourcesAdapter(dbSourcesList, iSourcesItemClickListener);
         sourcesRV.setAdapter(sourcesAdapter);
 
         sourcesAdapter.swapOfflineData(dbSourcesList);

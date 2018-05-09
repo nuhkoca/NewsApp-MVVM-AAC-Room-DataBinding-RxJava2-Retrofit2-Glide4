@@ -20,12 +20,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.R;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.callback.IOverflowMenuItemClickListener;
+import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.callback.IRecyclerViewScrollListener;
+import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.callback.ISourcesItemClickListener;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.entity.DbEverything;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.entity.DbSources;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.entity.DbTopHeadlines;
@@ -37,6 +38,7 @@ import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.helper.Constants;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.helper.ObservableHelper;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.test.SimpleIdlingResource;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.util.ConnectionSniffer;
+import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.util.RecyclerViewScrollUtil;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.util.RecyclerViewUtil;
 
 import java.util.ArrayList;
@@ -76,12 +78,28 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
         return new NewsFragment();
     }
 
-    private static IOverflowMenuItemClickListener mIOverflowMenuItemClickListener;
+    private static IOverflowMenuItemClickListener sIOverflowMenuItemClickListener;
+    private static ISourcesItemClickListener sISourcesItemClickListener;
+    private static IRecyclerViewScrollListener sIRecyclerViewScrollListener;
 
-    public static NewsFragment getInstance(INewsAPI.Endpoints endpoints, IOverflowMenuItemClickListener iOverflowMenuItemClickListener) {
+    public static NewsFragment getInstance(INewsAPI.Endpoints endpoints, IOverflowMenuItemClickListener iOverflowMenuItemClickListener, IRecyclerViewScrollListener iRecyclerViewScrollListener) {
         NewsFragment newsFragment = new NewsFragment();
 
-        mIOverflowMenuItemClickListener = iOverflowMenuItemClickListener;
+        sIOverflowMenuItemClickListener = iOverflowMenuItemClickListener;
+        sIRecyclerViewScrollListener = iRecyclerViewScrollListener;
+
+        Bundle bundle = new Bundle();
+        bundle.putInt(Constants.ENDPOINT_ARGS_KEY, endpoints.getValue());
+        newsFragment.setArguments(bundle);
+
+        return newsFragment;
+    }
+
+    public static NewsFragment getInstance(INewsAPI.Endpoints endpoints, ISourcesItemClickListener iSourcesItemClickListener, IRecyclerViewScrollListener iRecyclerViewScrollListener) {
+        NewsFragment newsFragment = new NewsFragment();
+
+        sISourcesItemClickListener = iSourcesItemClickListener;
+        sIRecyclerViewScrollListener = iRecyclerViewScrollListener;
 
         Bundle bundle = new Bundle();
         bundle.putInt(Constants.ENDPOINT_ARGS_KEY, endpoints.getValue());
@@ -123,6 +141,8 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
 
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         mSharedPreferences.registerOnSharedPreferenceChangeListener(this);
+
+        sIRecyclerViewScrollListener = (IRecyclerViewScrollListener) getActivity();
     }
 
     @Override
@@ -175,17 +195,17 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        mFragmentNewsBinding.rvNews.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-            @Override
-            public boolean onPreDraw() {
-                mFragmentNewsBinding.rvNews.getViewTreeObserver().removeOnPreDrawListener(this);
+       mFragmentNewsBinding.rvNews.addOnScrollListener(new RecyclerViewScrollUtil() {
+           @Override
+           public void onHide() {
+               sIRecyclerViewScrollListener.onViewsHide();
+           }
 
-                mFragmentNewsBinding.rvNews.setPadding(0, 0, 0,
-                        (int) getResources().getDimension(R.dimen.recycler_view_padding));
-
-                return false;
-            }
-        });
+           @Override
+           public void onShow() {
+                sIRecyclerViewScrollListener.onViewsShow();
+           }
+       });
 
         setupUI();
     }
@@ -261,7 +281,7 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
                             RecyclerViewUtil.populateOnlineArticles(Objects.requireNonNull(getContext()),
                                     mFragmentNewsBinding.rvNews,
                                     articlesWrapper.getArticles(),
-                                    mIOverflowMenuItemClickListener);
+                                    sIOverflowMenuItemClickListener);
 
                             if (mIdlingResource != null) {
                                 mIdlingResource.setIdleState(true);
@@ -281,7 +301,7 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
                             RecyclerViewUtil.populateOnlineArticles(Objects.requireNonNull(getContext()),
                                     mFragmentNewsBinding.rvNews,
                                     articlesWrapper.getArticles(),
-                                    mIOverflowMenuItemClickListener);
+                                    sIOverflowMenuItemClickListener);
 
                             if (mIdlingResource != null) {
                                 mIdlingResource.setIdleState(true);
@@ -305,7 +325,8 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
                         if (sourcesWrapper != null) {
                             RecyclerViewUtil.populateOnlineSources(getContext(),
                                     mFragmentNewsBinding.rvNews,
-                                    sourcesWrapper.getSources());
+                                    sourcesWrapper.getSources(),
+                                    sISourcesItemClickListener);
 
                             if (mIdlingResource != null) {
                                 mIdlingResource.setIdleState(true);
@@ -328,7 +349,8 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
             public void onChanged(@Nullable List<DbSources> dbSourcesList) {
                 RecyclerViewUtil.populateOfflineSources(getContext(),
                         mFragmentNewsBinding.rvNews,
-                        dbSourcesList);
+                        dbSourcesList,
+                        sISourcesItemClickListener);
 
                 mFragmentNewsBinding.tvErrorView.setVisibility(View.GONE);
                 mFragmentNewsBinding.rvNews.setVisibility(View.VISIBLE);
@@ -343,7 +365,7 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
                 RecyclerViewUtil.populateOfflineTopHeadlines(getContext(),
                         mFragmentNewsBinding.rvNews,
                         dbTopHeadlinesList,
-                        mIOverflowMenuItemClickListener);
+                        sIOverflowMenuItemClickListener);
 
                 mFragmentNewsBinding.tvErrorView.setVisibility(View.GONE);
                 mFragmentNewsBinding.rvNews.setVisibility(View.VISIBLE);
@@ -358,7 +380,7 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
                 RecyclerViewUtil.populateOfflineEverything(getContext(),
                         mFragmentNewsBinding.rvNews,
                         dbEverythingList,
-                        mIOverflowMenuItemClickListener);
+                        sIOverflowMenuItemClickListener);
 
                 mFragmentNewsBinding.tvErrorView.setVisibility(View.GONE);
                 mFragmentNewsBinding.rvNews.setVisibility(View.VISIBLE);

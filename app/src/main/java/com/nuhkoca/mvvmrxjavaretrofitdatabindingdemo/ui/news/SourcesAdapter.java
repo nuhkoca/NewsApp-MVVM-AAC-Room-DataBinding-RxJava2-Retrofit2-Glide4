@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.BR;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.R;
+import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.callback.ISourcesItemClickListener;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.entity.DbSources;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.remote.Sources;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.databinding.SourcesItemCardBinding;
@@ -21,13 +22,17 @@ public class SourcesAdapter extends RecyclerView.Adapter<SourcesAdapter.ViewHold
 
     private List<Sources> mSourcesList;
     private List<DbSources> mDbSources;
+    private ISourcesItemClickListener mISourcesItemClickListener;
 
-    public SourcesAdapter() {
+    public SourcesAdapter(ISourcesItemClickListener iSourcesItemClickListener) {
+        this.mISourcesItemClickListener = iSourcesItemClickListener;
+
         mSourcesList = new ArrayList<>();
     }
 
-    public SourcesAdapter(List<DbSources> mDbSources) {
+    public SourcesAdapter(List<DbSources> mDbSources,ISourcesItemClickListener iSourcesItemClickListener) {
         this.mDbSources = mDbSources;
+        this.mISourcesItemClickListener = iSourcesItemClickListener;
     }
 
     @NonNull
@@ -90,6 +95,8 @@ public class SourcesAdapter extends RecyclerView.Adapter<SourcesAdapter.ViewHold
                 mSourcesItemCardBinding.setVariable(BR.sourceName, sources.getName());
                 mSourcesItemCardBinding.setVariable(BR.sourceDescription, sources.getDescription());
                 mSourcesItemCardBinding.setVariable(BR.sourceCategory, sources.getCategory());
+                mSourcesItemCardBinding.setVariable(BR.sourcesId, sources.getId());
+                mSourcesItemCardBinding.setVariable(BR.sourceItemClickListener, mISourcesItemClickListener);
                 mSourcesItemCardBinding.executePendingBindings();
             }
         }
@@ -99,6 +106,8 @@ public class SourcesAdapter extends RecyclerView.Adapter<SourcesAdapter.ViewHold
                 mSourcesItemCardBinding.setVariable(BR.sourceName, dbSources.getName());
                 mSourcesItemCardBinding.setVariable(BR.sourceDescription, dbSources.getDescription());
                 mSourcesItemCardBinding.setVariable(BR.sourceCategory, dbSources.getCategory());
+                mSourcesItemCardBinding.setVariable(BR.sourcesId, dbSources.getId());
+                mSourcesItemCardBinding.setVariable(BR.sourceItemClickListener, mISourcesItemClickListener);
                 mSourcesItemCardBinding.executePendingBindings();
             }
         }

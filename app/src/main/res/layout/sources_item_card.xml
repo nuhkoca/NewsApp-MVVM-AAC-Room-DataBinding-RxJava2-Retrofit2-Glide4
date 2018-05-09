@@ -13,6 +13,12 @@
         <variable
             name="sourceDescription"
             type="String" />
+        <variable
+            name="sourcesId"
+            type="String" />
+        <variable
+            name="sourceItemClickListener"
+            type="com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.callback.ISourcesItemClickListener" />
     </data>
 
         <LinearLayout
@@ -21,6 +27,7 @@
             android:clickable="true"
             android:focusable="true"
             android:background="?attr/selectableItemBackground"
+            android:onClick="@{() -> sourceItemClickListener.onSourcesItemClick(sourcesId, sourceName)}"
             android:orientation="vertical">
 
             <LinearLayout

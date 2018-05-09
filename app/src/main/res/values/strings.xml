@@ -26,13 +26,28 @@
     <string name="openIntentTitle">Open "%s" in browser</string>
     <string name="shareIntentTitle">Share "%s" with</string>
     <string name="shareIntentExtraText">To view \'%s\', click the url: %s</string>
+    <string name="source_name_news">News by %s</string>
 
     <!-- Preference Titles -->
     <string name="top_headlines_preference_title">Preferences for Top Headline News</string>
     <string name="sources_preference_title">Preferences for Sources</string>
 
 
-    <!-- About Texts -->
+    <!-- Warnings -->
+    <string name="top_headlines_error_text">An error occurred. Try changing search parameters or check connection.</string>
+    <string name="everything_error_text">An error occurred. Try changing search query or check connection.</string>
+    <string name="sources_error_text">An error occurred. Try changing search parameters or check connection.</string>
+    <string name="custom_sources_error_text">An error occurred. There might be no news by %s</string>
+    <string name="progress_dialog_wait">Wait a second…</string>
+
+    <string name="snackBar_warning_text">You seem to not have a valid connection!</string>
+    <string name="snackBar_offline_warning_text">You seem to not have a valid connection! Offline data is displayed.</string>
+    <string name="snackBar_action_text">Dismiss</string>
+
+    <string name="urgent_internet_warning">Couldn\'t refresh feed.</string>
+    <string name="pref_screen_no_parameter_error">You have to choose at least 1 parameter among Country, Source or Category.</string>
+
+    <!-- region About Texts -->
     <string name="version" translatable="false">Version: %s</string>
 
     <string name="copy_right" translatable="false">Copyrights © %1$d</string>
@@ -66,23 +81,8 @@
 
     <string name="libs_that_we_inspire">Libs that we inspire!</string>
     <string name="open_source_libs" translatable="false">Open Source Libraries</string>
-    <string name="chooser_title" translatable="false">Open with...</string>
+    <!--endregion-->
 
-    <!-- Warnings -->
-    <string name="top_headlines_error_text">An error occurred. Try changing search parameters or check connection.</string>
-    <string name="everything_error_text">An error occurred. Try changing search query or check connection.</string>
-    <string name="sources_error_text">An error occurred. Try changing search parameters or check connection.</string>
-    <string name="progress_dialog_wait">Wait a second…</string>
-
-    <string name="snackBar_warning_text">You seem to not have a valid connection!</string>
-    <string name="snackBar_offline_warning_text">You seem to not have a valid connection! Offline data is displayed.</string>
-    <string name="snackBar_action_text">Dismiss</string>
-
-    <string name="urgent_internet_warning">Couldn\'t refresh feed.</string>
-    <string name="pref_screen_no_parameter_error">You have to choose at least 1 parameter among Country, Source or Category.</string>
-
-
-    <!-- SharedPreference Keys and Labels -->
 
     <!--region Top Headlines Countries -->
     <string name="pref_country_label">Country</string>

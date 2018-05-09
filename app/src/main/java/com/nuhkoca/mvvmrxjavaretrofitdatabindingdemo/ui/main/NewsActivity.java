@@ -19,6 +19,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -28,9 +30,12 @@ import android.widget.Toast;
 import com.ToxicBakery.viewpager.transforms.DepthPageTransformer;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.R;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.callback.IOverflowMenuItemClickListener;
+import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.callback.IRecyclerViewScrollListener;
+import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.callback.ISourcesItemClickListener;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.databinding.ActivityNewsBinding;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.helper.Constants;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.ui.about.AboutActivity;
+import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.ui.custom_news.CustomNewsActivity;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.ui.news.NewsFragment;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.ui.settings.SettingsActivity;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.util.ConnectionSniffer;
@@ -40,7 +45,7 @@ import static com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.repository.INew
 import static com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.repository.INewsAPI.Endpoints.SOURCES;
 import static com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.repository.INewsAPI.Endpoints.TOP_HEADLINES;
 
-public class NewsActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, IOverflowMenuItemClickListener {
+public class NewsActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, IOverflowMenuItemClickListener, ISourcesItemClickListener, IRecyclerViewScrollListener {
 
     private ActivityNewsBinding mActivityNewsBinding;
     private MenuItem mPrevMenuItem;
@@ -228,6 +233,33 @@ public class NewsActivity extends AppCompatActivity implements BottomNavigationV
         popup.show();
     }
 
+    @Override
+    public void onSourcesItemClick(String customSourceId, String customSourcesName) {
+        mIsActiveConnection = ConnectionSniffer.sniff();
+
+        if (mIsActiveConnection) {
+            Intent customNewsIntent = new Intent(NewsActivity.this, CustomNewsActivity.class);
+            customNewsIntent.putExtra(Constants.CUSTOM_NEWS_SOURCE_ID, customSourceId);
+            customNewsIntent.putExtra(Constants.CUSTOM_NEWS_SOURCE_NAME, customSourcesName);
+
+            startActivity(customNewsIntent);
+        }else {
+            createSnackBar(getString(R.string.snackBar_warning_text));
+        }
+    }
+
+    @Override
+    public void onViewsHide() {
+        mActivityNewsBinding.bnvNews.animate().translationY(
+                mActivityNewsBinding.bnvNews.getHeight()).setInterpolator(new AccelerateInterpolator(2)).start();
+    }
+
+    @Override
+    public void onViewsShow() {
+        mActivityNewsBinding.bnvNews.animate().translationY(0)
+                .setInterpolator(new DecelerateInterpolator(2)).start();
+    }
+
     private class ViewPagerInflater extends FragmentStatePagerAdapter {
         ViewPagerInflater(FragmentManager fm) {
             super(fm);
@@ -266,13 +298,13 @@ public class NewsActivity extends AppCompatActivity implements BottomNavigationV
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return NewsFragment.getInstance(TOP_HEADLINES, NewsActivity.this);
+                    return NewsFragment.getInstance(TOP_HEADLINES, (IOverflowMenuItemClickListener) NewsActivity.this, NewsActivity.this);
 
                 case 1:
-                    return NewsFragment.getInstance(EVERYTHING, NewsActivity.this);
+                    return NewsFragment.getInstance(EVERYTHING, (IOverflowMenuItemClickListener) NewsActivity.this, NewsActivity.this);
 
                 case 2:
-                    return NewsFragment.getInstance(SOURCES, NewsActivity.this);
+                    return NewsFragment.getInstance(SOURCES, (ISourcesItemClickListener) NewsActivity.this, NewsActivity.this);
 
                 default:
                     break;

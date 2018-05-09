@@ -2,6 +2,7 @@ package com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.helper;
 
 public class Constants {
     public static final byte VIEW_PAGER_FRAGMENT_COUNT = 3;
+    public static final int HIDE_THRESHOLD = 20;
     public static final String ENDPOINT_ARGS_KEY = "endpoint-args-key";
     public static final int TOP_NEWS_ID = 1564;
     public static final int EVERYTHING_ID = 1785;
@@ -12,4 +13,6 @@ public class Constants {
     public static final String QUERY_PREF = "news-query";
     public static final String UI_MODE_PREF = "ui-mode-pref";
     public static final String CHECKED_MODE_PREF = "switch-checked-pref";
+    public static final String CUSTOM_NEWS_SOURCE_ID = "custom-news-source-id";
+    public static final String CUSTOM_NEWS_SOURCE_NAME = "custom-news-source-name";
 }

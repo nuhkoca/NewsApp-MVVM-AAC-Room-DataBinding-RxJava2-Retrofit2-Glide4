@@ -42,6 +42,9 @@
         <activity
             android:name=".ui.about.AboutActivity"
             android:parentActivityName=".ui.main.NewsActivity" />
+        <activity
+            android:name=".ui.custom_news.CustomNewsActivity"
+            android:parentActivityName=".ui.main.NewsActivity" />
     </application>
 
 </manifest>
