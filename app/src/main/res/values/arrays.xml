@@ -323,7 +323,7 @@
     </array>
 
 
-    <!-- DbSources -->
+    <!-- Sources -->
     <array name="pref_language_option_labels">
         <item>@string/pref_language_label_all</item>
         <item>@string/pref_language_label_arabic</item>
@@ -362,7 +362,7 @@
     <array name="pref_source_country_option_labels">
         <item>@string/pref_source_country_label_all</item>
         <item>@string/pref_source_country_label_argentina</item>
-        <item>@string/pref_source_country_label_austria</item>
+        <item>@string/pref_source_country_label_australia</item>
         <item>@string/pref_source_country_label_austria</item>
         <item>@string/pref_source_country_label_belgium</item>
         <item>@string/pref_source_country_label_bulgaria</item>
