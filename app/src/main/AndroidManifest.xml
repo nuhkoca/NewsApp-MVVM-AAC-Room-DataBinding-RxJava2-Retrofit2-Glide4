@@ -29,8 +29,11 @@
             android:launchMode="singleTop" />
         <activity
             android:name=".ui.settings.SettingsActivity"
-            android:parentActivityName=".ui.main.NewsActivity" />
+            android:parentActivityName=".ui.main.NewsActivity" >
 
+
+
+        </activity>
         <activity
             android:name=".ui.about.AboutActivity"
             android:parentActivityName=".ui.main.NewsActivity" />

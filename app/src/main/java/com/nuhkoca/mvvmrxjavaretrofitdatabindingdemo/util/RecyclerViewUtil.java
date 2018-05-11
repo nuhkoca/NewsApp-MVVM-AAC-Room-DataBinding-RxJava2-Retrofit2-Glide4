@@ -2,7 +2,6 @@ package com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.util;
 
 import android.content.Context;
 import android.content.res.Configuration;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,6 +20,8 @@ import java.util.List;
 
 public class RecyclerViewUtil {
 
+    private static SourcesAdapter sourcesAdapter;
+
     private static void getLayoutManagerForSources(Context context, RecyclerView sourcesRV) {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
 
@@ -30,7 +31,7 @@ public class RecyclerViewUtil {
         int config = context.getResources().getConfiguration().orientation;
 
         if (config == Configuration.ORIENTATION_PORTRAIT) {
-            sourcesRV.addItemDecoration(new DividerItemDecoration(context, 1));
+            sourcesRV.addItemDecoration(new CustomDividerItemDecoration(context, 1,0));
         }
     }
 
@@ -58,6 +59,8 @@ public class RecyclerViewUtil {
         articlesAdapter.swapData(articlesList);
 
         articlesRV.setAdapter(articlesAdapter);
+
+        articlesAdapter.notifyDataSetChanged();
     }
 
     public static void populateOfflineTopHeadlines(Context context, RecyclerView articlesRV, List<DbTopHeadlines> dbTopHeadlinesList, IOverflowMenuItemClickListener iOverflowMenuItemClickListener) {
@@ -67,6 +70,8 @@ public class RecyclerViewUtil {
         articlesAdapter.swapOfflineTopHeadlines(dbTopHeadlinesList);
 
         articlesRV.setAdapter(articlesAdapter);
+
+        articlesAdapter.notifyDataSetChanged();
     }
 
     public static void populateOfflineEverything(Context context, RecyclerView articlesRV, List<DbEverything> dbEverythingList, IOverflowMenuItemClickListener iOverflowMenuItemClickListener) {
@@ -76,15 +81,19 @@ public class RecyclerViewUtil {
         articlesAdapter.swapOfflineEverything(dbEverythingList);
 
         articlesRV.setAdapter(articlesAdapter);
+
+        articlesAdapter.notifyDataSetChanged();
     }
 
     public static void populateOnlineSources(Context context, RecyclerView sourcesRV, List<Sources> sourcesList, ISourcesItemClickListener iSourcesItemClickListener) {
         getLayoutManagerForSources(context, sourcesRV);
 
-        SourcesAdapter sourcesAdapter = new SourcesAdapter(iSourcesItemClickListener);
+        sourcesAdapter = new SourcesAdapter(iSourcesItemClickListener);
         sourcesAdapter.swapData(sourcesList);
 
         sourcesRV.setAdapter(sourcesAdapter);
+
+        sourcesAdapter.notifyDataSetChanged();
     }
 
     public static void populateOfflineSources(Context context, RecyclerView sourcesRV, List<DbSources> dbSourcesList, ISourcesItemClickListener iSourcesItemClickListener) {
@@ -94,5 +103,11 @@ public class RecyclerViewUtil {
         sourcesRV.setAdapter(sourcesAdapter);
 
         sourcesAdapter.swapOfflineData(dbSourcesList);
+
+        sourcesAdapter.notifyDataSetChanged();
+    }
+
+    public static SourcesAdapter getSourcesAdapter(){
+        return sourcesAdapter;
     }
 }

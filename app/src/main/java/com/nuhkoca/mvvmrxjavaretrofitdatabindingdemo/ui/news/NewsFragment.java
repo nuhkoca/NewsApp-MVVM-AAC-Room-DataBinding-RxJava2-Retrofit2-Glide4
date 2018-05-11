@@ -1,5 +1,6 @@
 package com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.ui.news;
 
+import android.app.SearchManager;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
@@ -152,8 +153,7 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
     public void onPrepareOptionsMenu(Menu menu) {
         MenuItem menuItem = menu.findItem(R.id.search_menu);
 
-        if (mEndpointCode == Constants.TOP_NEWS_ID
-                || mEndpointCode == Constants.SOURCES_ID) {
+        if (mEndpointCode == Constants.TOP_NEWS_ID) {
             menuItem.setVisible(false);
         }
     }
@@ -162,38 +162,75 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
     public void onCreateOptionsMenu(final Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
 
-        MenuItem searchItem = menu.findItem(R.id.search_menu);
-        final SearchView searchView = (SearchView) searchItem.getActionView();
+        if (mEndpointCode == Constants.EVERYTHING_ID) {
+            MenuItem searchItem = menu.findItem(R.id.search_menu);
+            final SearchView searchView = (SearchView) searchItem.getActionView();
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                query = query.toLowerCase();
-
-                MaterialDialog.Builder builder = new MaterialDialog.Builder(Objects.requireNonNull(getContext()))
-                        .content(getString(R.string.progress_dialog_wait))
-                        .progress(true, 0)
-                        .cancelable(false)
-                        .widgetColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
-
-                mMaterialDialog = builder.build();
-                mMaterialDialog.show();
-
-                saveQueryToSharedPreference(query);
-                loadEverythingFromQuery(mSharedPreferences);
-
-                searchView.setIconified(true);
-                searchView.clearFocus();
-                menu.findItem(R.id.search_menu).collapseActionView();
-
-                return false;
+            SearchManager searchManager = (SearchManager) Objects.requireNonNull(getActivity()).getSystemService(Context.SEARCH_SERVICE);
+            if (searchManager != null) {
+                searchView.setSearchableInfo(searchManager
+                        .getSearchableInfo(getActivity().getComponentName()));
             }
 
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
+            searchView.setMaxWidth(Integer.MAX_VALUE);
+
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    query = query.toLowerCase();
+
+                    MaterialDialog.Builder builder = new MaterialDialog.Builder(Objects.requireNonNull(getContext()))
+                            .content(getString(R.string.progress_dialog_wait))
+                            .progress(true, 0)
+                            .cancelable(false)
+                            .widgetColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
+
+                    mMaterialDialog = builder.build();
+                    mMaterialDialog.show();
+
+                    saveQueryToSharedPreference(query);
+                    loadEverythingFromQuery(mSharedPreferences);
+
+                    searchView.setIconified(true);
+                    searchView.clearFocus();
+                    menu.findItem(R.id.search_menu).collapseActionView();
+
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    return false;
+                }
+            });
+        }
+
+        if (mEndpointCode == Constants.SOURCES_ID) {
+            MenuItem searchItem = menu.findItem(R.id.search_menu);
+            final SearchView searchView = (SearchView) searchItem.getActionView();
+
+            SearchManager searchManager = (SearchManager) Objects.requireNonNull(getActivity()).getSystemService(Context.SEARCH_SERVICE);
+            if (searchManager != null) {
+                searchView.setSearchableInfo(searchManager
+                        .getSearchableInfo(getActivity().getComponentName()));
             }
-        });
+
+            searchView.setMaxWidth(Integer.MAX_VALUE);
+
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String query) {
+                    RecyclerViewUtil.getSourcesAdapter().getFilter().filter(query);
+
+                    return false;
+                }
+            });
+        }
     }
 
     @Override
@@ -560,7 +597,8 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
             loadNewsSourceParametersFromPreferences(sharedPreferences);
         }
 
-        if (key.equals(getString(R.string.pref_everything_sort_by_key)) || key.equals(getString(R.string.pref_everything_language_key))) {
+        if (key.equals(getString(R.string.pref_everything_sort_by_key))
+                || key.equals(getString(R.string.pref_everything_language_key))) {
             loadEverythingFromQuery(sharedPreferences);
         }
     }

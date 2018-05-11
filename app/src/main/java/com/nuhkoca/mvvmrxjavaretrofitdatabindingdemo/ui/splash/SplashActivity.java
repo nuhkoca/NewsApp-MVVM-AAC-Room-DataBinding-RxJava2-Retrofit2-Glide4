@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 
-import com.badoo.mobile.util.WeakHandler;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.R;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.ui.main.NewsActivity;
 
@@ -16,11 +15,9 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        WeakHandler activityHandler = new WeakHandler(Looper.getMainLooper());
-
         int delayToActivity = getResources().getInteger(R.integer.delay_in_seconds_to_close);
 
-        activityHandler.postDelayed(new Runnable() {
+        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
                 Intent newsIntent = new Intent(SplashActivity.this, NewsActivity.class);

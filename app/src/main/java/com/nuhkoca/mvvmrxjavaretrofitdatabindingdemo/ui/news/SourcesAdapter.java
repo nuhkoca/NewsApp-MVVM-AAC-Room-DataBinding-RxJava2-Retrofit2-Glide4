@@ -7,6 +7,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.BR;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.R;
@@ -18,9 +20,11 @@ import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.databinding.SourcesItemCard
 import java.util.ArrayList;
 import java.util.List;
 
-public class SourcesAdapter extends RecyclerView.Adapter<SourcesAdapter.ViewHolder> {
+public class SourcesAdapter extends RecyclerView.Adapter<SourcesAdapter.ViewHolder> implements Filterable {
 
     private List<Sources> mSourcesList;
+    private List<Sources> mSourcesListFiltered;
+
     private List<DbSources> mDbSources;
     private ISourcesItemClickListener mISourcesItemClickListener;
 
@@ -28,10 +32,12 @@ public class SourcesAdapter extends RecyclerView.Adapter<SourcesAdapter.ViewHold
         this.mISourcesItemClickListener = iSourcesItemClickListener;
 
         mSourcesList = new ArrayList<>();
+        mSourcesListFiltered = mSourcesList;
     }
 
     public SourcesAdapter(List<DbSources> mDbSources, ISourcesItemClickListener iSourcesItemClickListener) {
         this.mDbSources = mDbSources;
+
         this.mISourcesItemClickListener = iSourcesItemClickListener;
     }
 
@@ -50,8 +56,8 @@ public class SourcesAdapter extends RecyclerView.Adapter<SourcesAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        if (mSourcesList != null) {
-            Sources sources = mSourcesList.get(position);
+        if (mSourcesListFiltered != null) {
+            Sources sources = mSourcesListFiltered.get(position);
             holder.bindViews(sources);
         } else {
             DbSources dbSources = mDbSources.get(position);
@@ -61,6 +67,7 @@ public class SourcesAdapter extends RecyclerView.Adapter<SourcesAdapter.ViewHold
 
     public void swapData(List<Sources> sourcesList) {
         mSourcesList = sourcesList;
+        mSourcesListFiltered = mSourcesList;
 
         notifyDataSetChanged();
     }
@@ -73,11 +80,47 @@ public class SourcesAdapter extends RecyclerView.Adapter<SourcesAdapter.ViewHold
 
     @Override
     public int getItemCount() {
-        if (mSourcesList != null) {
-            return mSourcesList.size();
+        if (mSourcesListFiltered != null) {
+            return mSourcesListFiltered.size();
         } else {
             return mDbSources.size();
         }
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                String sourceName = constraint.toString();
+
+                if (sourceName.isEmpty()) {
+                    mSourcesListFiltered = mSourcesList;
+                } else {
+                    List<Sources> filteredList = new ArrayList<>();
+
+                    for (Sources sources : mSourcesList) {
+                        if (sources.getName().toLowerCase().contains(sourceName.toLowerCase())) {
+                            filteredList.add(sources);
+                        }
+                    }
+
+                    mSourcesListFiltered = filteredList;
+                }
+
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = mSourcesListFiltered;
+
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                //noinspection unchecked
+                mSourcesListFiltered = (List<Sources>) results.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
