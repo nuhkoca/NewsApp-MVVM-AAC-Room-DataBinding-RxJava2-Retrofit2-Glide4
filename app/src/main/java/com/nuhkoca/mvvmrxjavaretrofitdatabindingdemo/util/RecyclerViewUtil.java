@@ -2,6 +2,7 @@ package com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.util;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,7 +26,12 @@ public class RecyclerViewUtil {
 
         sourcesRV.setHasFixedSize(true);
         sourcesRV.setLayoutManager(linearLayoutManager);
-        sourcesRV.addItemDecoration(new RecyclerViewItemDivider(context, LinearLayoutManager.VERTICAL, 0));
+
+        int config = context.getResources().getConfiguration().orientation;
+
+        if (config == Configuration.ORIENTATION_PORTRAIT) {
+            sourcesRV.addItemDecoration(new DividerItemDecoration(context, 1));
+        }
     }
 
     private static void getLayoutManagerForArticles(Context context, RecyclerView articlesRV) {

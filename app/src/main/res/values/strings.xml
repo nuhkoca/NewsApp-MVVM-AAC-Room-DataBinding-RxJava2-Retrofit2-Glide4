@@ -46,6 +46,7 @@
     <string name="snackBar_action_text">Dismiss</string>
 
     <string name="urgent_internet_warning">Couldn\'t refresh feed.</string>
+    <string name="urgent_internet_info">Connected, loading.</string>
     <string name="pref_screen_no_parameter_error">You have to choose at least 1 parameter among Country, Source or Category.</string>
 
     <!-- region About Texts -->

@@ -32,7 +32,7 @@
         <item name="android:paddingStart">8dp</item>
     </style>
 
-    <!-- Article CardView Style-->
+    <!-- Article CardView Style -->
     <style name="ArticleCardViewAppearance">
         <item name="cardBackgroundColor">@color/white</item>
         <item name="android:layout_margin">@dimen/cardViewMargin</item>
@@ -40,7 +40,7 @@
         <item name="cardElevation">@dimen/cardViewElevation</item>
     </style>
 
-    <!-- Article Title Style-->
+    <!-- Article Title Style -->
     <style name="ArticleTitleAppearance">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textStyle">bold</item>
@@ -50,17 +50,16 @@
         <item name="android:lines">2</item>
     </style>
 
-    <!-- Article Description Style-->
+    <!-- Article Description Style -->
     <style name="ArticleDescriptionAppearance">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textColor">@color/secondaryText</item>
         <item name="android:textSize">@dimen/descriptionTextSize</item>
         <item name="android:layout_margin">@dimen/titleMargin</item>
-        <item name="android:lines">7</item>
     </style>
 
-    <!-- Article Source Style-->
+    <!-- Article Source Style -->
     <style name="ArticleSourceAppearance">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textStyle">bold</item>
@@ -72,10 +71,9 @@
         <item name="android:layout_marginTop">@dimen/sourceMarginTop</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:layout_gravity">end</item>
-        <item name="android:lines">1</item>
     </style>
 
-    <!--Source Category Style-->
+    <!--Source Category Style -->
     <style name="SourceCategoryAppearance">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textStyle">bold</item>
@@ -89,7 +87,7 @@
         <item name="android:gravity">end</item>
     </style>
 
-    <!-- Source Title Style-->
+    <!-- Source Title Style -->
     <style name="SourceTitleAppearance">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textStyle">bold</item>
@@ -98,13 +96,24 @@
         <item name="android:layout_margin">@dimen/titleMargin</item>
     </style>
 
-    <!-- Source Description Style-->
+    <!-- Source Description Style -->
     <style name="SourceDescriptionAppearance">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textColor">@color/secondaryText</item>
         <item name="android:textSize">@dimen/descriptionTextSize</item>
         <item name="android:layout_margin">@dimen/titleMargin</item>
+    </style>
+
+    <!-- Sources CardView Appearance -->
+    <style name="SourcesCardViewAppearance">
+        <item name="cardBackgroundColor">@color/white</item>
+        <item name="android:layout_marginTop">@dimen/sourcesCardViewMargin</item>
+        <item name="android:layout_marginBottom">@dimen/sourcesCardViewMargin</item>
+        <item name="android:layout_marginStart">@dimen/sourcesCardViewMarginLandscape</item>
+        <item name="android:layout_marginEnd">@dimen/sourcesCardViewMarginLandscape</item>
+        <item name="android:shape">rectangle</item>
+        <item name="cardElevation">@dimen/cardViewElevation</item>
     </style>
 
 </resources>

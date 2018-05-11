@@ -6,6 +6,7 @@ import com.facebook.stetho.Stetho;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.helper.InternetSnifferService;
 import com.squareup.leakcanary.LeakCanary;
 
 import java.util.concurrent.TimeUnit;
@@ -21,7 +22,7 @@ public class NewsApp extends Application {
 
     private static NewsApp newsApp;
 
-    public static NewsApp getInstance() {
+    public static synchronized NewsApp getInstance() {
         return newsApp;
     }
 
@@ -75,11 +76,15 @@ public class NewsApp extends Application {
         Stetho.initialize(initializer);
     }
 
-    private void provideLeakCanary(){
+    private void provideLeakCanary() {
         if (LeakCanary.isInAnalyzerProcess(this)) {
             return;
         }
 
         LeakCanary.install(this);
+    }
+
+    public void setConnectivityListener(InternetSnifferService.ConnectivityReceiverListener listener) {
+        InternetSnifferService.connectivityReceiverListener = listener;
     }
 }

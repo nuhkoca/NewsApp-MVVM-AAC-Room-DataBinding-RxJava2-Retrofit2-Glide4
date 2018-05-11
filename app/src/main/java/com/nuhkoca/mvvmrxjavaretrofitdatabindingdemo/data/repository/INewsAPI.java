@@ -34,6 +34,7 @@ public interface INewsAPI {
                                                   @Query("sources") @Nullable String sources,
                                                   @Query("category") @Nullable String category,
                                                   @Query("q") @Nullable String query,
+                                                  @Query("page") int page,
                                                   @Query("apiKey") @NonNull String apiKey);
 
     @GET("/v2/everything")

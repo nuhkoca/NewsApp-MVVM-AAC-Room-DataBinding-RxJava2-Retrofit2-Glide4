@@ -31,8 +31,8 @@ public class ObservableHelper {
         return NewsApp.provideRetrofit();
     }
 
-    public Observable<ArticlesWrapper> getTopHeadlines(@Nullable String countryCode, @Nullable String sources, @Nullable String category, @Nullable String query) {
-        return iNewsAPI.fetchTopHeadlines(countryCode, sources, category, query, BuildConfig.API_KEY);
+    public Observable<ArticlesWrapper> getTopHeadlines(@Nullable String countryCode, @Nullable String sources, @Nullable String category, @Nullable String query, int page) {
+        return iNewsAPI.fetchTopHeadlines(countryCode, sources, category, query, page, BuildConfig.API_KEY);
     }
 
     public Observable<ArticlesWrapper> getEverything(String query, String sortBy, String language) {

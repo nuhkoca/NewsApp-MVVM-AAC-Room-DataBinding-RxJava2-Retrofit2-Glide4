@@ -13,21 +13,27 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.NewsApp;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.R;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.callback.IOverflowMenuItemClickListener;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.remote.ArticlesWrapper;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.databinding.ActivityCustomNewsBinding;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.helper.Constants;
+import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.helper.InternetSnifferService;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.helper.ObservableHelper;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.util.PopupMenuBuilder;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.util.RecyclerViewUtil;
 
-public class CustomNewsActivity extends AppCompatActivity implements IOverflowMenuItemClickListener {
+public class CustomNewsActivity extends AppCompatActivity implements IOverflowMenuItemClickListener, InternetSnifferService.ConnectivityReceiverListener {
 
     private CustomNewsActivityViewModel mCustomNewsActivityViewModel;
     private ActivityCustomNewsBinding mActivityCustomNewsBinding;
     private String mSourceName;
+    private String mSourceId;
+
+    private static Integer mItemCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,20 +45,7 @@ public class CustomNewsActivity extends AppCompatActivity implements IOverflowMe
                         new CustomNewsActivityViewModelFactory(getApplication(), ObservableHelper.getInstance()))
                         .get(CustomNewsActivityViewModel.class);
 
-        mSourceName = getIntent().getStringExtra(Constants.CUSTOM_NEWS_SOURCE_NAME);
-        String title = String.format(getString(R.string.source_name_news), mSourceName);
-
-        setTitle(title);
-
-        ActionBar actionBar = getSupportActionBar();
-
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-
-        showLoadingBar();
-        createPage();
-        showErrorText();
+        setupUI();
     }
 
     @Override
@@ -71,6 +64,26 @@ public class CustomNewsActivity extends AppCompatActivity implements IOverflowMe
         return super.onOptionsItemSelected(item);
     }
 
+    private void setupUI() {
+        mSourceName = getIntent().getStringExtra(Constants.CUSTOM_NEWS_SOURCE_NAME);
+        mSourceId = getIntent().getStringExtra(Constants.CUSTOM_NEWS_SOURCE_ID);
+
+        String title = String.format(getString(R.string.source_name_news), mSourceName);
+
+        setTitle(title);
+
+        ActionBar actionBar = getSupportActionBar();
+
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
+        showLoadingBar();
+        createPage();
+        showErrorText();
+        observeItemCount();
+    }
+
     private void createPage() {
         mCustomNewsActivityViewModel.fetchTopHeadlines().observe(this, new Observer<ArticlesWrapper>() {
             @Override
@@ -84,9 +97,7 @@ public class CustomNewsActivity extends AppCompatActivity implements IOverflowMe
             }
         });
 
-        String sourceId = getIntent().getStringExtra(Constants.CUSTOM_NEWS_SOURCE_ID);
-
-        mCustomNewsActivityViewModel.getTopHeadlines(sourceId);
+        mCustomNewsActivityViewModel.getTopHeadlines(mSourceId);
     }
 
     private void showLoadingBar() {
@@ -123,6 +134,15 @@ public class CustomNewsActivity extends AppCompatActivity implements IOverflowMe
         });
     }
 
+    private void observeItemCount() {
+        mCustomNewsActivityViewModel.mItemCount.observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(@Nullable Integer itemCount) {
+                mItemCount = itemCount;
+            }
+        });
+    }
+
     @Override
     public void onOverflowMenuItemClick(String articlesUrl, String articlesTitle, ImageView view) {
         String openTitle = String.format(getString(R.string.openIntentTitle), articlesTitle);
@@ -141,5 +161,24 @@ public class CustomNewsActivity extends AppCompatActivity implements IOverflowMe
                 openTitle));
 
         popup.show();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        NewsApp.getInstance().setConnectivityListener(this);
+    }
+
+    @Override
+    public void onNetworkConnectionChanged(boolean isConnected) {
+        if (!isConnected) {
+
+            if (mItemCount == 0) {
+                setupUI();
+
+                Toast.makeText(CustomNewsActivity.this, getString(R.string.urgent_internet_info), Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }

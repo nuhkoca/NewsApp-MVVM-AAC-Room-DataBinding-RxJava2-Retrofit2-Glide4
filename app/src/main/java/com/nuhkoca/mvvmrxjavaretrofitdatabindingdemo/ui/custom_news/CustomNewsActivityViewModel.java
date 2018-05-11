@@ -26,20 +26,24 @@ public class CustomNewsActivityViewModel extends AndroidViewModel {
     public MutableLiveData<Boolean> mTopHeadlinesLoading = new MutableLiveData<>();
     public MutableLiveData<Boolean> mTopHeadlinesError = new MutableLiveData<>();
 
+    public MutableLiveData<Integer> mItemCount = new MutableLiveData<>();
+
     private ObservableHelper mObservableHelper;
 
-    public CustomNewsActivityViewModel(@NonNull Application application, ObservableHelper observableHelper) {
+    CustomNewsActivityViewModel(@NonNull Application application, ObservableHelper observableHelper) {
         super(application);
 
         this.mObservableHelper = observableHelper;
 
         mTopHeadlinesLoading.setValue(true);
         mTopHeadlinesError.setValue(false);
+
+        mItemCount.setValue(0);
     }
 
     public void getTopHeadlines(@Nullable String sources) {
         Observable<ArticlesWrapper> getTopHeadlines = mObservableHelper.getTopHeadlines(null,
-                sources, null, null);
+                sources, null, null, 1);
 
         getTopHeadlines.subscribeOn(Schedulers.io())
                 .retry(3)
@@ -83,6 +87,8 @@ public class CustomNewsActivityViewModel extends AndroidViewModel {
                             wrapper.setArticles(articlesList);
                             mTopHeadlines.setValue(wrapper);
 
+                            mItemCount.setValue(articlesWrapper.getArticles().size());
+
                             mTopHeadlinesLoading.setValue(false);
                             mTopHeadlinesError.setValue(false);
                         }
@@ -92,5 +98,10 @@ public class CustomNewsActivityViewModel extends AndroidViewModel {
 
     public MutableLiveData<ArticlesWrapper> fetchTopHeadlines() {
         return mTopHeadlines;
+    }
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
     }
 }

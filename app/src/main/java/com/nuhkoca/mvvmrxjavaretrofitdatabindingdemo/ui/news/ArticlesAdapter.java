@@ -1,6 +1,7 @@
 package com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.ui.news;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -26,6 +27,8 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHo
     private List<DbEverything> mDbEverything;
     private IOverflowMenuItemClickListener mIOverflowMenuItemClickListener;
 
+    private Context mContext;
+
     public ArticlesAdapter(IOverflowMenuItemClickListener mIOverflowMenuItemClickListener) {
         mArticlesList = new ArrayList<>();
         this.mIOverflowMenuItemClickListener = mIOverflowMenuItemClickListener;
@@ -40,9 +43,9 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHo
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
+        mContext = parent.getContext();
 
-        LayoutInflater layoutInflater = LayoutInflater.from(context);
+        LayoutInflater layoutInflater = LayoutInflater.from(mContext);
 
         NewsItemCardBinding newsItemCardBinding = DataBindingUtil.inflate(layoutInflater,
                 R.layout.news_item_card, parent, false);
@@ -65,6 +68,8 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHo
 
             holder.bindViews(dbEverything);
         }
+
+        holder.prepareLines();
     }
 
     public void swapData(List<Articles> articlesList) {
@@ -142,6 +147,15 @@ public class ArticlesAdapter extends RecyclerView.Adapter<ArticlesAdapter.ViewHo
                 mNewsItemCardBinding.setVariable(BR.articlesSourceName, dbEverything.getSource());
 
                 mNewsItemCardBinding.executePendingBindings();
+            }
+        }
+
+        void prepareLines() {
+            int config = mContext.getResources().getConfiguration().orientation;
+
+            if (config == Configuration.ORIENTATION_LANDSCAPE) {
+                mNewsItemCardBinding.tvSourceDescription.setLines(7);
+                mNewsItemCardBinding.tvSourceName.setLines(1);
             }
         }
     }

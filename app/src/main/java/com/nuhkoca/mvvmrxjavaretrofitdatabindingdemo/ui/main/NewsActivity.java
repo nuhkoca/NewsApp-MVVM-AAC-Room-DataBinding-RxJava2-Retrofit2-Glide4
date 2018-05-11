@@ -1,5 +1,7 @@
 package com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.ui.main;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -38,7 +40,6 @@ import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.ui.about.AboutActivity;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.ui.custom_news.CustomNewsActivity;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.ui.news.NewsFragment;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.ui.settings.SettingsActivity;
-import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.util.ConnectionSniffer;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.util.PopupMenuBuilder;
 
 import static com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.repository.INewsAPI.Endpoints.EVERYTHING;
@@ -48,6 +49,8 @@ import static com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.data.repository.INew
 public class NewsActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, IOverflowMenuItemClickListener, ISourcesItemClickListener, IRecyclerViewScrollListener {
 
     private ActivityNewsBinding mActivityNewsBinding;
+    private NewsActivityViewModel mNewsActivityViewModel;
+
     private MenuItem mPrevMenuItem;
     private long mBackPressed;
     private boolean mIsActiveConnection;
@@ -57,13 +60,11 @@ public class NewsActivity extends AppCompatActivity implements BottomNavigationV
         super.onCreate(savedInstanceState);
         mActivityNewsBinding = DataBindingUtil.setContentView(this, R.layout.activity_news);
 
-        mIsActiveConnection = ConnectionSniffer.sniff();
-
-        if (!mIsActiveConnection) {
-            createSnackBar(getString(R.string.snackBar_offline_warning_text));
-        }
+        mNewsActivityViewModel = ViewModelProviders.of(this)
+                .get(NewsActivityViewModel.class);
 
         setupViewPager();
+        setupUI();
     }
 
     private void setupViewPager() {
@@ -96,6 +97,30 @@ public class NewsActivity extends AppCompatActivity implements BottomNavigationV
         });
     }
 
+    private void setupUI() {
+        mNewsActivityViewModel.checkConnection();
+
+        mNewsActivityViewModel.getConnectionStatus().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(@Nullable Boolean isActiveConnection) {
+                if (isActiveConnection != null) {
+                    if (!isActiveConnection) {
+                        createSnackBar(getString(R.string.snackBar_offline_warning_text));
+                    }
+                }
+            }
+        });
+
+        mNewsActivityViewModel.getConnectionStatusForPreference().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(@Nullable Boolean isActiveConnection) {
+                if (isActiveConnection != null) {
+                    mIsActiveConnection = isActiveConnection;
+                }
+            }
+        });
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
@@ -108,20 +133,20 @@ public class NewsActivity extends AppCompatActivity implements BottomNavigationV
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemThatWasClicked = item.getItemId();
 
-        mIsActiveConnection = ConnectionSniffer.sniff();
-
         switch (itemThatWasClicked) {
             case R.id.settings_menu:
-                if (mIsActiveConnection) {
-                    startActivity(new Intent(NewsActivity.this, SettingsActivity.class));
-                    return true;
-                } else {
+                mNewsActivityViewModel.checkConnectionForPreference();
+
+                if (!mIsActiveConnection) {
                     createSnackBar(getString(R.string.snackBar_warning_text));
-                    return false;
+                } else {
+                    startActivity(new Intent(NewsActivity.this, SettingsActivity.class));
                 }
+                return true;
 
             case R.id.about_menu:
                 startActivity(new Intent(NewsActivity.this, AboutActivity.class));
+                return true;
 
             default:
                 break;
@@ -235,17 +260,11 @@ public class NewsActivity extends AppCompatActivity implements BottomNavigationV
 
     @Override
     public void onSourcesItemClick(String customSourceId, String customSourcesName) {
-        mIsActiveConnection = ConnectionSniffer.sniff();
+        Intent customNewsIntent = new Intent(NewsActivity.this, CustomNewsActivity.class);
+        customNewsIntent.putExtra(Constants.CUSTOM_NEWS_SOURCE_ID, customSourceId);
+        customNewsIntent.putExtra(Constants.CUSTOM_NEWS_SOURCE_NAME, customSourcesName);
 
-        if (mIsActiveConnection) {
-            Intent customNewsIntent = new Intent(NewsActivity.this, CustomNewsActivity.class);
-            customNewsIntent.putExtra(Constants.CUSTOM_NEWS_SOURCE_ID, customSourceId);
-            customNewsIntent.putExtra(Constants.CUSTOM_NEWS_SOURCE_NAME, customSourcesName);
-
-            startActivity(customNewsIntent);
-        }else {
-            createSnackBar(getString(R.string.snackBar_warning_text));
-        }
+        startActivity(customNewsIntent);
     }
 
     @Override

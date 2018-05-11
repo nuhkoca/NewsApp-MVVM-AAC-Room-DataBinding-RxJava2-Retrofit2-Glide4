@@ -30,7 +30,7 @@ public class SourcesAdapter extends RecyclerView.Adapter<SourcesAdapter.ViewHold
         mSourcesList = new ArrayList<>();
     }
 
-    public SourcesAdapter(List<DbSources> mDbSources,ISourcesItemClickListener iSourcesItemClickListener) {
+    public SourcesAdapter(List<DbSources> mDbSources, ISourcesItemClickListener iSourcesItemClickListener) {
         this.mDbSources = mDbSources;
         this.mISourcesItemClickListener = iSourcesItemClickListener;
     }

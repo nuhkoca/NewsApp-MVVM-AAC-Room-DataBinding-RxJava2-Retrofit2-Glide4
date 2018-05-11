@@ -28,8 +28,9 @@ ext {
     targetSdkVersion = 21
     supportVersion = '27.1.1'
     constraintLayoutVersion = '1.1.0'
-    mvvm = '1.1.1'
-    archRoomVersion = '1.0.0'
+    liveDataVersion = '1.1.1'
+    archVersion = '1.1.0'
+    pagingVersion = '1.0.0'
     rxJavaVersion = '1.3.0'
     glideLibraryVersion = '4.6.1'
     rxJavaLibraryVersion = '2.3.0'

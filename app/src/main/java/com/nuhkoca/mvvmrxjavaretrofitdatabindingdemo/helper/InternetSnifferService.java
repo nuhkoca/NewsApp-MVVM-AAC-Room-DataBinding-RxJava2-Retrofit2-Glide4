@@ -11,6 +11,8 @@ import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.R;
 
 public class InternetSnifferService extends BroadcastReceiver {
 
+    public static ConnectivityReceiverListener connectivityReceiverListener;
+
     @SuppressLint("UnsafeProtectedBroadcastReceiver")
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -19,5 +21,13 @@ public class InternetSnifferService extends BroadcastReceiver {
         if (isConnected) {
             Toast.makeText(context, context.getString(R.string.urgent_internet_warning), Toast.LENGTH_SHORT).show();
         }
+
+        if (connectivityReceiverListener != null) {
+            connectivityReceiverListener.onNetworkConnectionChanged(isConnected);
+        }
+    }
+
+    public interface ConnectivityReceiverListener {
+        void onNetworkConnectionChanged(boolean isConnected);
     }
 }

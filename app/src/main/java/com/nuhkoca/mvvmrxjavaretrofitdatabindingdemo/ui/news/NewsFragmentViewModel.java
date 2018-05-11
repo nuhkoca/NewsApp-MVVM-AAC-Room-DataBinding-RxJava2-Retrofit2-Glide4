@@ -4,6 +4,7 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
+import android.arch.paging.PagedList;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -79,9 +80,10 @@ public class NewsFragmentViewModel extends AndroidViewModel {
     public void getTopHeadlines(@Nullable String countryCode,
                                 @Nullable String sources,
                                 @Nullable String category,
-                                @Nullable String query) {
+                                @Nullable String query,
+                                int page) {
         Observable<ArticlesWrapper> getTopHeadlines = observableHelper.getTopHeadlines(countryCode,
-                sources, category, query);
+                sources, category, query, page);
 
         getTopHeadlines.subscribeOn(Schedulers.io())
                 .retry(3)

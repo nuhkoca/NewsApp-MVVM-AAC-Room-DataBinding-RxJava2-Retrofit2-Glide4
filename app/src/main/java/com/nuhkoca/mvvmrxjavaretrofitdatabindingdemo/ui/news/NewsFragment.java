@@ -52,13 +52,14 @@ import static android.content.Context.MODE_PRIVATE;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NewsFragment extends Fragment implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class NewsFragment extends Fragment implements SharedPreferences.OnSharedPreferenceChangeListener{
 
     private FragmentNewsBinding mFragmentNewsBinding;
     private NewsFragmentViewModel mNewsFragmentViewModel;
     private SharedPreferences mSharedPreferences;
-    private int mEndpointCode;
     private MaterialDialog mMaterialDialog;
+
+    private int mEndpointCode;
 
     @Nullable
     private SimpleIdlingResource mIdlingResource;
@@ -82,7 +83,7 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
     private static ISourcesItemClickListener sISourcesItemClickListener;
     private static IRecyclerViewScrollListener sIRecyclerViewScrollListener;
 
-    public static NewsFragment getInstance(INewsAPI.Endpoints endpoints, IOverflowMenuItemClickListener iOverflowMenuItemClickListener, IRecyclerViewScrollListener iRecyclerViewScrollListener) {
+    public static synchronized NewsFragment getInstance(INewsAPI.Endpoints endpoints, IOverflowMenuItemClickListener iOverflowMenuItemClickListener, IRecyclerViewScrollListener iRecyclerViewScrollListener) {
         NewsFragment newsFragment = new NewsFragment();
 
         sIOverflowMenuItemClickListener = iOverflowMenuItemClickListener;
@@ -95,7 +96,7 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
         return newsFragment;
     }
 
-    public static NewsFragment getInstance(INewsAPI.Endpoints endpoints, ISourcesItemClickListener iSourcesItemClickListener, IRecyclerViewScrollListener iRecyclerViewScrollListener) {
+    public static synchronized NewsFragment getInstance(INewsAPI.Endpoints endpoints, ISourcesItemClickListener iSourcesItemClickListener, IRecyclerViewScrollListener iRecyclerViewScrollListener) {
         NewsFragment newsFragment = new NewsFragment();
 
         sISourcesItemClickListener = iSourcesItemClickListener;
@@ -196,7 +197,11 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        mEndpointCode = Objects.requireNonNull(getArguments()).getInt(Constants.ENDPOINT_ARGS_KEY);
+
         mFragmentNewsBinding.rvNews.addOnScrollListener(new RecyclerViewScrollUtil() {
             @Override
             public void onHide() {
@@ -213,8 +218,6 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
     }
 
     private void setupUI() {
-        mEndpointCode = Objects.requireNonNull(getArguments()).getInt(Constants.ENDPOINT_ARGS_KEY);
-
         showLoadingBar();
         showError(mEndpointCode);
         createPages(mEndpointCode);
@@ -240,7 +243,7 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
                 sharedPreferences.getString(getString(R.string.pref_top_headlines_country_key),
                         getString(R.string.pref_country_us_value)),
                 selectedSources.toString(),
-                sharedPreferences.getString(getString(R.string.pref_category_key), null), null);
+                sharedPreferences.getString(getString(R.string.pref_category_key), null), null, 1);
 
         if (Objects.equals(sharedPreferences.getString(getString(R.string.pref_top_headlines_country_key), ""), "")
                 && Objects.equals(sharedPreferences.getString(getString(R.string.pref_category_key), ""), "")
