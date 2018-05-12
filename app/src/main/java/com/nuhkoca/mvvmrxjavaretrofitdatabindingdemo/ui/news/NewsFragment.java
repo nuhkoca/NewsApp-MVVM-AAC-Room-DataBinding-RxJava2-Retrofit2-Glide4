@@ -24,6 +24,10 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.NewsApp;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.R;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.callback.IOverflowMenuItemClickListener;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.callback.IRecyclerViewScrollListener;
@@ -48,12 +52,14 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import timber.log.Timber;
+
 import static android.content.Context.MODE_PRIVATE;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NewsFragment extends Fragment implements SharedPreferences.OnSharedPreferenceChangeListener{
+public class NewsFragment extends Fragment implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     private FragmentNewsBinding mFragmentNewsBinding;
     private NewsFragmentViewModel mNewsFragmentViewModel;
@@ -117,10 +123,6 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
 
         mFragmentNewsBinding = DataBindingUtil.inflate(layoutInflater, R.layout.fragment_news, container, false);
 
-        mNewsFragmentViewModel = ViewModelProviders
-                .of(this, new NewsFragmentViewModelFactory(Objects.requireNonNull(getActivity()).getApplication(),
-                        ObservableHelper.getInstance())).get(NewsFragmentViewModel.class);
-
         return mFragmentNewsBinding.getRoot();
     }
 
@@ -147,6 +149,31 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
         sIRecyclerViewScrollListener = (IRecyclerViewScrollListener) getActivity();
         sIOverflowMenuItemClickListener = (IOverflowMenuItemClickListener) getActivity();
         sISourcesItemClickListener = (ISourcesItemClickListener) getActivity();
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        mNewsFragmentViewModel = ViewModelProviders
+                .of(this, new NewsFragmentViewModelFactory(Objects.requireNonNull(getActivity()).getApplication(),
+                        ObservableHelper.getInstance())).get(NewsFragmentViewModel.class);
+
+        mEndpointCode = Objects.requireNonNull(getArguments()).getInt(Constants.ENDPOINT_ARGS_KEY);
+
+        mFragmentNewsBinding.rvNews.addOnScrollListener(new RecyclerViewScrollUtil() {
+            @Override
+            public void onHide() {
+                sIRecyclerViewScrollListener.onViewsHide();
+            }
+
+            @Override
+            public void onShow() {
+                sIRecyclerViewScrollListener.onViewsShow();
+            }
+        });
+
+        setupUI();
     }
 
     @Override
@@ -225,33 +252,14 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
 
                 @Override
                 public boolean onQueryTextChange(String query) {
-                    RecyclerViewUtil.getSourcesAdapter().getFilter().filter(query);
+                    if (RecyclerViewUtil.getSourcesAdapter() != null) {
+                        RecyclerViewUtil.getSourcesAdapter().getFilter().filter(query);
+                    }
 
                     return false;
                 }
             });
         }
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        mEndpointCode = Objects.requireNonNull(getArguments()).getInt(Constants.ENDPOINT_ARGS_KEY);
-
-        mFragmentNewsBinding.rvNews.addOnScrollListener(new RecyclerViewScrollUtil() {
-            @Override
-            public void onHide() {
-                sIRecyclerViewScrollListener.onViewsHide();
-            }
-
-            @Override
-            public void onShow() {
-                sIRecyclerViewScrollListener.onViewsShow();
-            }
-        });
-
-        setupUI();
     }
 
     private void setupUI() {
@@ -601,6 +609,41 @@ public class NewsFragment extends Fragment implements SharedPreferences.OnShared
                 || key.equals(getString(R.string.pref_everything_language_key))) {
             loadEverythingFromQuery(sharedPreferences);
         }
+
+        if (key.equals(getString(R.string.pref_notification_key))) {
+            boolean isChecked = sharedPreferences.getBoolean(getString(R.string.pref_notification_key), true);
+
+            int isNotified;
+
+            if (isChecked) {
+                isNotified = 0;
+            } else {
+                isNotified = 1;
+            }
+
+            FirebaseFirestore db = NewsApp.provideFirestore();
+
+            db.collection(Constants.FIRESTORE_COLLECTION_NAME)
+                    .document(getDocumentId())
+                    .update(Constants.FIRESTORE_PUSH_KEY, isNotified)
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Timber.d("update success");
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Timber.d(e.getMessage());
+                        }
+                    });
+        }
+    }
+
+    private String getDocumentId() {
+        SharedPreferences prefs = Objects.requireNonNull(getActivity()).getSharedPreferences(Constants.TOKEN_PREF_NAME, MODE_PRIVATE);
+        return prefs.getString(Constants.DOC_ID_PREF, "");
     }
 
     @Override

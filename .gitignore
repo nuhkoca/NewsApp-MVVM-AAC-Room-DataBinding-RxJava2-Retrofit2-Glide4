@@ -1,9 +1,9 @@
 *.iml
 .gradle
 /local.properties
-/gradle.properties
-/.gradle.properties
-.gradle.properties
+gradle.properties
+google-services.json
+/.app/google-services.json
 /.idea/libraries
 /.idea/modules.xml
 /.idea/workspace.xml

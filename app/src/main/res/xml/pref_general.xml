@@ -75,4 +75,13 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory android:title="@string/pref_advanced_title">
+
+        <SwitchPreference android:title="Notifications"
+            android:key="@string/pref_notification_key"
+            android:defaultValue="@string/pref_notification_true_value"
+            android:checked="true"/>
+
+    </PreferenceCategory>
+
 </PreferenceScreen>

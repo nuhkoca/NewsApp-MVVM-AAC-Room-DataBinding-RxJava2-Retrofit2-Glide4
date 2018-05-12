@@ -99,7 +99,7 @@ public class RecyclerViewUtil {
     public static void populateOfflineSources(Context context, RecyclerView sourcesRV, List<DbSources> dbSourcesList, ISourcesItemClickListener iSourcesItemClickListener) {
         getLayoutManagerForSources(context, sourcesRV);
 
-        SourcesAdapter sourcesAdapter = new SourcesAdapter(dbSourcesList, iSourcesItemClickListener);
+        sourcesAdapter = new SourcesAdapter(dbSourcesList, iSourcesItemClickListener);
         sourcesRV.setAdapter(sourcesAdapter);
 
         sourcesAdapter.swapOfflineData(dbSourcesList);

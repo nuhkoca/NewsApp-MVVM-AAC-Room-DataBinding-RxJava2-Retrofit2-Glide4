@@ -21,7 +21,7 @@ This project is powered by **NewsAPI.org**. To get your own API key, please visi
 - [x] Implemented Search feature for Everything section and thus user can search anything in the app.
 - [x] Performed UI tests and passed successfully..
 - [x] Implement Filter feature for Sources section and thus user can filter results.
-- [ ] Implement FireStore to send push notifications.
+- [x] Implement Firebase and Firestore to send push notifications.
 - [ ] Implement endless scroll for more items.
 
 # Screenshots
@@ -71,6 +71,7 @@ This project is powered by **NewsAPI.org**. To get your own API key, please visi
 * [Materialish Progress](https://github.com/pnikosis/materialish-progress)
 * [Material Dialogs](https://github.com/afollestad/material-dialogs)
 * [About Libraries](https://github.com/mikepenz/AboutLibraries)
+* [Firebase & Firestore](https://firebase.google.com/docs/firestore/)
 
 
 # License

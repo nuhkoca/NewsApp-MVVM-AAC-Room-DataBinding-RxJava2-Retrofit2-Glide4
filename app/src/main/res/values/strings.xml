@@ -886,4 +886,15 @@
     <string name="pref_source_category_key" translatable="false">source-category</string>
     <!--endregion-->
 
+    <!--Advanced-->
+    <string name="pref_advanced_title">Advanced</string>
+
+    <string name="pref_notification_checked_summary">This device will get notifications.</string>
+    <string name="pref_notification_unchecked_summary">This device will not get notifications.</string>
+
+    <string name="pref_notification_key">notif-key</string>
+
+    <string name="pref_notification_true_value">0</string>
+    <string name="pref_notification_false_value">1</string>
+
 </resources>

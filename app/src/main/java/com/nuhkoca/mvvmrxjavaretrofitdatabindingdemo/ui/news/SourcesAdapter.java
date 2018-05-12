@@ -24,6 +24,7 @@ public class SourcesAdapter extends RecyclerView.Adapter<SourcesAdapter.ViewHold
 
     private List<Sources> mSourcesList;
     private List<Sources> mSourcesListFiltered;
+    private List<DbSources> mDbSourcesListFiltered;
 
     private List<DbSources> mDbSources;
     private ISourcesItemClickListener mISourcesItemClickListener;
@@ -37,6 +38,8 @@ public class SourcesAdapter extends RecyclerView.Adapter<SourcesAdapter.ViewHold
 
     public SourcesAdapter(List<DbSources> mDbSources, ISourcesItemClickListener iSourcesItemClickListener) {
         this.mDbSources = mDbSources;
+
+        mDbSourcesListFiltered = mDbSources;
 
         this.mISourcesItemClickListener = iSourcesItemClickListener;
     }
@@ -60,20 +63,21 @@ public class SourcesAdapter extends RecyclerView.Adapter<SourcesAdapter.ViewHold
             Sources sources = mSourcesListFiltered.get(position);
             holder.bindViews(sources);
         } else {
-            DbSources dbSources = mDbSources.get(position);
+            DbSources dbSources = mDbSourcesListFiltered.get(position);
             holder.bindViews(dbSources);
         }
     }
 
     public void swapData(List<Sources> sourcesList) {
         mSourcesList = sourcesList;
-        mSourcesListFiltered = mSourcesList;
+        mSourcesListFiltered = sourcesList;
 
         notifyDataSetChanged();
     }
 
     public void swapOfflineData(List<DbSources> dbSourcesList) {
         this.mDbSources = dbSourcesList;
+        mDbSourcesListFiltered = dbSourcesList;
 
         notifyDataSetChanged();
     }
@@ -83,7 +87,7 @@ public class SourcesAdapter extends RecyclerView.Adapter<SourcesAdapter.ViewHold
         if (mSourcesListFiltered != null) {
             return mSourcesListFiltered.size();
         } else {
-            return mDbSources.size();
+            return mDbSourcesListFiltered.size();
         }
     }
 
@@ -95,30 +99,59 @@ public class SourcesAdapter extends RecyclerView.Adapter<SourcesAdapter.ViewHold
                 String sourceName = constraint.toString();
 
                 if (sourceName.isEmpty()) {
-                    mSourcesListFiltered = mSourcesList;
-                } else {
-                    List<Sources> filteredList = new ArrayList<>();
-
-                    for (Sources sources : mSourcesList) {
-                        if (sources.getName().toLowerCase().contains(sourceName.toLowerCase())) {
-                            filteredList.add(sources);
-                        }
+                    if (mSourcesList != null) {
+                        mSourcesListFiltered = mSourcesList;
+                    } else {
+                        mDbSourcesListFiltered = mDbSources;
                     }
+                } else {
+                    if (mSourcesList != null) {
+                        List<Sources> filteredList = new ArrayList<>();
 
-                    mSourcesListFiltered = filteredList;
+                        for (Sources sources : mSourcesList) {
+                            if (sources.getName().toLowerCase().contains(sourceName.toLowerCase())) {
+                                filteredList.add(sources);
+                            }
+                        }
+
+                        mSourcesListFiltered = filteredList;
+                    } else {
+                        List<DbSources> filteredList = new ArrayList<>();
+
+                        for (DbSources dbSources : mDbSources) {
+                            if (dbSources.getName().toLowerCase().contains(sourceName.toLowerCase())) {
+                                filteredList.add(dbSources);
+                            }
+                        }
+
+                        mDbSourcesListFiltered = filteredList;
+                    }
                 }
 
+
                 FilterResults filterResults = new FilterResults();
-                filterResults.values = mSourcesListFiltered;
+
+                if (mSourcesListFiltered != null) {
+                    filterResults.values = mSourcesListFiltered;
+                } else {
+                    filterResults.values = mDbSourcesListFiltered;
+                }
 
                 return filterResults;
             }
 
+            @SuppressWarnings("unchecked")
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
-                //noinspection unchecked
-                mSourcesListFiltered = (List<Sources>) results.values;
-                notifyDataSetChanged();
+                if (mSourcesListFiltered != null) {
+                    mSourcesListFiltered = (List<Sources>) results.values;
+
+                    notifyDataSetChanged();
+                } else {
+                    mDbSourcesListFiltered = (List<DbSources>) results.values;
+
+                    notifyDataSetChanged();
+                }
             }
         };
     }

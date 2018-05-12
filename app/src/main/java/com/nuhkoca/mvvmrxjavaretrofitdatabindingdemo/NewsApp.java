@@ -1,11 +1,16 @@
 package com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo;
 
 import android.app.Application;
+import android.text.TextUtils;
 
 import com.facebook.stetho.Stetho;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.messaging.FirestoreDatabaseHandler;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.helper.InternetSnifferService;
 import com.squareup.leakcanary.LeakCanary;
 
@@ -33,6 +38,14 @@ public class NewsApp extends Application {
         provideLeakCanary();
         provideTimber();
         provideStetho();
+
+        FirebaseApp.initializeApp(this);
+        String token = FirebaseInstanceId.getInstance().getToken();
+
+        if (!TextUtils.isEmpty(token)) {
+            FirestoreDatabaseHandler firestoreDatabaseHandler = new FirestoreDatabaseHandler(token, 1, getBaseContext());
+            firestoreDatabaseHandler.checkAndSaveToken();
+        }
 
         newsApp = this;
     }
@@ -82,6 +95,10 @@ public class NewsApp extends Application {
         }
 
         LeakCanary.install(this);
+    }
+
+    public static FirebaseFirestore provideFirestore() {
+        return FirebaseFirestore.getInstance();
     }
 
     public void setConnectivityListener(InternetSnifferService.ConnectivityReceiverListener listener) {

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v14.preference.MultiSelectListPreference;
+import android.support.v14.preference.SwitchPreference;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.preference.ListPreference;
@@ -21,6 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+
+import timber.log.Timber;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,6 +62,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if (!key.equals(getString(R.string.pref_source_key))) {
             updateSummary(findPreference(key));
+            updateNotificationSwitch(findPreference(key));
 
         } else {
             updateMultiSummary(findPreference(key),
@@ -76,6 +80,8 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
             updateSummary(p);
             updateMultiSummary(p, PreferenceManager.getDefaultSharedPreferences(Objects.requireNonNull(getActivity()))
                     .getStringSet(getString(R.string.pref_source_key), null));
+
+            updateNotificationSwitch(p);
         }
     }
 
@@ -130,6 +136,20 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
 
                 mCountryPref.setEnabled(false);
                 mCountryPref.setValue(getString(R.string.pref_country_all_value));
+            }
+        }
+    }
+
+    private void updateNotificationSwitch(Preference p) {
+        if (p instanceof SwitchPreference) {
+
+            if (((SwitchPreference) p).isChecked()) {
+                p.setSummary(getString(R.string.pref_notification_checked_summary));
+                p.setDefaultValue(getString(R.string.pref_notification_true_value));
+                Timber.d(String.valueOf(((SwitchPreference) p).getSummaryOn()));
+            } else {
+                p.setSummary(getString(R.string.pref_notification_unchecked_summary));
+                p.setDefaultValue(getString(R.string.pref_notification_false_value));
             }
         }
     }

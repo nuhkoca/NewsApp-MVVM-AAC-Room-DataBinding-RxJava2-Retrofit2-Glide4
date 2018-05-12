@@ -94,6 +94,11 @@ dependencies {
     implementation("com.mikepenz:aboutlibraries:$rootProject.ext.aboutLibrariesVersion") {
         transitive = true
     }
+    implementation "com.badoo.mobile:android-weak-handler:$rootProject.ext.weakHandlerVersion"
+
+    //Firebase
+    implementation "com.google.firebase:firebase-messaging:$rootProject.ext.firebaseVersion"
+    implementation "com.google.firebase:firebase-firestore:$rootProject.ext.firestoreVersion"
 
     //Test
     androidTestImplementation "com.android.support:support-annotations:$rootProject.ext.supportVersion"
@@ -106,3 +111,5 @@ dependencies {
 
     implementation "com.android.support.test.espresso:espresso-idling-resource:$rootProject.ext.espressoVersion"
 }
+
+apply plugin: 'com.google.gms.google-services'
