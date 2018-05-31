@@ -8,7 +8,8 @@ import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.NewsApp;
 
 public class ConnectionSniffer {
     public static boolean sniff() {
-        ConnectivityManager connectivityManager = (ConnectivityManager) NewsApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager =
+                (ConnectivityManager) NewsApp.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo networkInfo = null;
         if (connectivityManager != null) {

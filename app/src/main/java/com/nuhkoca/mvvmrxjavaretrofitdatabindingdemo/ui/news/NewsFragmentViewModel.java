@@ -4,7 +4,6 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
-import android.arch.paging.PagedList;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -86,7 +85,7 @@ public class NewsFragmentViewModel extends AndroidViewModel {
                 sources, category, query, page);
 
         getTopHeadlines.subscribeOn(Schedulers.io())
-                .retry(3)
+                .retry(1)
                 .observeOn(AndroidSchedulers.mainThread())
                 .onErrorResumeNext(new Func1<Throwable, Observable<? extends ArticlesWrapper>>() {
                     @Override
@@ -152,7 +151,7 @@ public class NewsFragmentViewModel extends AndroidViewModel {
         Observable<ArticlesWrapper> getEverything = observableHelper.getEverything(query, sortBy, language);
 
         getEverything.subscribeOn(Schedulers.io())
-                .retry(3)
+                .retry(1)
                 .observeOn(AndroidSchedulers.mainThread())
                 .onErrorResumeNext(new Func1<Throwable, Observable<? extends ArticlesWrapper>>() {
                     @Override
@@ -220,7 +219,7 @@ public class NewsFragmentViewModel extends AndroidViewModel {
         Observable<SourcesWrapper> getSources = observableHelper.getSources(language, countryCode, category);
 
         getSources.subscribeOn(Schedulers.io())
-                .retry(3)
+                .retry(1)
                 .observeOn(AndroidSchedulers.mainThread())
                 .onErrorResumeNext(new Func1<Throwable, Observable<? extends SourcesWrapper>>() {
                     @Override

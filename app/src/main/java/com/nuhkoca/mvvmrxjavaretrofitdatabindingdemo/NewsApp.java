@@ -1,6 +1,7 @@
 package com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo;
 
 import android.app.Application;
+import android.content.SharedPreferences;
 import android.text.TextUtils;
 
 import com.facebook.stetho.Stetho;
@@ -10,6 +11,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.helper.Constants;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.messaging.FirestoreDatabaseHandler;
 import com.nuhkoca.mvvmrxjavaretrofitdatabindingdemo.helper.InternetSnifferService;
 import com.squareup.leakcanary.LeakCanary;
@@ -43,8 +45,12 @@ public class NewsApp extends Application {
         String token = FirebaseInstanceId.getInstance().getToken();
 
         if (!TextUtils.isEmpty(token)) {
-            FirestoreDatabaseHandler firestoreDatabaseHandler = new FirestoreDatabaseHandler(token, 1, getBaseContext());
-            firestoreDatabaseHandler.checkAndSaveToken();
+            addTokenToSharedPreference(token);
+
+            if (TextUtils.isEmpty(getTokenFromSharedPreference())) {
+                FirestoreDatabaseHandler firestoreDatabaseHandler = new FirestoreDatabaseHandler(token, 1, getBaseContext());
+                firestoreDatabaseHandler.checkAndSaveToken();
+            }
         }
 
         newsApp = this;
@@ -60,9 +66,10 @@ public class NewsApp extends Application {
     public static Retrofit provideRetrofit() {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-        httpClient.connectTimeout(15, TimeUnit.SECONDS);
-        httpClient.readTimeout(15, TimeUnit.SECONDS);
+        httpClient.connectTimeout(10, TimeUnit.SECONDS);
+        httpClient.readTimeout(10, TimeUnit.SECONDS);
         httpClient.addInterceptor(new StethoInterceptor());
         httpClient.interceptors().add(logging);
 
@@ -103,5 +110,20 @@ public class NewsApp extends Application {
 
     public void setConnectivityListener(InternetSnifferService.ConnectivityReceiverListener listener) {
         InternetSnifferService.connectivityReceiverListener = listener;
+    }
+
+    private void addTokenToSharedPreference(String token) {
+        SharedPreferences.Editor editor = getSharedPreferences(Constants.TOKEN_PREF_NAME, MODE_PRIVATE).edit();
+
+        editor.putString(Constants.TOKEN_PREF, token);
+
+        Timber.d("Token " + token);
+
+        editor.apply();
+    }
+
+    private String getTokenFromSharedPreference() {
+        SharedPreferences prefs = getSharedPreferences(Constants.TOKEN_PREF_NAME, MODE_PRIVATE);
+        return prefs.getString(Constants.TOKEN_PREF, "");
     }
 }

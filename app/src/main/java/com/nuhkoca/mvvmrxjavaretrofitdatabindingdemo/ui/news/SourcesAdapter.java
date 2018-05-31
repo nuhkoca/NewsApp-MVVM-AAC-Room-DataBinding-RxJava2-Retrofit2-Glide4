@@ -107,7 +107,6 @@ public class SourcesAdapter extends RecyclerView.Adapter<SourcesAdapter.ViewHold
                 } else {
                     if (mSourcesList != null) {
                         List<Sources> filteredList = new ArrayList<>();
-
                         for (Sources sources : mSourcesList) {
                             if (sources.getName().toLowerCase().contains(sourceName.toLowerCase())) {
                                 filteredList.add(sources);

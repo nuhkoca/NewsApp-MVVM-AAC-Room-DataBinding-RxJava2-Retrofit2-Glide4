@@ -13,6 +13,7 @@ public class Constants {
     public static final String TOKEN_PREF_NAME = "token-shared-preference";
     public static final String QUERY_PREF = "news-query";
     public static final String DOC_ID_PREF = "doc-id-pref";
+    public static final String TOKEN_PREF = "token-pref";
     public static final String UI_MODE_PREF = "ui-mode-pref";
     public static final String CHECKED_MODE_PREF = "switch-checked-pref";
     public static final String CUSTOM_NEWS_SOURCE_ID = "custom-news-source-id";
