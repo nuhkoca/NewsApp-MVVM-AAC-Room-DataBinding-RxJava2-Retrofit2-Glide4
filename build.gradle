@@ -29,7 +29,7 @@ ext {
     supportVersion = '27.1.1'
     constraintLayoutVersion = '1.1.0'
     liveDataVersion = '1.1.1'
-    archVersion = '1.1.0'
+    archVersion = '1.1.1'
     pagingVersion = '1.0.0'
     rxJavaVersion = '1.3.0'
     glideLibraryVersion = '4.6.1'
