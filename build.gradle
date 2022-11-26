@@ -47,7 +47,7 @@ ext {
     JUnitVersion = '4.13.2'
     aboutLibrariesVersion = '6.2.3'
     weakHandlerVersion = '1.1'
-    firebaseVersion = '15.0.2'
+    firebaseVersion = '23.1.0'
     firestoreVersion = '24.4.1'
 }
 
