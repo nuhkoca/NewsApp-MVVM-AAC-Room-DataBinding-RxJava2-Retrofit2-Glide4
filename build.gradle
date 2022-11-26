@@ -35,7 +35,7 @@ ext {
     glideLibraryVersion = '5.0.1'
     rxJavaLibraryVersion = '2.9.0'
     rxAndroidVersion = '1.2.1'
-    leakCanaryVersion = '1.6.3'
+    leakCanaryVersion = '2.10'
     okHttpVersion = '4.10.0'
     stethoVersion = '1.6.0'
     viewPagerTransformerVersion = '1.2.32@aar'
