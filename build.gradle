@@ -48,7 +48,7 @@ ext {
     aboutLibrariesVersion = '10.6.2'
     weakHandlerVersion = '1.1'
     firebaseVersion = '23.1.2'
-    firestoreVersion = '24.5.0'
+    firestoreVersion = '24.6.0'
 }
 
 task clean(type: Delete) {
