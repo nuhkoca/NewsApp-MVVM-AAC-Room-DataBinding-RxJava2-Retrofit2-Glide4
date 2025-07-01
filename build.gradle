@@ -45,7 +45,7 @@ ext {
     espressoVersion = '3.0.2'
     testVersion = '1.0.2'
     JUnitVersion = '4.13.2'
-    aboutLibrariesVersion = '12.2.3'
+    aboutLibrariesVersion = '12.2.4'
     weakHandlerVersion = '1.1'
     firebaseVersion = '24.1.2'
     firestoreVersion = '25.1.4'
