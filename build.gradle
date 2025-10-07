@@ -36,7 +36,7 @@ ext {
     rxJavaLibraryVersion = '3.0.0'
     rxAndroidVersion = '1.2.1'
     leakCanaryVersion = '2.14'
-    okHttpVersion = '5.1.0'
+    okHttpVersion = '5.2.0'
     stethoVersion = '1.6.0'
     viewPagerTransformerVersion = '2.0.24@aar'
     materialishProgressVersion = '1.7'
